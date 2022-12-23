@@ -4,11 +4,9 @@ import CustomInput from "../../assets/image/custom/customInputLogin";
 import CustomButton from "../../assets/image/custom/customButtonLogin";
 import {yupResolver} from '@hookform/resolvers/yup';
 import { Controller,useForm } from "react-hook-form";
-import { useSelector} from "react-redux";
+import { useSelector,useDispatch} from "react-redux";
 import * as yup from "yup";
-import axios from 'axios';
-import * as f from '../reduxThunk/actions'
-import { store } from "../reduxThunk/store";
+
 interface validate {
     username:string,
     password:string
@@ -18,20 +16,25 @@ const schema = yup.object().shape({
     username:yup.string().required(),
     password:yup.string().required().min(8, 'At least 8 characters')
 })
-const  LoginScreenThunk:React.FC<{navigation:any}> =  ({navigation}) => {  
-    const data = useSelector((state:any)=> state.loginReducers);
+const  LoginScreenSaga:React.FC<{navigation:any}> =  ({navigation}) => {  
+    const data = useSelector((state:any)=> state.loginReducer);
+    const dispatch = useDispatch();
     const { control,register, handleSubmit, watch, formState: { errors } }:any = useForm<validate>({
         resolver: yupResolver(schema)
       }); 
   
-    const baseUrl = "https://reqres.in";
     
-    const submit =  (value:any) =>{ 
-          
+    const submit =  (value:any) =>{     
         setTimeout(()=>{
-                store.dispatch(f.login(value.username,value.password))       
+                dispatch({
+                    type:'LOGIN',
+                    payload:{
+                        username:value.username,
+                        password:value.password
+                    }
+                }) 
         },3000)      
-        navigation.navigate('HomeThunk');              
+        navigation.navigate('HomeSaga');              
    } 
     return (
         <SafeAreaView  >
@@ -39,7 +42,7 @@ const  LoginScreenThunk:React.FC<{navigation:any}> =  ({navigation}) => {
                             resizeMode="cover" style={styles.image}>
                  <View>
                  <Text style={styles.textHeader}>
-                        WELCOME REDUX THUNK {data.username}
+                        WELCOME REDUX SAGA {data.username}
                     </Text>
                  </View>
                  
@@ -110,4 +113,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default LoginScreenThunk;
+export default LoginScreenSaga;
