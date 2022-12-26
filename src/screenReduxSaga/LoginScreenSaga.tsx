@@ -5,6 +5,7 @@ import CustomInput from "../../assets/Custom/customInputLogin";
 import {yupResolver} from '@hookform/resolvers/yup';
 import { Controller,useForm } from "react-hook-form";
 import { useSelector,useDispatch} from "react-redux";
+import axios from 'axios';
 import * as yup from "yup";
 import {image} from '../../assets/image'
 interface validate {
@@ -22,16 +23,26 @@ const  LoginScreenSaga:React.FC<{navigation:any}> =  ({navigation}) => {
     const { control,register, handleSubmit, watch, formState: { errors } }:any = useForm<validate>({
         resolver: yupResolver(schema)
       }); 
+    const baseUrl = "https://httpbin.org/post";
+   
     
-    const submit =  (value:any) =>{  
-            dispatch({
+    const submit =  (value:any) =>{              
+        axios.post(baseUrl,value)
+        .then((res)=>{
+              console.log(res)
+              dispatch({
                 type:'LOGIN',
                 payload:{
                     username:value.username,
                     password:value.password
                 }
-            })        
-        navigation.navigate('HomeSaga');              
+            })          
+        })
+        .catch((err)=>{
+          console.log(err)
+        })
+         
+        navigation.navigate('HomeSaga');            
    } 
 
    

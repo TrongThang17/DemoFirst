@@ -27,14 +27,14 @@ const styles = StyleSheet.create({
     viewButton:{
         justifyContent:'center',
         alignItems:'center',
-       
+        marginBottom:20
 
     },
     buttonLogin:{
-        height:50,
-        width:300,
-        marginVertical:10,
-        borderRadius:25,
+        height:52,
+        width:327,
+        left:3,
+        borderRadius:30,
         flexDirection:'row',
         alignItems:'center',
         justifyContent:'center'
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
         margin: 5,
         height: 25,
         width: 25,
-        resizeMode: 'stretch',
+       
         alignItems: 'center',
     },
 

@@ -24,21 +24,13 @@ const  LoginScreen:React.FC<{navigation:any}> =  ({navigation}) => {
         resolver: yupResolver(schema)
       }); 
     const login =(value:any) =>{
-        setTimeout(()=>{
             dispatch({
                 type:'LOGIN',
                 payload:{
                     username:value.username,
                     password:value.password
                 }
-            })  
-        })
-           
-            
-          
-        
-         
-        
+            })                                                 
     navigation.navigate('HomeScreen');   
    }
    

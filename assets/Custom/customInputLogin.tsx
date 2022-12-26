@@ -20,10 +20,12 @@ const CustomInput:React.FC<customInputProps> = (props) =>{
             <Image source={props.img}  style={styles.images} />
             <TextInput 
                 placeholder={props.placeholder}
+                placeholderTextColor="#828187"
                 style={styles.textInput}
                 value={props.value}
                 onChangeText={props.onChange}
                 defaultValue={props.defaultValue}
+                
                 />
         </View>
     </SafeAreaView>
@@ -41,11 +43,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#fff',
-        borderWidth: 0.5,
-        borderColor: '#000',
+        backgroundColor: 'rgba(0, 0, 0, 0.2)',
+        width: 327,
         height: 50,
-        borderRadius: 25,
+        borderRadius: 100,
         marginLeft:30,
         marginBottom:10,
         marginRight:30
@@ -54,8 +55,7 @@ const styles = StyleSheet.create({
     },
     textInput:{
         height:50,
-        borderRadius:25,
-        width:300
+        width:270
     },
     textLabel:{
         color: 'black',
@@ -71,6 +71,9 @@ const styles = StyleSheet.create({
         width: 25,
         resizeMode: 'stretch',
         alignItems: 'center',
+        
+
+
     }
 
 })

@@ -11,7 +11,7 @@ const  HomeScreen:React.FC<{navigation:any}> =  ({navigation}) => {
             <Text style={styles.title}>HOME</Text>
             <Text style={styles.title}>Hello {inforLogin.username}</Text>
             <CustomButton label="Logout" onPress={() => {
-                    navigation.replace('LoginScreen') 
+                    navigation.replace('Login') 
                     dispatch({
                         type:'LOGOUT',
                     })

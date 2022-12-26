@@ -25,13 +25,19 @@ const  LoginScreenThunk:React.FC<{navigation:any}> =  ({navigation}) => {
         resolver: yupResolver(schema)
       }); 
   
-    const baseUrl = "https://reqres.in";
+    const baseUrl = "https://httpbin.org/post";
+   
     
     const submit =  (value:any) =>{ 
-          
-        setTimeout(()=>{
-                store.dispatch(f.login(value.username,value.password))       
-        },3000)      
+          axios.post(baseUrl,value)
+          .then((res)=>{
+                console.log(res)
+                    store.dispatch(f.login(value.username,value.password))       
+          })
+          .catch((err)=>{
+            console.log(err)
+          })
+           
         navigation.navigate('HomeThunk');              
    } 
     return (
