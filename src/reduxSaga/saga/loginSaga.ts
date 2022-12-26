@@ -2,7 +2,7 @@ import {put,call} from 'redux-saga/effects'
 import * as t from '../action'
 function* login (username:string,password:string) {
     yield put({
-        type:t.LOGIN,
+        type:t.LOGIN_SUCCESS,
         payload:{
             username:username,
             password:password

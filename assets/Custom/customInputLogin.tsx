@@ -1,12 +1,13 @@
 import React from "react";
-import { View, Text, TextInput,StyleSheet, SafeAreaView } from "react-native";
+import { View, Text, TextInput,StyleSheet, SafeAreaView, Image } from "react-native";
+
 
 interface customInputProps {
-    label:string,
     placeholder:string,
     onChange?:(val:string) =>void,
     value?:string
     defaultValue?:string
+    img?:any
     
 }
 
@@ -15,9 +16,8 @@ const CustomInput:React.FC<customInputProps> = (props) =>{
     return (
     <SafeAreaView>
         <View style={styles.viewLogin}>
-            <Text style={styles.textLabel}>
-                {props.label}
-            </Text>
+            
+            <Image source={props.img}  style={styles.images} />
             <TextInput 
                 placeholder={props.placeholder}
                 style={styles.textInput}
@@ -28,9 +28,8 @@ const CustomInput:React.FC<customInputProps> = (props) =>{
         </View>
     </SafeAreaView>
         
-    
     )
-};
+}
 
 
 
@@ -39,15 +38,24 @@ const styles = StyleSheet.create({
         
     },
     viewLogin:{
-        flexDirection:'row',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#fff',
+        borderWidth: 0.5,
+        borderColor: '#000',
+        height: 50,
+        borderRadius: 25,
+        marginLeft:30,
+        marginBottom:10,
+        marginRight:30
+  
     
     },
     textInput:{
-        borderWidth:1,
-        borderColor:'grey',
         height:50,
-        borderRadius:15,
-        width:300,
+        borderRadius:25,
+        width:300
     },
     textLabel:{
         color: 'black',
@@ -55,8 +63,16 @@ const styles = StyleSheet.create({
         marginVertical:25,
         marginRight:10,
         justifyContent:'center'
+    },
+    images:{
+        padding: 10,
+        margin: 5,
+        height: 25,
+        width: 25,
+        resizeMode: 'stretch',
+        alignItems: 'center',
     }
 
 })
 
-export default CustomInput;
+export default CustomInput

@@ -2,7 +2,8 @@ import * as t from '../action'
 
 const initData = {
     username:'',
-    password:''
+    password:'',
+    isLoading:false
 };
 
 const loginReducer = (state=initData,{type,payload}:any) =>{
@@ -10,12 +11,24 @@ const loginReducer = (state=initData,{type,payload}:any) =>{
         case t.LOGIN :
             return {
                 ...state,
-                username:payload.username,
-                password:payload.password
+               isLoading:true,
             }
         case t.LOGIN_SUCCESS :
             return{
-
+                ...state,
+                username:payload.username,
+                password:payload.password,
+                isLoading:false,
+            }
+        case t.LOGOUT :
+            return{
+                ...state,
+                isLoading:true,
+            }
+        case t.LOGOUT_SUCCESS:
+            return {
+                username:'',
+                password:''
             }
         default :
             return state;

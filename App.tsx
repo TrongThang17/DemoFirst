@@ -10,7 +10,7 @@ const App = () =>{
  return(
   <NavigationContainer>
       <Tab.Navigator>
-        <Tab.Screen name="Redux" component={NavigationRedux} />
+        <Tab.Screen name="Redux" component={NavigationRedux} options={{headerShown:false}}/>
         <Tab.Screen name="Redux thunk" component={NavigationReduxThunk} />
         <Tab.Screen name="Redux saga" component={NavigationReduxSaga} />
       </Tab.Navigator>

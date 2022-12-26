@@ -1,7 +1,7 @@
 import React,{useState} from "react";
 import { SafeAreaView, StyleSheet,ImageBackground, Image, View, Text, Alert } from "react-native";
-import CustomInput from "../../assets/image/custom/customInputLogin";
-import CustomButton from "../../assets/image/custom/customButtonLogin";
+import CustomButton from "../../assets/Custom/customButtonLogin";
+import CustomInput from "../../assets/Custom/customInputLogin";
 import {yupResolver} from '@hookform/resolvers/yup';
 import { Controller,useForm } from "react-hook-form";
 import { useSelector} from "react-redux";
@@ -9,6 +9,7 @@ import * as yup from "yup";
 import axios from 'axios';
 import * as f from '../reduxThunk/actions'
 import { store } from "../reduxThunk/store";
+import {image} from '../../assets/image'
 interface validate {
     username:string,
     password:string
@@ -50,10 +51,11 @@ const  LoginScreenThunk:React.FC<{navigation:any}> =  ({navigation}) => {
                             required:true
                         }}
                         render={({ field: { onChange ,value} }) =>
-                        <CustomInput label="Username" 
-                                    placeholder="username" 
+                        <CustomInput
+                                    placeholder="Username" 
                                     onChange={onChange}
                                     value={value}  
+                                    img={image.password} 
                                     />                                   
                         } 
                         name={'username'}
@@ -67,11 +69,11 @@ const  LoginScreenThunk:React.FC<{navigation:any}> =  ({navigation}) => {
                             minLength:8
                         }}
                         render={({field: {onChange,value}}) => 
-                        <CustomInput label="Password" 
-                                    placeholder="password"
+                        <CustomInput 
+                                    placeholder="Password"
                                     onChange={onChange} 
                                     value={value}  
-                                    
+                                    img={image.password} 
                                     />
                         }
                     name={'password'}

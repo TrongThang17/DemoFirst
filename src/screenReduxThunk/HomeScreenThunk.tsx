@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text ,StyleSheet} from "react-native";
-import CustomButton from "../../assets/image/custom/customButtonLogin";
+import CustomButton from "../../assets/Custom/customButtonLogin";
 import { useSelector,useDispatch } from "react-redux";
 import { store } from "../reduxThunk/store";
 import * as f from '../reduxThunk/actions'

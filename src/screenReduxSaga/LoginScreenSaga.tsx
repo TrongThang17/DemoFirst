@@ -1,12 +1,12 @@
-import React,{useState} from "react";
+import React,{useEffect, useState} from "react";
 import { SafeAreaView, StyleSheet,ImageBackground, Image, View, Text, Alert } from "react-native";
-import CustomInput from "../../assets/image/custom/customInputLogin";
-import CustomButton from "../../assets/image/custom/customButtonLogin";
+import CustomButton from "../../assets/Custom/customButtonLogin";
+import CustomInput from "../../assets/Custom/customInputLogin";
 import {yupResolver} from '@hookform/resolvers/yup';
 import { Controller,useForm } from "react-hook-form";
 import { useSelector,useDispatch} from "react-redux";
 import * as yup from "yup";
-
+import {image} from '../../assets/image'
 interface validate {
     username:string,
     password:string
@@ -22,20 +22,19 @@ const  LoginScreenSaga:React.FC<{navigation:any}> =  ({navigation}) => {
     const { control,register, handleSubmit, watch, formState: { errors } }:any = useForm<validate>({
         resolver: yupResolver(schema)
       }); 
-  
     
-    const submit =  (value:any) =>{     
-        setTimeout(()=>{
-                dispatch({
-                    type:'LOGIN',
-                    payload:{
-                        username:value.username,
-                        password:value.password
-                    }
-                }) 
-        },3000)      
+    const submit =  (value:any) =>{  
+            dispatch({
+                type:'LOGIN',
+                payload:{
+                    username:value.username,
+                    password:value.password
+                }
+            })        
         navigation.navigate('HomeSaga');              
    } 
+
+   
     return (
         <SafeAreaView  >
             <ImageBackground source={require('../../assets/image/backgroundDemo.jpg')} 
@@ -53,10 +52,11 @@ const  LoginScreenSaga:React.FC<{navigation:any}> =  ({navigation}) => {
                             required:true
                         }}
                         render={({ field: { onChange ,value} }) =>
-                        <CustomInput label="Username" 
-                                    placeholder="username" 
+                        <CustomInput 
+                                    placeholder="Username" 
                                     onChange={onChange}
                                     value={value}  
+                                    img={image.password} 
                                     />                                   
                         } 
                         name={'username'}
@@ -70,11 +70,11 @@ const  LoginScreenSaga:React.FC<{navigation:any}> =  ({navigation}) => {
                             minLength:8
                         }}
                         render={({field: {onChange,value}}) => 
-                        <CustomInput label="Password" 
-                                    placeholder="password"
+                        <CustomInput
+                                    placeholder="Password"
                                     onChange={onChange} 
                                     value={value}  
-                                    
+                                    img={image.password} 
                                     />
                         }
                     name={'password'}
