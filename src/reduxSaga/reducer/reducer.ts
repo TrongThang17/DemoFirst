@@ -28,7 +28,8 @@ const loginReducer = (state=initData,{type,payload}:any) =>{
         case t.LOGOUT_SUCCESS:
             return {
                 username:'',
-                password:''
+                password:'',
+                isLoading:true,
             }
         default :
             return state;

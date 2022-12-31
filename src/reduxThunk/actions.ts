@@ -8,7 +8,6 @@ import * as t from './actionType';
             username:username,
             password:password
         }
-
     }
 }
 

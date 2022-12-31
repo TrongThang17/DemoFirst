@@ -5,7 +5,7 @@ import HomeScreenThunk from "../src/screenReduxThunk/HomeScreenThunk";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useSelector } from "react-redux";
 import { Provider } from "react-redux";
-import { store } from "../src/reduxThunk/store";
+import  store from "../src/reduxThunk/store";
 const stack = createNativeStackNavigator();
 
 const NavigationReduxThunk:React.FC = () =>{

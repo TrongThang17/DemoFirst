@@ -4,22 +4,22 @@ import { Text, TouchableOpacity, View , StyleSheet, Image} from 'react-native'
 
 interface CustomButtonProps  {
     label:string;
-    colorCode:string;
+    colorCode?:string;
     onPress: () => void;
-    img?:any
+    img?:any;
   
 }
 const CustomButton: React.FC<CustomButtonProps> =(props) => {
     return (
-        <View style={styles.viewButton}>
-            
-            <TouchableOpacity  
-                onPress={props.onPress }
-                style={[styles.buttonLogin,{backgroundColor:props.colorCode}]}>
-                <Image source={props.img}  style={styles.img} />
-                <Text style={styles.textLogin}> {props.label}</Text>    
-            </TouchableOpacity> 
-        </View>
+        
+        <View style={styles.viewButton}>   
+                <TouchableOpacity  
+                    onPress={props.onPress }
+                    style={[styles.buttonLogin,{backgroundColor:props.colorCode}]}>
+                    <Image source={props.img}  style={styles.img} />
+                    <Text style={styles.textLogin}> {props.label}</Text>    
+                </TouchableOpacity>                    
+        </View> 
     )
 };
 
@@ -27,7 +27,8 @@ const styles = StyleSheet.create({
     viewButton:{
         justifyContent:'center',
         alignItems:'center',
-        marginBottom:20
+        marginBottom:20,
+        
 
     },
     buttonLogin:{
@@ -54,6 +55,7 @@ const styles = StyleSheet.create({
        
         alignItems: 'center',
     },
+    
 
 })
 

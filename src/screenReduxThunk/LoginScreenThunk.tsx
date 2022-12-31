@@ -8,7 +8,7 @@ import { useSelector} from "react-redux";
 import * as yup from "yup";
 import axios from 'axios';
 import * as f from '../reduxThunk/actions'
-import { store } from "../reduxThunk/store";
+import  store  from "../reduxThunk/store";
 import {image} from '../../assets/image'
 interface validate {
     username:string,
@@ -61,7 +61,7 @@ const  LoginScreenThunk:React.FC<{navigation:any}> =  ({navigation}) => {
                                     placeholder="Username" 
                                     onChange={onChange}
                                     value={value}  
-                                    img={image.password} 
+                                    img={image.user} 
                                     />                                   
                         } 
                         name={'username'}

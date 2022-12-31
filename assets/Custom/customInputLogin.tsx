@@ -55,7 +55,8 @@ const styles = StyleSheet.create({
     },
     textInput:{
         height:50,
-        width:270
+        width:270,
+        color:'#828187'
     },
     textLabel:{
         color: 'black',

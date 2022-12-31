@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { StyleSheet,View, Text, Image} from "react-native";
 import {image} from '../../assets/image';
 import CustomInput from "../../assets/Custom/customInputLogin";
@@ -6,9 +6,11 @@ import CustomButton from "../../assets/Custom/customButtonLogin";
 import * as yup from "yup";
 import {yupResolver} from '@hookform/resolvers/yup';
 import { Controller,useForm } from "react-hook-form";
-import { useSelector, useDispatch} from "react-redux";
 import LinearGradient from 'react-native-linear-gradient';
 import {Colors} from '../../assets/Colors'
+import axios from "axios";
+import * as f from '../reduxThunk/actions'
+import  store  from "../reduxThunk/store";
 interface validate {
     username:string,
     password:string
@@ -22,16 +24,18 @@ const Login:React.FC<{navigation:any}> =({navigation}) =>{
     const { control,register, handleSubmit, watch, formState: { errors } }:any = useForm<validate>({
         resolver: yupResolver(schema)
       }); 
-      const dispatch = useDispatch()
-    const login =(value:any) =>{
-        dispatch({
-            type:'LOGIN',
-            payload:{
-                username:value.username,
-                password:value.password
-            }
-        })                                                 
-    navigation.navigate('HomeScreen');   
+    const baseUrl = "https://httpbin.org/post";
+    const login = (value:any) =>{
+        axios.post(baseUrl,value)
+          .then((res)=>{
+                console.log(res)
+                store.dispatch(f.login(value.username,value.password))   
+                navigation.navigate('Home');       
+          })
+          .catch((err)=>{
+            console.log(err)
+          })                             
+
     }
     return (
         <View style={styles.container}>

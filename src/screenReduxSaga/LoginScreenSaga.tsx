@@ -67,7 +67,7 @@ const  LoginScreenSaga:React.FC<{navigation:any}> =  ({navigation}) => {
                                     placeholder="Username" 
                                     onChange={onChange}
                                     value={value}  
-                                    img={image.password} 
+                                    img={image.user} 
                                     />                                   
                         } 
                         name={'username'}
