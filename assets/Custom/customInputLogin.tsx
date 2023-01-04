@@ -1,18 +1,19 @@
 import React from "react";
-import { View, Text, TextInput,StyleSheet, SafeAreaView, Image } from "react-native";
-
+import { View, Text, TextInput,StyleSheet, SafeAreaView, Image, Touchable, TouchableOpacity } from "react-native";
+import {image} from '../image'
 
 interface customInputProps {
     placeholder:string,
     onChange?:(val:string) =>void,
     value?:string
-    defaultValue?:string
     img?:any
-    
+    img1?:any
+    onClickEye?:() => void
+    show?:boolean
 }
 
 const CustomInput:React.FC<customInputProps> = (props) =>{
-  
+    
     return (
     <SafeAreaView>
         <View style={styles.viewLogin}>
@@ -24,9 +25,11 @@ const CustomInput:React.FC<customInputProps> = (props) =>{
                 style={styles.textInput}
                 value={props.value}
                 onChangeText={props.onChange}
-                defaultValue={props.defaultValue}
-                
+                secureTextEntry={props.show}
                 />
+            <TouchableOpacity onPress={props.onClickEye}>
+                <Image source={props.img1} style={{width:30,height:30,right:30}}/>
+            </TouchableOpacity>
         </View>
     </SafeAreaView>
         
@@ -56,7 +59,8 @@ const styles = StyleSheet.create({
     textInput:{
         height:50,
         width:270,
-        color:'#828187'
+        color:'#828187',
+        
     },
     textLabel:{
         color: 'black',
@@ -66,15 +70,11 @@ const styles = StyleSheet.create({
         justifyContent:'center'
     },
     images:{
-        padding: 10,
-        margin: 5,
         height: 25,
         width: 25,
         resizeMode: 'stretch',
         alignItems: 'center',
-        
-
-
+        marginLeft:25
     }
 
 })

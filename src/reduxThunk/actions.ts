@@ -3,7 +3,7 @@ import * as t from './actionType';
 
  export  function login   (username:string, password:string) {
     return {
-        type:t.LOGIN,
+        type:t.LOGIN_THUNK,
         payload:{
             username:username,
             password:password
@@ -13,7 +13,7 @@ import * as t from './actionType';
 
  export  function logout () {
   return {
-    type:t.LOGOUT,
+    type:t.LOGOUT_THUNK,
   }
 }
 

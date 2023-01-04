@@ -8,12 +8,12 @@ const initData = {
 
 const loginReducer = (state=initData,{type,payload}:any) =>{
     switch(type){
-        case t.LOGIN :
+        case t.LOGIN_SAGA :
             return {
                 ...state,
                isLoading:true,
             }
-        case t.LOGIN_SUCCESS :
+        case t.LOGIN_SAGA_SUCCESS :
             return{
                 ...state,
                 username:payload.username,

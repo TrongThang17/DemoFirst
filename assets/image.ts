@@ -7,5 +7,7 @@ export const image ={
     oval:require('./image/Oval.png'),
     combined:require('./image/Combined-Shape.png'),
     ellipse:require('./image/Ellipse.png'),
-    email:require('./image/email.png')
+    email:require('./image/email.png'),
+    eye:require('./image/eye.png'),
+    tick:require('./image/tick.png')
 }
