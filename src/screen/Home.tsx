@@ -2,9 +2,10 @@ import React,{useEffect, useRef} from "react";
 import {Animated, View, Text ,StyleSheet} from "react-native";
 import CustomButton from "../../assets/Custom/customButtonLogin";
 import { useSelector,useDispatch } from "react-redux";
+import * as f from '../reduxThunk/actionType'
 
 const  Home:React.FC<{navigation:any}> =  ({navigation}) => {
-    const inf = useSelector((state:any)=>state.loginReducer)
+    const inf = useSelector((state:any)=>state.loginReducers)
     const fadeAnim = useRef(new Animated.Value(0)).current ;
     
     const fadein = useEffect(()=>{
@@ -16,16 +17,6 @@ const  Home:React.FC<{navigation:any}> =  ({navigation}) => {
             }
         ).start()
     },[fadeAnim])
-
-    // const fadeout = useEffect(()=>{
-    //     Animated.timing(
-    //         fadeAnim,{
-    //             toValue:0,
-    //             duration:3000,
-    //             useNativeDriver: true
-    //         }
-    //     ).start()
-    // },[fadeAnim])
     const dispatch = useDispatch();
     return (
         <View style={styles.container}> 
@@ -38,7 +29,7 @@ const  Home:React.FC<{navigation:any}> =  ({navigation}) => {
                
                     navigation.replace('Login') 
                     dispatch({
-                        type:'LOGOUT',
+                        type:f.LOGOUT_THUNK,
                     })
                 }} colorCode="#9ee6e6" />
         </View>

@@ -6,10 +6,14 @@ import CustomButton from "../../assets/Custom/customButtonLogin";
 import * as yup from "yup";
 import {yupResolver} from '@hookform/resolvers/yup';
 import { Controller,useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import LinearGradient from 'react-native-linear-gradient';
 import {Colors} from '../../assets/Colors'
 import * as fs from '../reduxSaga/action'
+import * as f from '../reduxThunk/actionType'
+import store from "../Store/store";
+import { login } from "../reduxThunk/actions";
+import sendData from '../callAPI/sendData';
 interface validate {
     username:string,
     password:string
@@ -25,18 +29,39 @@ const Login:React.FC<{navigation:any}> =({navigation}) =>{
       }); 
     const [show,setShow] = useState(true);
     const dispatch = useDispatch(); 
-    const login = useCallback((value:any)=>{
-        dispatch({
-            type:fs.LOGIN_SAGA,
-            payload:{
-                username:value.username,
-                password:value.password
-            }
-           })   
-           navigation.navigate('Home')
-    },[])
+    // const login_saga = useCallback((value:any)=>{
+    //     dispatch({
+    //         type:fs.LOGIN_SAGA,
+    //         payload:{
+    //             username:value.username,
+    //             password:value.password
+    //         }
+    //        })   
+    //     
+    //        navigation.navigate('Home')
+    // },[])
+
+    const login_thunk = useCallback( async (value:any)=>{
+        try{
+            dispatch({
+              type:f.LOGIN_THUNK
+            })
+      
+           await sendData(value)
+         dispatch({
+              type:f.LOGIN_THUNK_SUCCESS,
+              payload:{
+                 username:value.username,
+                 password:value.password
+              }
+            })
+            navigation.navigate('Home')
+         }catch(error){
+            console.log(error)
+         }  
+    },[]) 
     const Show = () =>{
-        show == true ? setShow(false) : setShow(true)
+        show ? setShow(false) : setShow(true)
     }
     
     return (
@@ -54,7 +79,7 @@ const Login:React.FC<{navigation:any}> =({navigation}) =>{
             </View>
 
             <View style={styles.hr}/>
-            <Text style={styles.textLogin}>Log In </Text>
+            <Text style={styles.textLogin}>Log In</Text>
             <View style={styles.viewTextInput}>
                     <Controller
                                 control={control}
@@ -107,7 +132,7 @@ const Login:React.FC<{navigation:any}> =({navigation}) =>{
                                 
                             <CustomButton 
                                     label="Log In" 
-                                    onPress={handleSubmit(login)}
+                                    onPress={handleSubmit(login_thunk)}
                             />
                         </LinearGradient>
                                        
@@ -257,10 +282,6 @@ const styles = StyleSheet.create({
 
     },
     textForget:{
-        // width: 123,
-        // height:20,
-        // left:214,
-        // top:340,
         marginRight:40,
         fontStyle:'normal',
         fontWeight:'400',
