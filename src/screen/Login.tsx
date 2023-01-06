@@ -11,7 +11,6 @@ import LinearGradient from 'react-native-linear-gradient';
 import {Colors} from '../../assets/Colors'
 import * as fs from '../reduxSaga/action'
 import * as f from '../reduxThunk/action'
-import sendData from '../callAPI/sendData';
 import Loading from "./Loading";
 import {login} from '../reduxThunk/thunk_function'
 import { store } from "../Store/store";
@@ -50,8 +49,6 @@ const Login:React.FC<{navigation:any}> =({navigation}) =>{
     const Show = useCallback(()=>{
         show ? setShow(false) : setShow(true)
     },[])
-//    console.log(Show)
-//    console.log(login_thunk)
     return isLoading  ? (<Loading />) : (
         <View style={styles.container}>
             <View>
