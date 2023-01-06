@@ -1,5 +1,5 @@
 const initState = {
-    isLogin : false,
+    isLoading : false,
     username : '',
     password: ''
 };

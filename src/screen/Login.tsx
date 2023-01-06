@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { StyleSheet,View, Text, Image,TouchableOpacity, Linking} from "react-native";
 import {image} from '../../assets/image';
 import CustomInput from "../../assets/Custom/customInputLogin";
@@ -10,10 +10,10 @@ import { useDispatch,useSelector } from "react-redux";
 import LinearGradient from 'react-native-linear-gradient';
 import {Colors} from '../../assets/Colors'
 import * as fs from '../reduxSaga/action'
-import * as f from '../reduxThunk/actionType'
+import * as f from '../reduxThunk/action'
 import store from "../Store/store";
-import { login } from "../reduxThunk/actions";
 import sendData from '../callAPI/sendData';
+import Loading from "./Loading";
 interface validate {
     username:string,
     password:string
@@ -27,6 +27,7 @@ const Login:React.FC<{navigation:any}> =({navigation}) =>{
     const { control,register, handleSubmit, watch, formState: { errors } }:any = useForm<validate>({
         resolver: yupResolver(schema)
       }); 
+    const isLoading = useSelector((state:any)=>state.loginReducers.isLoading)
     const [show,setShow] = useState(true);
     const dispatch = useDispatch(); 
     // const login_saga = useCallback((value:any)=>{
@@ -47,24 +48,25 @@ const Login:React.FC<{navigation:any}> =({navigation}) =>{
               type:f.LOGIN_THUNK
             })
       
-           await sendData(value)
-         dispatch({
-              type:f.LOGIN_THUNK_SUCCESS,
-              payload:{
-                 username:value.username,
-                 password:value.password
-              }
-            })
-            navigation.navigate('Home')
-         }catch(error){
-            console.log(error)
-         }  
-    },[]) 
-    const Show = () =>{
+            await sendData(value)
+             dispatch({
+                type:f.LOGIN_THUNK_SUCCESS,
+                payload:{
+                    username:value.username,
+                    password:value.password
+                }
+                })
+             navigation.navigate('Home')
+            }catch(error){
+                console.log(error)
+            }  
+    } ,[])
+    const Show = useCallback(()=>{
         show ? setShow(false) : setShow(true)
-    }
-    
-    return (
+    },[])
+//    console.log(Show)
+//    console.log(login_thunk)
+    return isLoading  ? (<Loading />) : (
         <View style={styles.container}>
             <View>
                 <View style={styles.imgHeader}>

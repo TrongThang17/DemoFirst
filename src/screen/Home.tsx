@@ -2,10 +2,12 @@ import React,{useEffect, useRef} from "react";
 import {Animated, View, Text ,StyleSheet} from "react-native";
 import CustomButton from "../../assets/Custom/customButtonLogin";
 import { useSelector,useDispatch } from "react-redux";
-import * as f from '../reduxThunk/actionType'
+import * as f from '../reduxThunk/action'
+import Loading from "./Loading";
 
 const  Home:React.FC<{navigation:any}> =  ({navigation}) => {
     const inf = useSelector((state:any)=>state.loginReducers)
+    const isLoading = useSelector((state:any)=>state.loginReducers.isLoading)
     const fadeAnim = useRef(new Animated.Value(0)).current ;
     
     const fadein = useEffect(()=>{
@@ -18,7 +20,7 @@ const  Home:React.FC<{navigation:any}> =  ({navigation}) => {
         ).start()
     },[fadeAnim])
     const dispatch = useDispatch();
-    return (
+    return  (
         <View style={styles.container}> 
             <Text style={[styles.title]}>HOME</Text>                                     
             <Animated.View style={{opacity:fadeAnim}}>

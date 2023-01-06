@@ -9,5 +9,6 @@ export const image ={
     ellipse:require('./image/Ellipse.png'),
     email:require('./image/email.png'),
     eye:require('./image/eye.png'),
-    tick:require('./image/tick.png')
+    tick:require('./image/tick.png'),
+    loading:require('./image/loading.gif')
 }

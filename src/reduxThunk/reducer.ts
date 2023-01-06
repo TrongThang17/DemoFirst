@@ -1,5 +1,5 @@
 import initState from './initialState';
-import * as t from './actionType';
+import * as t from './action';
 
 
 const loginReducers = (state = initState, {type,payload}:any) => {
@@ -7,14 +7,14 @@ const loginReducers = (state = initState, {type,payload}:any) => {
     case t.LOGIN_THUNK:
       return {
         ...state,
-        isLogin: false,
+        isLoading: true,
       };
     case t.LOGIN_THUNK_SUCCESS:
       return{
         ...state,
         username:payload.username,
         password:payload.password,
-        isLogin:true
+        isLoading:false
       }
     case t.LOGOUT_THUNK :
       return{
