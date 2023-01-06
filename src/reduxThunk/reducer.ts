@@ -14,7 +14,8 @@ const loginReducers = (state = initState, {type,payload}:any) => {
         ...state,
         username:payload.username,
         password:payload.password,
-        isLoading:false
+        isLoading:false,
+        isLogin:true
       }
     case t.LOGOUT_THUNK :
       return{

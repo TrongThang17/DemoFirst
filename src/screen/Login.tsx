@@ -11,9 +11,10 @@ import LinearGradient from 'react-native-linear-gradient';
 import {Colors} from '../../assets/Colors'
 import * as fs from '../reduxSaga/action'
 import * as f from '../reduxThunk/action'
-import store from "../Store/store";
 import sendData from '../callAPI/sendData';
 import Loading from "./Loading";
+import {login} from '../reduxThunk/thunk_function'
+import { store } from "../Store/store";
 interface validate {
     username:string,
     password:string
@@ -42,24 +43,9 @@ const Login:React.FC<{navigation:any}> =({navigation}) =>{
     //        navigation.navigate('Home')
     // },[])
 
-    const login_thunk = useCallback( async (value:any)=>{
-        try{
-            dispatch({
-              type:f.LOGIN_THUNK
-            })
-      
-            await sendData(value)
-             dispatch({
-                type:f.LOGIN_THUNK_SUCCESS,
-                payload:{
-                    username:value.username,
-                    password:value.password
-                }
-                })
-             navigation.navigate('Home')
-            }catch(error){
-                console.log(error)
-            }  
+    const login_thunk = useCallback( (value:any)=>{
+        store.dispatch(login(value))
+        navigation.navigate('Home')
     } ,[])
     const Show = useCallback(()=>{
         show ? setShow(false) : setShow(true)

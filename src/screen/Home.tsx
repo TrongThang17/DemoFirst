@@ -3,7 +3,8 @@ import {Animated, View, Text ,StyleSheet} from "react-native";
 import CustomButton from "../../assets/Custom/customButtonLogin";
 import { useSelector,useDispatch } from "react-redux";
 import * as f from '../reduxThunk/action'
-import Loading from "./Loading";
+import { logout } from "../reduxThunk/thunk_function";
+import { store } from "../Store/store";
 
 const  Home:React.FC<{navigation:any}> =  ({navigation}) => {
     const inf = useSelector((state:any)=>state.loginReducers)
@@ -29,10 +30,8 @@ const  Home:React.FC<{navigation:any}> =  ({navigation}) => {
             
             <CustomButton label="Logout" onPress={() => {
                
-                    navigation.replace('Login') 
-                    dispatch({
-                        type:f.LOGOUT_THUNK,
-                    })
+                    navigation.navigate('Login') 
+                    store.dispatch(logout())
                 }} colorCode="#9ee6e6" />
         </View>
     )
