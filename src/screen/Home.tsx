@@ -2,13 +2,14 @@ import React,{useEffect, useRef} from "react";
 import {Animated, View, Text ,StyleSheet} from "react-native";
 import CustomButton from "../../assets/Custom/customButtonLogin";
 import { useSelector,useDispatch } from "react-redux";
-import { logout } from "../reduxThunk/thunk_function";
-import { store } from "../Store/store";
+import * as f from '../reduxSaga/action'
+
 
 const  Home:React.FC<{navigation:any}> =  ({navigation}) => {
-    const inf = useSelector((state:any)=>state.loginReducers)
+    const inf = useSelector((state:any)=>state.reducer)
+    const inf1 = useSelector((state:any)=>state.loginReducerSaga)
     const fadeAnim = useRef(new Animated.Value(0)).current ;
-    
+    const dispatch = useDispatch()
     const fadein = useEffect(()=>{
         Animated.timing(
             fadeAnim,{
@@ -26,9 +27,10 @@ const  Home:React.FC<{navigation:any}> =  ({navigation}) => {
             </Animated.View>
             
             <CustomButton label="Logout" onPress={() => {
-               
-                    navigation.navigate('Login') 
-                    store.dispatch(logout())
+                     dispatch({
+                         type:f.LOGOUT_SAGA,
+                        
+                     })
                 }} colorCode="#9ee6e6" />
         </View>
     )

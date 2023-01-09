@@ -6,7 +6,7 @@ import * as t from '../action'
 const saga =function* (){
     yield all([
         takeLatest(t.LOGIN_SAGA,loginSaga),
-        takeLatest('LOGOUT',logoutSaga)
+        takeLatest(t.LOGOUT_SAGA,logoutSaga)
     ])
 }
 

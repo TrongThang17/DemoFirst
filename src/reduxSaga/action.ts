@@ -1,4 +1,4 @@
 export const LOGIN_SAGA = 'LOGIN_SAGA'
 export const LOGIN_SAGA_SUCCESS = 'LOGIN_SAGA_SUCCESS'
-export const LOGOUT = 'LOGOUT'
-export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
+export const LOGOUT_SAGA = 'LOGOUT_SAGA'
+export const LOGOUT_SAGA_SUCCESS = 'LOGOUT_SAGA_SUCCESS'

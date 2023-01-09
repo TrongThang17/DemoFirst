@@ -9,7 +9,6 @@ import { Controller,useForm } from "react-hook-form";
 import { useDispatch,useSelector } from "react-redux";
 import LinearGradient from 'react-native-linear-gradient';
 import {Colors} from '../../assets/Colors'
-import * as fs from '../reduxSaga/action'
 import * as f from '../reduxThunk/action'
 import Loading from "./Loading";
 import {login} from '../reduxThunk/thunk_function'
@@ -27,7 +26,7 @@ const Login:React.FC<{navigation:any}> =({navigation}) =>{
     const { control,register, handleSubmit, watch, formState: { errors } }:any = useForm<validate>({
         resolver: yupResolver(schema)
       }); 
-    const isLoading = useSelector((state:any)=>state.loginReducers.isLoading)
+    const isLoading = useSelector((state:any)=>state.reducer.isLoading)
     const [show,setShow] = useState(true);
     const dispatch = useDispatch(); 
     // const login_saga = useCallback((value:any)=>{
@@ -44,7 +43,6 @@ const Login:React.FC<{navigation:any}> =({navigation}) =>{
 
     const login_thunk = useCallback( (value:any)=>{
         store.dispatch(login(value))
-        navigation.navigate('Home')
     } ,[])
     const Show = useCallback(()=>{
         show ? setShow(false) : setShow(true)
@@ -126,7 +124,7 @@ const Login:React.FC<{navigation:any}> =({navigation}) =>{
             <View style={styles.viewTextLR}>
                 <Text style={styles.textLeft}>Don't have an account ? </Text>
                 <Text style={styles.textRight} onPress={()=>{
-                    navigation.navigate('Signin')
+                    navigation.navigate('Signup')
                 }}>Sign Up </Text>
             </View>
 
