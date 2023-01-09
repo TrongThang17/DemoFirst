@@ -1,22 +1,31 @@
 import React from 'react'
 import { Text, TouchableOpacity, View , StyleSheet, Image} from 'react-native'
-
+import {image} from '../../assets/image';
 
 interface CustomButtonProps  {
     label:string;
     colorCode?:string;
     onPress: () => void;
     img?:any;
+    colorCodeIcon?:string
   
 }
 const CustomButton: React.FC<CustomButtonProps> =(props) => {
     return (
         
         <View style={styles.viewButton}>   
+                
+               
+                
                 <TouchableOpacity  
                     onPress={props.onPress }
                     style={[styles.buttonLogin,{backgroundColor:props.colorCode}]}>
-                    <Image source={props.img}  style={styles.img} />
+                    <View style={[styles.viewImg,{backgroundColor:props.colorCodeIcon}]}>
+                        <Image source={props.img}  
+                                style={styles.img} 
+                        />
+                    </View>
+                    
                     <Text style={styles.textLogin}> {props.label}</Text>    
                 </TouchableOpacity>                    
         </View> 
@@ -28,32 +37,37 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         marginBottom:20,
-        
+        flexDirection:'row'
 
+    },
+    viewImg:{
+        width:26,
+        height:26.33,
+        borderRadius:100,
+        top:13,
+        left:15
     },
     buttonLogin:{
         height:52,
         width:327,
-        left:3,
         borderRadius:30,
-        flexDirection:'row',
-        alignItems:'center',
-        justifyContent:'center'
+        flexDirection:'row'
+        
     },
     textLogin:{
         fontSize:20,
         fontWeight:'bold',
-        marginRight:40,
-        padding:10,
-        color:'white'
+        textAlign:'center',
+        color:'white',
+        flex:1,
+        justifyContent:'center',
+        marginTop:9,
+        marginRight:25,
+       
     },
     img:{
-        padding: 10,
-        margin: 5,
-        height: 25,
-        width: 25,
-       
-        alignItems: 'center',
+        flex:1,
+        alignSelf:'center'
     },
     
 

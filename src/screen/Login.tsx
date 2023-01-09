@@ -28,25 +28,12 @@ const Login:React.FC<{navigation:any}> =({navigation}) =>{
       }); 
     const isLoading = useSelector((state:any)=>state.reducer.isLoading)
     const [show,setShow] = useState(true);
-    const dispatch = useDispatch(); 
-    // const login_saga = useCallback((value:any)=>{
-    //     dispatch({
-    //         type:fs.LOGIN_SAGA,
-    //         payload:{
-    //             username:value.username,
-    //             password:value.password
-    //         }
-    //        })   
-    //     
-    //        navigation.navigate('Home')
-    // },[])
-
     const login_thunk = useCallback( (value:any)=>{
         store.dispatch(login(value))
     } ,[])
     const Show = useCallback(()=>{
         show ? setShow(false) : setShow(true)
-    },[])
+    },[show])
     return isLoading  ? (<Loading />) : (
         <View style={styles.container}>
             <View>
@@ -117,8 +104,7 @@ const Login:React.FC<{navigation:any}> =({navigation}) =>{
                                     label="Log In" 
                                     onPress={handleSubmit(login_thunk)}
                             />
-                        </LinearGradient>
-                                       
+                        </LinearGradient>                        
             </View>
             
             <View style={styles.viewTextLR}>
@@ -136,11 +122,11 @@ const Login:React.FC<{navigation:any}> =({navigation}) =>{
                     <View style={{flex: 1, height: 2, backgroundColor: Colors.hr1, borderRadius:90}} />
             </View>   
             <View style={styles.viewFooter}>
-               
                     <CustomButton 
                             img={image.facebook}
                             label='Log in with Facebook'
                             colorCode={Colors.colorFacebook}
+                            colorCodeIcon='white'
                             onPress={()=>{
                                 Linking.openURL('https://facebook.com')
                             }}
@@ -150,14 +136,12 @@ const Login:React.FC<{navigation:any}> =({navigation}) =>{
                             img={image.apple}
                             label='Log in with Aple'
                             colorCode={Colors.colorApple}
+                            colorCodeIcon={Colors.colorApple}
                             onPress={()=>{
                                 Linking.openURL('https://appleid.apple.com/sign-in')
                             }}
-                    />
-           
-                 
+                    />             
             </View>
-
     </View>
     )
 }
@@ -169,8 +153,7 @@ const styles = StyleSheet.create({
         height:812,
         left:0,
         top:0,
-        backgroundColor:Colors.background,  
-        
+        backgroundColor:Colors.background,         
     },
     imgHeader:{
         position:'absolute',
@@ -193,7 +176,6 @@ const styles = StyleSheet.create({
         backgroundColor:Colors.combined,
         width:31.47,
         height:31.47
-
     },
     oval:{
         position:'absolute',
@@ -202,8 +184,7 @@ const styles = StyleSheet.create({
         backgroundColor:Colors.oval,
     },
     contentHeader:{
-        flexDirection:'column',
-        
+        flexDirection:'column',       
     },
     textUp:{
         position:'absolute',
@@ -326,7 +307,6 @@ const styles = StyleSheet.create({
         marginLeft:30,
         marginTop:15
     }
-
 })
 
 export default Login;

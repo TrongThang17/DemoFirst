@@ -1,19 +1,16 @@
 import axios from "axios";
 const baseUrl = "https://httpbin.org/post";
 const sendData = (value:any) =>{
-    return new Promise((resolve, reject)=>{
+    return (
         axios 
             .post(baseUrl,value)
-            .then(function(response){
-                //handle success
-                console.log(response)
-                resolve(response.data)
+            .then(function(response){  
+                console.log(response.data)
             })
             .catch(function(err){
-                //handle error
-                reject(err)
-            });
-    });
+                console.log(err)
+            })
+    )   
 }
 
  export default sendData
