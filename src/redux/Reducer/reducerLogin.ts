@@ -1,19 +1,19 @@
 import initData from "../data/initData"
-import * as ft from '../reduxSaga/action'
-import * as fs from '../reduxThunk/action'
-const reducer = (state=initData,{type,payload}:any) =>{
+import * as f from '../action'
+
+const reducerLogin = (state=initData,{type,payload}:any) =>{
     switch(type){
-        case ft.LOGIN_SAGA :
+        case f.LOGIN_SAGA :
             return {
                 ...state,
                 isLoading:true
             }
-        case fs.LOGIN_THUNK:
+        case f.LOGIN_THUNK:
             return{
                 ...state,
                 isLoading: true,
             }
-        case ft.LOGIN_SAGA_SUCCESS :
+        case f.LOGIN_SAGA_SUCCESS :
             return{
                 ...state,
                 username:payload.username,
@@ -21,7 +21,7 @@ const reducer = (state=initData,{type,payload}:any) =>{
                 isLogin:true,
                 isLoading:false
             }
-        case fs.LOGIN_THUNK_SUCCESS:
+        case f.LOGIN_THUNK_SUCCESS:
             return{
                 ...state,
                 username:payload.username,
@@ -29,12 +29,12 @@ const reducer = (state=initData,{type,payload}:any) =>{
                 isLoading:false,
                 isLogin:true
             }
-        case ft.LOGOUT_SAGA :
+        case f.LOGOUT_SAGA :
             return{
                 ...state,
                 isLoading:true
             }
-        case ft.LOGOUT_SAGA_SUCCESS:
+        case f.LOGOUT_SAGA_SUCCESS:
             return {
                 ...state,
                 username:'',
@@ -42,7 +42,7 @@ const reducer = (state=initData,{type,payload}:any) =>{
                 isLogin:false,
                 isLoading:false
             }
-        case fs.LOGOUT_THUNK :
+        case f.LOGOUT_THUNK :
             return{
                 ...state,
                 username:'',
@@ -55,4 +55,4 @@ const reducer = (state=initData,{type,payload}:any) =>{
     }
 }
 
-export default reducer;
+export default reducerLogin;

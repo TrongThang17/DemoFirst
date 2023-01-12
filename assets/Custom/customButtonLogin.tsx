@@ -1,25 +1,23 @@
 import React from 'react'
 import { Text, TouchableOpacity, View , StyleSheet, Image} from 'react-native'
-import {image} from '../../assets/image';
+
 
 interface CustomButtonProps  {
     label:string;
     colorCode?:string;
     onPress: () => void;
     img?:any;
-    colorCodeIcon?:string
-  
+    colorCodeIcon?:string,
+    disable?:boolean
 }
 const CustomButton: React.FC<CustomButtonProps> =(props) => {
     return (
         
-        <View style={styles.viewButton}>   
-                
-               
-                
+        <View style={[styles.viewButton]}>                                         
                 <TouchableOpacity  
                     onPress={props.onPress }
-                    style={[styles.buttonLogin,{backgroundColor:props.colorCode}]}>
+                    style={[styles.buttonLogin,{backgroundColor:props.colorCode, width:props.label == 'Save' || props.label == 'Cancle' ? 150 :327}]}
+                    disabled={props.disable}>
                     <View style={[styles.viewImg,{backgroundColor:props.colorCodeIcon}]}>
                         <Image source={props.img}  
                                 style={styles.img} 
@@ -37,8 +35,7 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         marginBottom:20,
-        flexDirection:'row'
-
+        flexDirection:'row',
     },
     viewImg:{
         width:26,

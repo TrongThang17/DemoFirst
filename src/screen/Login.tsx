@@ -9,10 +9,10 @@ import { Controller,useForm } from "react-hook-form";
 import { useDispatch,useSelector } from "react-redux";
 import LinearGradient from 'react-native-linear-gradient';
 import {Colors} from '../../assets/Colors'
-import * as f from '../reduxThunk/action'
 import Loading from "./Loading";
-import {login} from '../reduxThunk/thunk_function'
-import { store } from "../Store/store";
+import {login} from '../redux/thunk/thunkLogin'
+import { store } from "../redux/store";
+import initData from "../redux/data/initData";
 interface validate {
     username:string,
     password:string
@@ -26,10 +26,12 @@ const Login:React.FC<{navigation:any}> =({navigation}) =>{
     const { control,register, handleSubmit, watch, formState: { errors } }:any = useForm<validate>({
         resolver: yupResolver(schema)
       }); 
-    const isLoading = useSelector((state:any)=>state.reducer.isLoading)
+    const dispatch = useDispatch()
+    const isLoading = useSelector((state:any)=>state.reducerLogin.isLoading)
     const [show,setShow] = useState(true);
-    const login_thunk = useCallback( (value:any)=>{
-        store.dispatch(login(value))
+    const onLoginThunk = useCallback( (value:any)=>{
+        dispatch(login(value))
+
     } ,[])
     const Show = useCallback(()=>{
         show ? setShow(false) : setShow(true)
@@ -102,7 +104,7 @@ const Login:React.FC<{navigation:any}> =({navigation}) =>{
                                 
                             <CustomButton 
                                     label="Log In" 
-                                    onPress={handleSubmit(login_thunk)}
+                                    onPress={handleSubmit(onLoginThunk)}
                             />
                         </LinearGradient>                        
             </View>

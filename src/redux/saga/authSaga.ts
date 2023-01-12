@@ -5,8 +5,18 @@ import sendData from '../../callAPI/sendData'
 
 
 
-export default function* (action:any):any{
+function* onLoginSaga (action:any):any{
     sendData(action.payload)
     yield put({type:t.LOGIN_SAGA_SUCCESS,payload:action.payload})
     console.log('here are actions ', action)
 } 
+
+function* onLogoutSaga (){
+    yield put({
+        type:t.LOGOUT_SAGA_SUCCESS,      
+    })
+} 
+
+export  {
+    onLoginSaga, onLogoutSaga
+}
