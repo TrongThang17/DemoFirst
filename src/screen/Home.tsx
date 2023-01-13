@@ -7,6 +7,7 @@ import CustomButtonDelete from "../../assets/Custom/customButtonDelete";
 import Item from "../../assets/Custom/customItem";
 import { deleteTodo,updateDetail} from "../redux/thunk/thunkTask";
 import Modal from "react-native-modal";
+import * as f from '../redux/action'
 
 const  Home:React.FC<{navigation:any}> =  ({navigation}) => {
     const inf = useSelector((state:any)=>state.reducerTask.list)
@@ -112,14 +113,16 @@ const  Home:React.FC<{navigation:any}> =  ({navigation}) => {
                     />
             </View>
             
-            
-            {/* <CustomButton label="Logout" onPress={() => {
-                     dispatch({
-                         type:f.LOGOUT_SAGA,
-                        
-                     })
-                }} colorCode="#9ee6e6" /> */}
+            <View style={{marginTop:40}}>
+                <CustomButton label="Logout" onPress={() => {
+                        dispatch({
+                            type:f.LOGOUT_SAGA,
+                            
+                        })
+                    }} colorCode="#9ee6e6" /> 
 
+                </View>
+           
            
             <TouchableOpacity style={styles.touchPlus} onPress={()=>{ navigation.navigate('AddTodo')}}>
                <Text style={styles.textPlus}>+</Text>
@@ -148,8 +151,9 @@ const styles= StyleSheet.create({
         borderRadius: 30,            
         backgroundColor: '#ee6e73',                                    
         position: 'absolute',
-        top:670,
-        left:300,
+        top:600,
+        left:170
+
     },
     textPlus:{
         justifyContent:'center',
@@ -158,7 +162,7 @@ const styles= StyleSheet.create({
         
     },
     viewFlatlist:{
-        height:580,
+        height:530,
         width:'100%',
         marginBottom:30,
     },
