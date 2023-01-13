@@ -6,7 +6,7 @@ const Loading = () => {
   return (
     <View style={styles.centeredView}>
       <Modal
-        animationType="slide"
+        animationType='slide'
         transparent={true}
         visible={true} 
       >

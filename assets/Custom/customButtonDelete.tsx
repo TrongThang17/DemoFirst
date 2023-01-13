@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
         height:30,
         width:90,
         borderRadius:30,
-        backgroundColor:'red',
+        backgroundColor:'#f0e9e9',
         alignItems:'center',
         justifyContent:'center',
     },
@@ -28,8 +28,9 @@ const styles = StyleSheet.create({
         fontSize:15,
         fontWeight:'bold',
         textAlign:'center',
-        color:'white',
-        justifyContent:'center'
+        color:'red',
+        justifyContent:'center',
+    
     },
 })
 

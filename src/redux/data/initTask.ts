@@ -1,5 +1,6 @@
 const initTask = {
-    list:[]
+    list:[],
+    detail_list:[]
 };
 
 

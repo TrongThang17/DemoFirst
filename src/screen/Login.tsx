@@ -29,10 +29,12 @@ const Login:React.FC<{navigation:any}> =({navigation}) =>{
     const dispatch = useDispatch()
     const isLoading = useSelector((state:any)=>state.reducerLogin.isLoading)
     const [show,setShow] = useState(true);
+    
     const onLoginThunk = useCallback( (value:any)=>{
         dispatch(login(value))
-
+        
     } ,[])
+
     const Show = useCallback(()=>{
         show ? setShow(false) : setShow(true)
     },[show])
@@ -105,6 +107,7 @@ const Login:React.FC<{navigation:any}> =({navigation}) =>{
                             <CustomButton 
                                     label="Log In" 
                                     onPress={handleSubmit(onLoginThunk)}
+                                    colorLabel={Colors.white}
                             />
                         </LinearGradient>                        
             </View>
@@ -129,6 +132,7 @@ const Login:React.FC<{navigation:any}> =({navigation}) =>{
                             label='Log in with Facebook'
                             colorCode={Colors.colorFacebook}
                             colorCodeIcon='white'
+                            colorLabel={Colors.white}
                             onPress={()=>{
                                 Linking.openURL('https://facebook.com')
                             }}
@@ -139,6 +143,7 @@ const Login:React.FC<{navigation:any}> =({navigation}) =>{
                             label='Log in with Aple'
                             colorCode={Colors.colorApple}
                             colorCodeIcon={Colors.colorApple}
+                            colorLabel={Colors.white}
                             onPress={()=>{
                                 Linking.openURL('https://appleid.apple.com/sign-in')
                             }}

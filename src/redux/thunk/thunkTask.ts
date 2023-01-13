@@ -29,6 +29,36 @@ export function deleteTodo(arr:[]){
     }
 }
 
+export function updateDetail(arr:[]){
+    return  function onUpdateDetail(dispatch:any,getState:any){
+        try{
+             dispatch({
+                type:t.UPDATE_DEFAULT_VALUE,
+                payload: arr
+            })
+        }catch(err){
+            console.log('log',err)
+        }
+    }
+}
+
+export function updateTodo(id:number,title:string, describe:string){
+    return  function onUpdateTodo(dispatch:any,getState:any){
+        try{
+             dispatch({
+                type:t.UPDATE_TODO,
+                payload: {
+                    id,
+                    title,
+                    describe
+                }
+            })
+        }catch(err){
+            console.log('log',err)
+        }
+    }
+}
+
 
 
 

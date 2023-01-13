@@ -1,6 +1,5 @@
 import initTask from '../data/initTask'
 import * as f from '../action'
-import { array } from 'yup';
 
 const reducerTask = (state=initTask,{type,payload}:any) =>{
     switch(type){
@@ -20,9 +19,20 @@ const reducerTask = (state=initTask,{type,payload}:any) =>{
             };
         }  
         case f.UPDATE_TODO :
+            const arr = payload
             return {
-
-            }      
+                ...state,
+                list:state.list.map((task:any)=>{
+                   if( task.id === arr.id) return arr
+                   else return task
+                })
+            } 
+           
+        case f.UPDATE_DEFAULT_VALUE:
+            return{
+                ...state,
+                detail_list:payload
+            }     
         default :
             return state;
     }

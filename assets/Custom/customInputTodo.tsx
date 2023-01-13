@@ -39,14 +39,11 @@ const CustomInputTodo:React.FC<customInputProps> = (props) =>{
 
 
 const styles = StyleSheet.create({
-    container:{
-        
-    },
     viewLogin:{
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.2)',
+        backgroundColor: 'white',
         width: 327,
         height: 50,
         borderRadius: 100,
@@ -55,25 +52,20 @@ const styles = StyleSheet.create({
         marginRight:30
     },
     textInput:{
-        height:50,
-        width:270,
-        color:'#828187',
-        
+        fontSize:20,
+        width:'80%',
+        color:'black',
+        marginLeft:10
     },
     textLabel:{
         color: 'black',
         fontWeight:'bold',
         fontSize:20,
         justifyContent:'center',
-        bottom:2
+        marginBottom:2,
+        marginLeft:10
     },
-    images:{
-        height: 25,
-        width: 25,
-        resizeMode: 'stretch',
-        alignItems: 'center',
-        marginLeft:25
-    }
+    
 
 })
 

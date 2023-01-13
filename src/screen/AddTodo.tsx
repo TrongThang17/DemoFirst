@@ -1,5 +1,5 @@
 import React,{useState,useEffect, useCallback} from "react";
-import {View, Text, Touchable, TouchableOpacity, StyleSheet} from 'react-native'
+import {View, Text, ImageBackground, TouchableOpacity, StyleSheet} from 'react-native'
 import CustomInputTodo from "../../assets/Custom/customInputTodo";
 import CustomButton from "../../assets/Custom/customButtonLogin";
 import * as yup from "yup";
@@ -8,7 +8,7 @@ import { Controller,useForm } from "react-hook-form";
 import { Colors } from "../../assets/Colors";
 import { store } from "../redux/store";
 import { addTodo } from "../redux/thunk/thunkTask";
-import initTask from "../redux/data/initTask";
+import {image} from '../../assets/image'
 import { useSelector,useDispatch } from "react-redux";
 interface validate {
     title:string,
@@ -23,15 +23,18 @@ const AddTodo:React.FC<{navigation:any}> = ({navigation}) =>{
         resolver: yupResolver(schema)
       }); 
     const inf = useSelector((state:any)=>state.reducerTask.list)
+    const [isDisable,setIsDisable] = useState(true);
     const dispatch = useDispatch()
+
     const handleAddTodo =useCallback((value:any)=>{
-        
         dispatch(addTodo(ID++,value.title,value.describe))
         navigation.navigate('Home')
     },[])
-    const [isDisable,setIsDisable] = useState(true);
+
+    
     return (
         <View>
+            <ImageBackground source={image.backgroundtodo} style={{width:'100%',height:'100%'}}>
             <Text style={styles.textHeader}>
                 Write Here !!
             </Text>
@@ -68,9 +71,15 @@ const AddTodo:React.FC<{navigation:any}> = ({navigation}) =>{
                                 } 
                                 name={'describe'}                              
                         />    
-                <CustomButton label="Save" onPress={handleSubmit(handleAddTodo)} disable={isDisable} colorCode={isDisable ? Colors.background: Colors.colorApple}/> 
+                <CustomButton 
+                    label="Save" 
+                    onPress={handleSubmit(handleAddTodo)} 
+                    disable={isDisable} 
+                    colorCode={isDisable ? Colors.background: Colors.white}
+                    colorLabel='black'
+                /> 
             </View>
-
+            </ImageBackground>
         </View>
     )
    
@@ -81,7 +90,7 @@ const styles = StyleSheet.create({
         textAlign:'center',
         fontSize:50,
         fontWeight:'600',
-        color:'#ee6e73',
+        color:'white',
         marginBottom:50,
         marginTop:50
     },

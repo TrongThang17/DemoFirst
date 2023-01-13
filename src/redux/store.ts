@@ -23,13 +23,11 @@ const rootReducer = combineReducers({
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
-// const store = createStore(
-//   persistedReducer,compose(applyMiddleware(...middlewares))
-// );
-// const persistor = persistStore(store)
 const store = createStore(
-  rootReducer,compose(applyMiddleware(...middlewares))
+  persistedReducer,compose(applyMiddleware(...middlewares))
 );
+const persistor = persistStore(store)
+
 sagaMiddleware.run(rootSaga);
 
 

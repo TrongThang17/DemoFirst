@@ -5,9 +5,10 @@ import { Text, TouchableOpacity, View , StyleSheet, Image} from 'react-native'
 interface CustomButtonProps  {
     label:string;
     colorCode?:string;
-    onPress: () => void;
+    onPress?: () => void; 
     img?:any;
     colorCodeIcon?:string,
+    colorLabel?:string,
     disable?:boolean
 }
 const CustomButton: React.FC<CustomButtonProps> =(props) => {
@@ -24,7 +25,7 @@ const CustomButton: React.FC<CustomButtonProps> =(props) => {
                         />
                     </View>
                     
-                    <Text style={styles.textLogin}> {props.label}</Text>    
+                    <Text style={[styles.textLogin,{color:props.colorLabel}]}> {props.label}</Text>    
                 </TouchableOpacity>                    
         </View> 
     )
@@ -55,11 +56,11 @@ const styles = StyleSheet.create({
         fontSize:20,
         fontWeight:'bold',
         textAlign:'center',
-        color:'white',
         flex:1,
         justifyContent:'center',
         marginTop:9,
         marginRight:25,
+        
        
     },
     img:{

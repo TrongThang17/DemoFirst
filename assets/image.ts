@@ -10,5 +10,6 @@ export const image ={
     email:require('./image/email.png'),
     eye:require('./image/eye.png'),
     tick:require('./image/tick.png'),
+    backgroundtodo:require('./image/backgroundTodo.jpg'),
     loading:require('./image/loading.gif')
 }
