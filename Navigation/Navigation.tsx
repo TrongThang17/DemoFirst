@@ -6,19 +6,24 @@ import AddTodo from "../src/screen/AddTodo";
 import Signip from "../src/screen/Signup";
 import TodoDetail from "../src/screen/TodoDetail";
 import { useSelector } from "react-redux";
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { Button, TouchableOpacity } from "react-native";
-import { Text } from "react-native-paper";
+import React,{useState,useEffect} from "react";
+import {auth} from '../src/Firebase/firebase'
 const stack = createNativeStackNavigator();
 
 
 const Navigation:React.FC = () =>{
     const isLogin = useSelector((state:any)=>state.reducerLogin.isLogin)
-  
+    const [user,setUser] = useState();
+    useEffect(()=>{
+        auth.onAuthStateChanged((user:any)=>{
+            setUser(user)
+        })
+    },[])
+   
     return  (    
             <NavigationContainer>
                  <stack.Navigator screenOptions={{headerShown:false}}>  
-                    {!isLogin ?
+                    {!user ?
                     (  
                         <>
                             <stack.Screen name={'Login'} component={Login}/>

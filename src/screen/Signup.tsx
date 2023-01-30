@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { StyleSheet,View, Text, Image,TouchableOpacity, Linking} from "react-native";
+import { StyleSheet,View, Text, Image,TouchableOpacity, Alert} from "react-native";
 import * as yup from "yup";
 import {yupResolver} from '@hookform/resolvers/yup';
 import { Controller,useForm } from "react-hook-form";
@@ -8,6 +8,7 @@ import {Colors} from '../../assets/Colors'
 import CustomInput from "../../assets/Custom/customInputLogin";
 import CustomButton from "../../assets/Custom/customButtonLogin";
 import LinearGradient from 'react-native-linear-gradient';
+import {auth} from '../Firebase/firebase'
 interface validate {
     firstname:string,
     lastname:string,
@@ -30,6 +31,23 @@ const Signin:React.FC<{navigation:any}> = ({navigation}) =>{
     const Show = () =>{
         show == true ? setShow(false) : setShow(true)
     }
+    const onSignUp =useCallback((value:any) =>{
+        auth
+        .createUserWithEmailAndPassword(value.email,value.password)
+        .then(userCredentials=>{
+            const user = userCredentials.user;
+            console.log(user?.email)
+        })
+        .catch(err => console.log(err.message))
+        // if(auth.currentUser != null ){
+        //     auth.currentUser.updateProfile({
+        //         displayName:value.lastname + ' ' + value.firstname
+        //     })
+        //     .then(()=>console.log("Updated"))
+        //     .catch(err=>console.log(err))
+        // }
+        console.log(value.email)
+},[])
     return (
        <View style={styles.container}>
              <View>
@@ -146,7 +164,7 @@ const Signin:React.FC<{navigation:any}> = ({navigation}) =>{
                                 
                             <CustomButton 
                                     label="Register" 
-                                    onPress={handleSubmit()}
+                                    onPress={handleSubmit(onSignUp)}
                             />
                         </LinearGradient>                   
             </View>

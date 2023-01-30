@@ -8,7 +8,8 @@ import Item from "../../assets/Custom/customItem";
 import { deleteTodo,updateDetail} from "../redux/thunk/thunkTask";
 import Modal from "react-native-modal";
 import * as f from '../redux/action'
-
+import auth from "@react-native-firebase/auth";
+import {firebase} from '../Firebase/firebase'
 const  Home:React.FC<{navigation:any}> =  ({navigation}) => {
     const inf = useSelector((state:any)=>state.reducerTask.list)
     const [selected, setSelected] = useState(new Map());
@@ -16,6 +17,7 @@ const  Home:React.FC<{navigation:any}> =  ({navigation}) => {
     const [allSelectCheck,setAllSelectCheck] = useState(false)
     const [allDataCheckbox,setAllDataCheckbox]:any = useState([])
     const [modalVisible,setModalVisible] = useState(false)
+    
     const fadeAnim = useRef(new Animated.Value(0)).current ;
     const dispatch = useDispatch()
     const fadein = useEffect(()=>{
@@ -27,7 +29,6 @@ const  Home:React.FC<{navigation:any}> =  ({navigation}) => {
             }
         ).start()
     },[fadeAnim])
-    
       const onSelectItem =  useCallback(
         (id:number) => {
           const newSelected = new Map(selected);        
@@ -60,11 +61,14 @@ const  Home:React.FC<{navigation:any}> =  ({navigation}) => {
           setAllDataCheckbox(arr)
           numberCount == 0  ? setAllSelectCheck(false) : setAllSelectCheck(true)
         }) 
+
+       
+        
     return  (
    
-        <View style={styles.container}> 
-         <ImageBackground source={image.backgroundtodo} style={{width:'100%',height:'100%'}}>
-            <Text style={[styles.title]}>All Tasks </Text>                                     
+    <View style={styles.container}> 
+        <ImageBackground source={image.backgroundtodo} style={{width:'100%',height:'100%'}}>
+            <Text style={[styles.title]}>All Tasks  </Text>                                
             <View style={styles.viewFlatlist}>
                 <View style={{height:30,alignItems:'flex-end',marginBottom:10,marginRight:30}}>
                     {allSelectCheck ? <CustomButtonDelete onPress={()=>{
@@ -74,20 +78,20 @@ const  Home:React.FC<{navigation:any}> =  ({navigation}) => {
                     <Modal isVisible={modalVisible} style={{flex:1,justifyContent:'center',alignItems:'center'}}>
                         <View style={styles.popupDelete}>
                             <Text style={{textAlign:'center',fontSize:20,fontWeight:'700',color:'red'}}>Are you sure you want to delete it?</Text>
-                            <View style={styles.viewBtnPopupDelete}>
-                                <TouchableOpacity 
-                                    style={styles.btnConfirmDelete}
-                                    onPress={()=>{
-                                        dispatch(deleteTodo(allDataCheckbox)) 
-                                        navigation.replace('Home')
-                                    }}
-                                >
-                                    <Text style={styles.textButton}>OK</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.btnConfirmDelete} onPress={()=>setModalVisible(false)}>
-                                    <Text style={styles.textButton}>CANCLE</Text>
-                                </TouchableOpacity>
-                            </View>
+                                <View style={styles.viewBtnPopupDelete}>
+                                    <TouchableOpacity 
+                                        style={styles.btnConfirmDelete}
+                                        onPress={()=>{
+                                            dispatch(deleteTodo(allDataCheckbox)) 
+                                            navigation.replace('Home')
+                                        }}
+                                    >
+                                        <Text style={styles.textButton}>OK</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={styles.btnConfirmDelete} onPress={()=>setModalVisible(false)}>
+                                        <Text style={styles.textButton}>CANCLE</Text>
+                                    </TouchableOpacity>
+                                </View>
                         </View>
                     </Modal>
                 </View>
@@ -113,22 +117,23 @@ const  Home:React.FC<{navigation:any}> =  ({navigation}) => {
                     />
             </View>
             
-            <View style={{marginTop:40}}>
+            <View style={styles.viewTouchPlus}>
+                <TouchableOpacity style={styles.touchPlus} onPress={()=>{ navigation.navigate('AddTodo')}}>
+                    <Text style={styles.textPlus}>+</Text>
+                </TouchableOpacity>
+           </View>
+           
+            <View>
                 <CustomButton label="Logout" onPress={() => {
                         dispatch({
-                            type:f.LOGOUT_SAGA,
-                            
+                            type:f.LOGOUT_SAGA, 
                         })
                     }} colorCode="#9ee6e6" /> 
-
-                </View>
+            </View>
            
            
-            <TouchableOpacity style={styles.touchPlus} onPress={()=>{ navigation.navigate('AddTodo')}}>
-               <Text style={styles.textPlus}>+</Text>
-            </TouchableOpacity>
         </ImageBackground>
-        </View>
+    </View>
  
     )
 };
@@ -150,9 +155,9 @@ const styles= StyleSheet.create({
         height:60,
         borderRadius: 30,            
         backgroundColor: '#ee6e73',                                    
-        position: 'absolute',
-        top:600,
-        left:170
+        justifyContent:'center',
+     
+        
 
     },
     textPlus:{
@@ -162,9 +167,9 @@ const styles= StyleSheet.create({
         
     },
     viewFlatlist:{
-        height:530,
+        height:430,
         width:'100%',
-        marginBottom:30,
+        marginBottom:10,
     },
     choosenButton:{
         width:18,
@@ -193,8 +198,6 @@ const styles= StyleSheet.create({
     viewBtnPopupDelete:{
         flexDirection:'row',
         alignContent:'center',
-      
-        
         justifyContent:'center'
     },
     btnConfirmDelete:{
@@ -204,14 +207,18 @@ const styles= StyleSheet.create({
         height:40,
         margin:10,
         
-        
     },
     textButton:{
         marginTop:10,
         textAlign:'center',
         fontWeight:'600',
         color:'red'
-    }
+    },
+    viewTouchPlus:{
+        alignItems:'center',
+        marginBottom:10,
+    },
+    
 })
 
 export default Home;

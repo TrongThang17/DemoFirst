@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { StyleSheet,View, Text, Image,TouchableOpacity, Linking} from "react-native";
+import { StyleSheet,View, Text, Image,TouchableOpacity, Linking,Alert} from "react-native";
 import {image} from '../../assets/image';
 import CustomInput from "../../assets/Custom/customInputLogin";
 import CustomButton from "../../assets/Custom/customButtonLogin";
@@ -10,16 +10,17 @@ import { useDispatch,useSelector } from "react-redux";
 import LinearGradient from 'react-native-linear-gradient';
 import {Colors} from '../../assets/Colors'
 import Loading from "./Loading";
+import {auth} from '../Firebase/firebase'
 import {login} from '../redux/thunk/thunkLogin'
 import { store } from "../redux/store";
 import initData from "../redux/data/initData";
 interface validate {
-    username:string,
+    email:string,
     password:string
 }
 
 const schema = yup.object().shape({
-    username:yup.string().required(),
+    email:yup.string().required(),
     password:yup.string().required().min(8, 'At least 8 characters')
 })
 const Login:React.FC<{navigation:any}> =({navigation}) =>{
@@ -29,10 +30,18 @@ const Login:React.FC<{navigation:any}> =({navigation}) =>{
     const dispatch = useDispatch()
     const isLoading = useSelector((state:any)=>state.reducerLogin.isLoading)
     const [show,setShow] = useState(true);
-    
-    const onLoginThunk = useCallback( (value:any)=>{
+   
+    const  onLoginThunk =  useCallback((value:any)=>{
         dispatch(login(value))
         
+            // auth
+            // .signInWithEmailAndPassword(value.email,value.password)
+            // .then(userCredentials=>{
+            //     const user = userCredentials.user;
+            //     console.log(user?.email)
+            // })
+            // .catch(err => console.log(err.message))
+            // console.log('value email',value.email)
     } ,[])
 
     const Show = useCallback(()=>{
@@ -53,7 +62,7 @@ const Login:React.FC<{navigation:any}> =({navigation}) =>{
             </View>
 
             <View style={styles.hr}/>
-            <Text style={styles.textLogin}>Log In</Text>
+            <Text style={styles.textLogin}>Log In </Text>
             <View style={styles.viewTextInput}>
                     <Controller
                                 control={control}
@@ -62,16 +71,16 @@ const Login:React.FC<{navigation:any}> =({navigation}) =>{
                                 }}
                                 render={({ field: { onChange ,value} }) =>
                                 <CustomInput 
-                                            placeholder="Username" 
+                                            placeholder="Email" 
                                             onChange={onChange}
                                             value={value} 
                                             img={image.user} 
                                             />                                   
                                 } 
-                                name={'username'}
+                                name={'email'}
                                 
                         />
-                            {errors.username && <Text style={styles.errorText}>This is required Username.</Text>}
+                            {errors.email && <Text style={styles.errorText}>This is required Email.</Text>}
                         <Controller 
                                 control={control}
                                 rules={{
@@ -96,37 +105,37 @@ const Login:React.FC<{navigation:any}> =({navigation}) =>{
                             {errors.password && <Text style={styles.errorText}>{errors.password.message}</Text>}  
                     
                     <Text style={styles.textForget}>Forget Password</Text>  
-                   
-                        <LinearGradient 
+                            <View style={styles.viewLogin}>
+                                <LinearGradient 
                                 colors={Colors.colorLogin}  
                                 style={styles.linearGradient}
                                 start={{x: 0, y: 0}} 
                                 end={{x: 1, y: 0}}
-                        >
+                                >
                                 
-                            <CustomButton 
-                                    label="Log In" 
-                                    onPress={handleSubmit(onLoginThunk)}
-                                    colorLabel={Colors.white}
-                            />
-                        </LinearGradient>                        
-            </View>
-            
-            <View style={styles.viewTextLR}>
-                <Text style={styles.textLeft}>Don't have an account ? </Text>
-                <Text style={styles.textRight} onPress={()=>{
-                    navigation.navigate('Signup')
-                }}>Sign Up </Text>
-            </View>
+                                <CustomButton 
+                                        label="Log In" 
+                                        onPress={handleSubmit(onLoginThunk)}
+                                        colorLabel={Colors.white}
+                                />
+                                </LinearGradient>    
+                            </View>
 
-            <View style={{flexDirection: 'row', alignItems: 'center',padding:20,top:500}}>
+                       
+                <View style={styles.viewTextLR}>
+                    <Text style={styles.textLeft}>Don't have an account ? </Text>
+                    <Text style={styles.textRight} onPress={()=>{
+                        navigation.navigate('Signup')
+                    }}>Sign Up </Text>
+                </View> 
+                <View style={{flexDirection: 'row', alignItems: 'center',padding:20}}>
                     <View style={{flex: 1, height: 2, backgroundColor:Colors.hr1,borderRadius:90}} />
-                    <View>
-                            <Text style={{width:150, textAlign: 'center',color:'white',}}>Or Log in With </Text>
-                    </View>
+                        <View>
+                                <Text style={{width:150, textAlign: 'center',color:'white',}}>Or Log in With </Text>
+                        </View>
                     <View style={{flex: 1, height: 2, backgroundColor: Colors.hr1, borderRadius:90}} />
-            </View>   
-            <View style={styles.viewFooter}>
+                </View> 
+                <View style={styles.viewFooter}>
                     <CustomButton 
                             img={image.facebook}
                             label='Log in with Facebook'
@@ -148,15 +157,22 @@ const Login:React.FC<{navigation:any}> =({navigation}) =>{
                                 Linking.openURL('https://appleid.apple.com/sign-in')
                             }}
                     />             
+            </View>      
             </View>
+                        
+            
+          
+
+             
+            
     </View>
     )
 }
 
 const styles = StyleSheet.create({
     container:{
-        position:'absolute',
-        width:375,
+     
+        width:'100%',
         height:812,
         left:0,
         top:0,
@@ -233,11 +249,10 @@ const styles = StyleSheet.create({
         borderRadius:30,
     },
     textLogin:{
-        position:'absolute',
         width: 69,
         height: 27,
         left: 38,
-        top: 168,
+        top: 150,
         fontFamily:'Outfit',
         fontStyle:'normal',
         fontWeight:'900',
@@ -248,12 +263,12 @@ const styles = StyleSheet.create({
         color:Colors.white
     },
     viewTextInput:{
-        top: 216,
-        position:'absolute'
-
+        top: 160,
+      
+        justifyContent:'center',
+        alignItems:'center'
     },
     textForget:{
-        marginRight:40,
         fontStyle:'normal',
         fontWeight:'400',
         fontSize:15,
@@ -261,24 +276,21 @@ const styles = StyleSheet.create({
         display:'flex',
         textAlign:"right",
         alignItems:'center',
-        color:Colors.white
+        color:Colors.white,
+        marginLeft:190
     },
-    btnLogin:{
-        position:'absolute',
-        left: 24,
-        top: 192,
-        justifyContent:'center'
+    viewLogin:{
+        paddingRight:20,
+      
     },
     viewTextLR:{
-        position:'absolute',
-        flexDirection:'row'
+        marginTop:10,
+        flexDirection:'row',
+        justifyContent:'center'
     },
     textLeft:{
-        position:'absolute',
-        width: 186,
+        width: 170,
         height:20,
-        left:77,
-        top:470,
         fontStyle:'normal',
         fontWeight:'400',
         fontSize:15,
@@ -289,8 +301,6 @@ const styles = StyleSheet.create({
     textRight:{
         width: 60,
         height:20,
-        left:244,
-        top:470,
         color:Colors.signUp,
         fontStyle:'normal',
         fontWeight:'700',
@@ -299,12 +309,12 @@ const styles = StyleSheet.create({
         fontFamily:'Outfit',
     },
     viewFooter:{
-        top:500,
+        
     },
     errorText:{
         color:'red',
         marginBottom:5,
-        marginLeft:30
+        marginRight:130
     },
     linearGradient:{
         borderRadius:30,

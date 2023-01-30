@@ -24,8 +24,8 @@ const reducerLogin = (state=initData,{type,payload}:any) =>{
         case f.LOGIN_THUNK_SUCCESS:
             return{
                 ...state,
-                username:payload.username,
-                password:payload.password,
+                // username:payload.username,
+                // password:payload.password,
                 isLoading:false,
                 isLogin:true
             }
