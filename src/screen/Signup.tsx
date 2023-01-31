@@ -8,7 +8,9 @@ import {Colors} from '../../assets/Colors'
 import CustomInput from "../../assets/Custom/customInputLogin";
 import CustomButton from "../../assets/Custom/customButtonLogin";
 import LinearGradient from 'react-native-linear-gradient';
-import {auth} from '../Firebase/firebase'
+import { useDispatch } from "react-redux";
+import { signup } from "../redux/thunk/thunkLogin";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 interface validate {
     firstname:string,
     lastname:string,
@@ -23,7 +25,7 @@ const schema = yup.object().shape({
 })
 
 const Signin:React.FC<{navigation:any}> = ({navigation}) =>{
-    const [show,setShow] = useState(false);
+    const [show,setShow] = useState(true);
     const [tick,setTick] = useState(false);
     const { control,register, handleSubmit, watch, formState: { errors } }:any = useForm<validate>({
         resolver: yupResolver(schema)
@@ -31,24 +33,12 @@ const Signin:React.FC<{navigation:any}> = ({navigation}) =>{
     const Show = () =>{
         show == true ? setShow(false) : setShow(true)
     }
+    const dispatch = useDispatch()
     const onSignUp =useCallback((value:any) =>{
-        auth
-        .createUserWithEmailAndPassword(value.email,value.password)
-        .then(userCredentials=>{
-            const user = userCredentials.user;
-            console.log(user?.email)
-        })
-        .catch(err => console.log(err.message))
-        // if(auth.currentUser != null ){
-        //     auth.currentUser.updateProfile({
-        //         displayName:value.lastname + ' ' + value.firstname
-        //     })
-        //     .then(()=>console.log("Updated"))
-        //     .catch(err=>console.log(err))
-        // }
-        console.log(value.email)
-},[])
+       dispatch(signup(value))
+    },[])
     return (
+<KeyboardAwareScrollView>
        <View style={styles.container}>
              <View>
                 <View style={styles.imgHeader}>
@@ -64,7 +54,7 @@ const Signin:React.FC<{navigation:any}> = ({navigation}) =>{
 
             <View style={styles.hr}/>
             <Text style={styles.textLogin}>Register </Text>
-
+        
             <View style={styles.viewTextInput}>
                     <Controller
                                 control={control}
@@ -97,7 +87,7 @@ const Signin:React.FC<{navigation:any}> = ({navigation}) =>{
                                 } 
                                 name={'lastname'}     
                         />
-                            {errors.firstname && <Text style={styles.errorText}>This is required Lastname.</Text>}   
+                            {errors.lastname && <Text style={styles.errorText}>This is required Lastname.</Text>}   
                     <Controller
                                 control={control}
                                 rules={{
@@ -167,21 +157,21 @@ const Signin:React.FC<{navigation:any}> = ({navigation}) =>{
                                     onPress={handleSubmit(onSignUp)}
                             />
                         </LinearGradient>                   
+                <View style={{alignItems:'center',paddingTop:20}}>
+                    <Text style={styles.textChoosen}>Already have an account ? <Text style={styles.textSpecial} onPress={()=>{navigation.navigate('Login')}}>Log In</Text></Text>
+                </View>
             </View>
-            <View style={{top:710,alignItems:'center'}}>
-                <Text style={styles.textChoosen}>Already have an account ? <Text style={styles.textSpecial} onPress={()=>{navigation.navigate('Login')}}>Log In</Text></Text>
-            </View>
+            
             
 
        </View>
-
+</KeyboardAwareScrollView>
     )
 }
 
 const styles = StyleSheet.create({
     container:{
-        position:'absolute',
-        width:375,
+        width:'100%',
         height:812,
         left:0,
         top:0,
@@ -260,11 +250,10 @@ const styles = StyleSheet.create({
         borderRadius:30,
     },
     textLogin:{
-        position:'absolute',
         width: 97,
         height: 27,
         left: 38,
-        top: 168,
+        top: 150,
         fontFamily:'Outfit',
         fontStyle:'normal',
         fontWeight:'900',
@@ -275,25 +264,26 @@ const styles = StyleSheet.create({
         color:Colors.white
     },
     viewTextInput:{
-        top: 216,
-        position:'absolute'
+        justifyContent:'center',
+        alignItems:'center',
+        top:160
     },
     errorText:{
         color:'red',
         marginBottom:5,
-        marginLeft:30
+        marginRight:130
     },
     linearGradient:{
         borderRadius:30,
         height:52,
         width:327,
         paddingTop:5,
-        marginLeft:30,
-        marginTop:60
+        marginLeft:20,
+        marginTop:20
     },
     selectedButton:{
         flexDirection:'row',
-        
+        paddingRight:50
     },
     choosenButton:{
         width:18,

@@ -8,8 +8,8 @@ import Item from "../../assets/Custom/customItem";
 import { deleteTodo,updateDetail} from "../redux/thunk/thunkTask";
 import Modal from "react-native-modal";
 import * as f from '../redux/action'
-import auth from "@react-native-firebase/auth";
-import {firebase} from '../Firebase/firebase'
+import { logout } from "../redux/thunk/thunkLogin";
+import { auth } from "../Firebase/firebase";
 const  Home:React.FC<{navigation:any}> =  ({navigation}) => {
     const inf = useSelector((state:any)=>state.reducerTask.list)
     const [selected, setSelected] = useState(new Map());
@@ -20,16 +20,8 @@ const  Home:React.FC<{navigation:any}> =  ({navigation}) => {
     
     const fadeAnim = useRef(new Animated.Value(0)).current ;
     const dispatch = useDispatch()
-    const fadein = useEffect(()=>{
-        Animated.timing(
-            fadeAnim,{
-                toValue:1,
-                duration:3000,
-                useNativeDriver: true
-            }
-        ).start()
-    },[fadeAnim])
-      const onSelectItem =  useCallback(
+      
+    const onSelectItem =  useCallback(
         (id:number) => {
           const newSelected = new Map(selected);        
           newSelected.set(id, !selected.get(id));
@@ -42,10 +34,9 @@ const  Home:React.FC<{navigation:any}> =  ({navigation}) => {
         inf.forEach((element:any) => {
             if(element.id==id)  dispatch(updateDetail(element))
         });
-        navigation.navigate('TodoDetail')
-        
+        navigation.navigate('TodoDetail')    
       }
-      const onSelectCheck = (
+      const onSelectCheck =(
         (id:number) => {
           const newSelectedCheck = new Map(selectedCheck);
           let arr:any =[];
@@ -62,13 +53,18 @@ const  Home:React.FC<{navigation:any}> =  ({navigation}) => {
           numberCount == 0  ? setAllSelectCheck(false) : setAllSelectCheck(true)
         }) 
 
+    const onLogout = useCallback(()=>{
+        dispatch(logout())
+    },[])
+
+    let user = auth.currentUser
        
         
     return  (
    
     <View style={styles.container}> 
         <ImageBackground source={image.backgroundtodo} style={{width:'100%',height:'100%'}}>
-            <Text style={[styles.title]}>All Tasks  </Text>                                
+            <Text style={[styles.title]}>All Tasks {user?.displayName}  </Text>                                
             <View style={styles.viewFlatlist}>
                 <View style={{height:30,alignItems:'flex-end',marginBottom:10,marginRight:30}}>
                     {allSelectCheck ? <CustomButtonDelete onPress={()=>{
@@ -124,11 +120,7 @@ const  Home:React.FC<{navigation:any}> =  ({navigation}) => {
            </View>
            
             <View>
-                <CustomButton label="Logout" onPress={() => {
-                        dispatch({
-                            type:f.LOGOUT_SAGA, 
-                        })
-                    }} colorCode="#9ee6e6" /> 
+                <CustomButton label="Logout" onPress={onLogout} colorCode="#9ee6e6" /> 
             </View>
            
            

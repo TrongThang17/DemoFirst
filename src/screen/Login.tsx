@@ -12,8 +12,7 @@ import {Colors} from '../../assets/Colors'
 import Loading from "./Loading";
 import {auth} from '../Firebase/firebase'
 import {login} from '../redux/thunk/thunkLogin'
-import { store } from "../redux/store";
-import initData from "../redux/data/initData";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 interface validate {
     email:string,
     password:string
@@ -30,24 +29,16 @@ const Login:React.FC<{navigation:any}> =({navigation}) =>{
     const dispatch = useDispatch()
     const isLoading = useSelector((state:any)=>state.reducerLogin.isLoading)
     const [show,setShow] = useState(true);
-   
+    
     const  onLoginThunk =  useCallback((value:any)=>{
         dispatch(login(value))
-        
-            // auth
-            // .signInWithEmailAndPassword(value.email,value.password)
-            // .then(userCredentials=>{
-            //     const user = userCredentials.user;
-            //     console.log(user?.email)
-            // })
-            // .catch(err => console.log(err.message))
-            // console.log('value email',value.email)
     } ,[])
 
     const Show = useCallback(()=>{
         show ? setShow(false) : setShow(true)
     },[show])
     return isLoading  ? (<Loading />) : (
+    <KeyboardAwareScrollView>
         <View style={styles.container}>
             <View>
                 <View style={styles.imgHeader}>
@@ -158,20 +149,14 @@ const Login:React.FC<{navigation:any}> =({navigation}) =>{
                             }}
                     />             
             </View>      
-            </View>
-                        
-            
-          
-
-             
-            
+        </View>                                                     
     </View>
+</KeyboardAwareScrollView>
     )
 }
 
 const styles = StyleSheet.create({
     container:{
-     
         width:'100%',
         height:812,
         left:0,

@@ -1,5 +1,6 @@
 import initData from "../data/initData"
 import * as f from '../action'
+import { formToJSON } from "axios"
 
 const reducerLogin = (state=initData,{type,payload}:any) =>{
     switch(type){
@@ -18,14 +19,12 @@ const reducerLogin = (state=initData,{type,payload}:any) =>{
                 ...state,
                 username:payload.username,
                 password:payload.password,
-                isLogin:true,
-                isLoading:false
+                // isLogin:true,
+                // isLoading:false
             }
         case f.LOGIN_THUNK_SUCCESS:
             return{
                 ...state,
-                // username:payload.username,
-                // password:payload.password,
                 isLoading:false,
                 isLogin:true
             }
@@ -44,11 +43,27 @@ const reducerLogin = (state=initData,{type,payload}:any) =>{
             }
         case f.LOGOUT_THUNK :
             return{
+                isLoading:true,
+            }
+        case f.LOGOUT_THUNK_SUCCESS :
+            return{
                 ...state,
-                username:'',
-                password:'',
                 isLoading:false,
                 isLogin:false
+            }
+        case f.SIGNUP_THUNK :
+            return {
+                 isLoading:true,
+                
+            }
+        case f.SIGNUP_THUNK_SUCCESS :
+            return {
+                isLoading:false,
+                isLogin:true
+            }
+        case f.ERROR :
+            return{
+                isLoading:false
             }
         default :
             return state;
