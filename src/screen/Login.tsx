@@ -27,7 +27,9 @@ const Login: React.FC<{ navigation: any }> = ({ navigation }) => {
         resolver: yupResolver(schema)
     });
     const dispatch = useDispatch()
+    
     const isLoading = useSelector((state: any) => state.reducerLogin.isLoading)
+    
     const [showPW, setShowPW] = useState(true);
 
     const onLoginThunk = useCallback((value: any) => {

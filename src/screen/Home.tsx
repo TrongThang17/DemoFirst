@@ -61,86 +61,90 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
 
 
     return (
+        <View>
+            <ImageBackground source={image.backgroundtodo} style={{ width:'100%',height:'100%' }}>
+                <View style={styles.container}>
+                    <View >
+                        <Text style={styles.title}>All Tasks {user?.displayName}  </Text>
+                    </View>
+                    <View style={styles.viewBody}>
+                        <View style={styles.viewFlatlist}>
+                            <View style={{ height: 30, alignItems: 'flex-end', marginBottom: 10, marginRight: 30 }}>
+                                {allSelectCheck ? <CustomButtonDelete onPress={() => {
+                                    setModalVisible(true)
+                                }} /> : ''}
 
-        <View style={styles.container}>
-            <ImageBackground source={image.backgroundtodo} style={{ width: '100%', height: '100%' }}>
-                <Text style={[styles.title]}>All Tasks {user?.displayName}  </Text>
-                <View style={styles.viewFlatlist}>
-                    <View style={{ height: 30, alignItems: 'flex-end', marginBottom: 10, marginRight: 30 }}>
-                        {allSelectCheck ? <CustomButtonDelete onPress={() => {
-                            setModalVisible(true)
-                        }} /> : ''}
-
-                        <Modal isVisible={modalVisible} style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                            <View style={styles.popupDelete}>
-                                <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: '700', color: 'red' }}>Are you sure you want to delete it?</Text>
-                                <View style={styles.viewBtnPopupDelete}>
-                                    <TouchableOpacity
-                                        style={styles.btnConfirmDelete}
-                                        onPress={() => {
-                                            dispatch(deleteTodo(allDataCheckbox))
-                                            navigation.replace('Home')
-                                        }}
-                                    >
-                                        <Text style={styles.textButton}>OK</Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={styles.btnConfirmDelete} onPress={() => setModalVisible(false)}>
-                                        <Text style={styles.textButton}>CANCLE</Text>
-                                    </TouchableOpacity>
-                                </View>
+                                <Modal isVisible={modalVisible} style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                    <View style={styles.popupDelete}>
+                                        <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: '700', color: 'red' }}>Are you sure you want to delete it?</Text>
+                                        <View style={styles.viewBtnPopupDelete}>
+                                            <TouchableOpacity
+                                                style={styles.btnConfirmDelete}
+                                                onPress={() => {
+                                                    dispatch(deleteTodo(allDataCheckbox))
+                                                    navigation.replace('Home')
+                                                }}
+                                            >
+                                                <Text style={styles.textButton}>OK</Text>
+                                            </TouchableOpacity>
+                                            <TouchableOpacity style={styles.btnConfirmDelete} onPress={() => setModalVisible(false)}>
+                                                <Text style={styles.textButton}>CANCLE</Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                    </View>
+                                </Modal>
                             </View>
-                        </Modal>
+                            <View>
+                                <FlatList
+                                    style={{ height: 400, width: '100%' }}
+                                    data={inf}
+                                    keyExtractor={(item: any) => item.id}
+                                    renderItem={({ item }) => (
+                                        <Item
+                                            id={item.id}
+                                            title={item.title}
+                                            describe={item.describe}
+                                            selected={!!selected.get(item.id)}
+                                            selectedCheck={!!selectedCheck.get(item.id)}
+                                            onSelectItem={onSelectItem}
+                                            onSelectCheck={onSelectCheck}
+                                            allSelectCheck={allSelectCheck}
+                                            onSendValue={onSendValueToDetail}
+                                        />
+                                    )}
+                                    extraData={selected}
+                                />
+                            </View>
+                        </View>
+
+                        <View style={styles.viewTouchPlus}>
+                            <TouchableOpacity style={styles.touchPlus} onPress={() => { navigation.navigate('AddTodo') }}>
+                                <Text style={styles.textPlus}>+</Text>
+                            </TouchableOpacity>
+                        </View>
+
+                        <View style={{ padding: 30 }}>
+                            <CustomButton label="Logout" onPress={onLogout} colorCode="#9ee6e6" />
+                        </View>
                     </View>
 
-                    <FlatList
-                        style={{ height: 400, width: '100%' }}
-                        data={inf}
-                        keyExtractor={(item: any) => item.id}
-                        renderItem={({ item }) => (
-                            <Item
-                                id={item.id}
-                                title={item.title}
-                                describe={item.describe}
-                                selected={!!selected.get(item.id)}
-                                selectedCheck={!!selectedCheck.get(item.id)}
-                                onSelectItem={onSelectItem}
-                                onSelectCheck={onSelectCheck}
-                                allSelectCheck={allSelectCheck}
-                                onSendValue={onSendValueToDetail}
-                            />
-                        )}
-                        extraData={selected}
-                    />
                 </View>
-
-                <View style={styles.viewTouchPlus}>
-                    <TouchableOpacity style={styles.touchPlus} onPress={() => { navigation.navigate('AddTodo') }}>
-                        <Text style={styles.textPlus}>+</Text>
-                    </TouchableOpacity>
-                </View>
-
-                <View>
-                    <CustomButton label="Logout" onPress={onLogout} colorCode="#9ee6e6" />
-                </View>
-
-
             </ImageBackground>
         </View>
-
     )
 };
 
 const styles = StyleSheet.create({
     container: {
-        justifyContent: 'center',
-        backgroundColor: 'white',
-        height: '100%'
+        flex: 1
+    },
+    viewBody: {
+        flex: 1,
     },
     title: {
         textAlign: 'center',
         fontSize: 50,
         color: 'white',
-
     },
     touchPlus: {
         width: 60,
@@ -156,9 +160,7 @@ const styles = StyleSheet.create({
 
     },
     viewFlatlist: {
-        height: 430,
-        width: '100%',
-        marginBottom: 10,
+
     },
     choosenButton: {
         width: 18,
@@ -170,7 +172,6 @@ const styles = StyleSheet.create({
     },
     viewContent: {
         flexDirection: 'row',
-        backgroundColor: ''
     },
     item: {
         backgroundColor: '#f9c2ff',
@@ -205,7 +206,6 @@ const styles = StyleSheet.create({
     },
     viewTouchPlus: {
         alignItems: 'center',
-        marginBottom: 10,
     },
 
 })

@@ -27,16 +27,21 @@ const schema = yup.object().shape({
 const Signin: React.FC<{ navigation: any }> = ({ navigation }) => {
     const [showPW, setShowPW] = useState(true);
     const [tick, setTick] = useState(false);
+
     const { control, register, handleSubmit, watch, formState: { errors } }: any = useForm<validate>({
         resolver: yupResolver(schema)
     });
+
     const onShowPW = useCallback(() => {
         showPW ? setShowPW(false) : setShowPW(true)
     }, [showPW])
+
     const dispatch = useDispatch()
+
     const onSignUp = useCallback((value: any) => {
         dispatch(signup(value))
     }, [])
+
     return (
         <View style={{ backgroundColor: Colors.background, height: '100%' }}>
             <KeyboardAwareScrollView>
@@ -167,10 +172,6 @@ const Signin: React.FC<{ navigation: any }> = ({ navigation }) => {
                             </View>
                         </View>
                     </View>
-
-
-
-
                 </View>
             </KeyboardAwareScrollView>
         </View>
@@ -180,7 +181,6 @@ const Signin: React.FC<{ navigation: any }> = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-
     },
     viewHeader: {
         display: 'flex',
@@ -204,8 +204,7 @@ const styles = StyleSheet.create({
         bottom: 10,
         backgroundColor: Colors.combined,
         width: 31.47,
-        height: 31.47,
-
+        height: 31.47
     },
     oval: {
         bottom: 30,
@@ -217,7 +216,6 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         display: 'flex',
         justifyContent: 'center',
-
     },
     textUp: {
         width: 88.82,
@@ -313,7 +311,6 @@ const styles = StyleSheet.create({
         fontWeight: '400',
         lineHeight: 20
     }
-
 })
 
 export default Signin

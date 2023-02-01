@@ -23,7 +23,7 @@ const Navigation:React.FC = () =>{
     return  (    
             <NavigationContainer>
                  <stack.Navigator screenOptions={{headerShown:false}}>  
-                    {!user ?
+                    {user ?
                     (  
                         <>
                             <stack.Screen name={'Login'} component={Login}/>

@@ -38,10 +38,6 @@ const TodoDetail: React.FC<{ navigation: any }> = ({ navigation }) => {
 
     }, [])
 
-    const onShowErrOrNot = useCallback(() => {
-        handleSubmit(),
-            !errors.tittle ? setModalVisible(true) : setModalVisible(false)
-    }, [])
 
     const onDisableButton = useCallback((value: any) => {
         value.title || value.describe ? setIsDisable(false) : setIsDisable(true)
