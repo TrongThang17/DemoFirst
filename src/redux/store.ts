@@ -14,21 +14,21 @@ const persistConfig = {
 }
 const sagaMiddleware = createSagaMiddleware();
 const middlewares = [
-    sagaMiddleware,thunk
+  sagaMiddleware, thunk
 ]
 
 
 const rootReducer = combineReducers({
-  reducerLogin,reducerTask
+  reducerLogin, reducerTask
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 const store = createStore(
-  persistedReducer,compose(applyMiddleware(...middlewares))
+  persistedReducer, compose(applyMiddleware(...middlewares))
 );
 const persistor = persistStore(store)
 
 sagaMiddleware.run(rootSaga);
 
 
-export  {store, persistor};
+export { store, persistor };

@@ -2,70 +2,70 @@ import initData from "../data/initData"
 import * as f from '../action'
 import { formToJSON } from "axios"
 
-const reducerLogin = (state=initData,{type,payload}:any) =>{
-    switch(type){
-        case f.LOGIN_SAGA :
+const reducerLogin = (state = initData, { type, payload }: any) => {
+    switch (type) {
+        case f.LOGIN_SAGA:
             return {
                 ...state,
-                isLoading:true
+                isLoading: true
             }
         case f.LOGIN_THUNK:
-            return{
+            return {
                 ...state,
                 isLoading: true,
             }
-        case f.LOGIN_SAGA_SUCCESS :
-            return{
+        case f.LOGIN_SAGA_SUCCESS:
+            return {
                 ...state,
-                username:payload.username,
-                password:payload.password,
+                username: payload.username,
+                password: payload.password,
                 // isLogin:true,
                 // isLoading:false
             }
         case f.LOGIN_THUNK_SUCCESS:
-            return{
+            return {
                 ...state,
-                isLoading:false,
-                isLogin:true
+                isLoading: false,
+                isLogin: true
             }
-        case f.LOGOUT_SAGA :
-            return{
+        case f.LOGOUT_SAGA:
+            return {
                 ...state,
-                isLoading:true
+                isLoading: true
             }
         case f.LOGOUT_SAGA_SUCCESS:
             return {
                 ...state,
-                username:'',
-                password:'',
-                isLogin:false,
-                isLoading:false
+                username: '',
+                password: '',
+                isLogin: false,
+                isLoading: false
             }
-        case f.LOGOUT_THUNK :
-            return{
-                isLoading:true,
+        case f.LOGOUT_THUNK:
+            return {
+                isLoading: true,
             }
-        case f.LOGOUT_THUNK_SUCCESS :
-            return{
+        case f.LOGOUT_THUNK_SUCCESS:
+            return {
                 ...state,
-                isLoading:false,
-                isLogin:false
+                isLoading: false,
+                isLogin: false
             }
-        case f.SIGNUP_THUNK :
+        case f.SIGNUP_THUNK:
             return {
-                 isLoading:true,
-                
+                isLoading: true,
+
             }
-        case f.SIGNUP_THUNK_SUCCESS :
+        case f.SIGNUP_THUNK_SUCCESS:
             return {
-                isLoading:false,
-                isLogin:true
+                isLoading: false,
+                isLogin: true
             }
-        case f.ERROR :
-            return{
-                isLoading:false
+        case f.ERROR:
+            return {
+                isLoading: false
             }
-        default :
+        default:
             return state;
     }
 }

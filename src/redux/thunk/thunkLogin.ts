@@ -46,7 +46,6 @@ export function login (value:any){
 export function signup (value:any){
     return  function onSignupThunk (dispatch:any,getState:any){
         try{
-            console.log('aaa')
             dispatch({
                 type:t.SIGNUP_THUNK
             })
@@ -65,6 +64,9 @@ export function signup (value:any){
                 }
             })
             .catch((error) =>{
+                dispatch({
+                    type: t.ERROR
+                })
                 if (error.code === 'auth/email-already-in-use') {
                     Alert.alert('That email address is already in use!');
                   }
