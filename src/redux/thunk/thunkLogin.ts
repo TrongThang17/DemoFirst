@@ -21,19 +21,20 @@ export function login (value:any){
                 } 
             })
             .catch((error) => {
-                dispatch({
-                    type: t.ERROR
-                })
-                if (error.code === 'auth/user-not-found') {
+                
+                if (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-email') {
                     Alert.alert('That email address is not exist!');
                   }
-              
                 if (error.code === 'auth/wrong-password') {
                     Alert.alert('Wrong password !!');
                   }
                 if (error.code === 'auth/network-request-failed') {
                     Alert.alert('Cannot connect to server ! please check your network ');
                   }
+                 
+                dispatch({
+                    type: t.ERROR
+                })
                 console.log(error)
             })   
           

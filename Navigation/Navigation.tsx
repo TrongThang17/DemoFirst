@@ -5,14 +5,12 @@ import Home from "../src/screen/Home";
 import AddTodo from "../src/screen/AddTodo";
 import Signip from "../src/screen/Signup";
 import TodoDetail from "../src/screen/TodoDetail";
-import { useSelector } from "react-redux";
 import React,{useState,useEffect} from "react";
 import {auth} from '../src/Firebase/firebase'
 const stack = createNativeStackNavigator();
 
 
 const Navigation:React.FC = () =>{
-    const isLogin = useSelector((state:any)=>state.reducerLogin.isLogin)
     const [user,setUser] = useState();
     useEffect(()=>{
         auth.onAuthStateChanged((user:any)=>{
@@ -23,7 +21,7 @@ const Navigation:React.FC = () =>{
     return  (    
             <NavigationContainer>
                  <stack.Navigator screenOptions={{headerShown:false}}>  
-                    {user ?
+                    {!user ?
                     (  
                         <>
                             <stack.Screen name={'Login'} component={Login}/>

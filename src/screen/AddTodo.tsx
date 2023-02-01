@@ -6,10 +6,9 @@ import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from "react-hook-form";
 import { Colors } from "../../assets/Colors";
-import { store } from "../redux/store";
 import { addTodo } from "../redux/thunk/thunkTask";
 import { image } from '../../assets/image'
-import { useSelector, useDispatch } from "react-redux";
+import {  useDispatch } from "react-redux";
 interface validate {
     title: string,
 }
@@ -22,7 +21,6 @@ const AddTodo: React.FC<{ navigation: any }> = ({ navigation }) => {
     const { control, register, handleSubmit, watch, formState: { errors } }: any = useForm<validate>({
         resolver: yupResolver(schema)
     });
-    const inf = useSelector((state: any) => state.reducerTask.list)
     const [isDisable, setIsDisable] = useState(true);
     const dispatch = useDispatch()
 

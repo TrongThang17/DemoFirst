@@ -7,7 +7,6 @@ import CustomButtonDelete from "../../assets/Custom/customButtonDelete";
 import Item from "../../assets/Custom/customItem";
 import { deleteTodo, updateDetail } from "../redux/thunk/thunkTask";
 import Modal from "react-native-modal";
-import * as f from '../redux/action'
 import { logout } from "../redux/thunk/thunkLogin";
 import { auth } from "../Firebase/firebase";
 const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
