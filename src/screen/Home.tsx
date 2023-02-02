@@ -15,7 +15,7 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
     const [selectedCheck, setSelectedCheck] = useState(new Map());
     const [allSelectCheck, setAllSelectCheck] = useState(false)
     const [allDataCheckbox, setAllDataCheckbox]: any = useState([])
-    const [modalVisible, setModalVisible] = useState(false)
+    const [modalShowPopupDelete, setModalShowPopupDelete] = useState(false)
 
     const fadeAnim = useRef(new Animated.Value(0)).current;
     const dispatch = useDispatch()
@@ -67,13 +67,13 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
                         <Text style={styles.title}>All Tasks {user?.displayName}  </Text>
                     </View>
                     <View style={styles.viewBody}>
-                        <View style={styles.viewFlatlist}>
+                        <View>
                             <View style={{ height: 30, alignItems: 'flex-end', marginBottom: 10, marginRight: 30 }}>
                                 {allSelectCheck ? <CustomButtonDelete onPress={() => {
-                                    setModalVisible(true)
+                                    setModalShowPopupDelete(true)
                                 }} /> : ''}
 
-                                <Modal isVisible={modalVisible} style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                <Modal isVisible={modalShowPopupDelete} style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                                     <View style={styles.popupDelete}>
                                         <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: '700', color: 'red' }}>Are you sure you want to delete it?</Text>
                                         <View style={styles.viewBtnPopupDelete}>
@@ -86,7 +86,7 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
                                             >
                                                 <Text style={styles.textButton}>OK</Text>
                                             </TouchableOpacity>
-                                            <TouchableOpacity style={styles.btnConfirmDelete} onPress={() => setModalVisible(false)}>
+                                            <TouchableOpacity style={styles.btnConfirmDelete} onPress={() => setModalShowPopupDelete(false)}>
                                                 <Text style={styles.textButton}>CANCLE</Text>
                                             </TouchableOpacity>
                                         </View>
@@ -135,10 +135,13 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+
     },
     viewBody: {
         flex: 1,
+        justifyContent:'center',
+        
     },
     title: {
         textAlign: 'center',
@@ -156,9 +159,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         textAlign: 'center',
         fontSize: 40,
-
-    },
-    viewFlatlist: {
 
     },
     choosenButton: {

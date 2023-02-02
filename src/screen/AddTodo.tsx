@@ -21,7 +21,7 @@ const AddTodo: React.FC<{ navigation: any }> = ({ navigation }) => {
     const { control, register, handleSubmit, watch, formState: { errors } }: any = useForm<validate>({
         resolver: yupResolver(schema)
     });
-    const [isDisable, setIsDisable] = useState(true);
+    const [isDisableButton, setIsDisableButton] = useState(true);
     const dispatch = useDispatch()
 
     const handleAddTodo = useCallback((value: any) => {
@@ -53,7 +53,7 @@ const AddTodo: React.FC<{ navigation: any }> = ({ navigation }) => {
                                     placeholder="Write your title here !"
                                     onChangeText={onChange}
                                     values={value}
-                                    onChangeee={() => { value ? setIsDisable(false) : setIsDisable(true) }}
+                                    onChangeee={() => { value ? setIsDisableButton(false) : setIsDisableButton(true) }}
                                 />
                             }
                             name={'title'}
@@ -78,8 +78,8 @@ const AddTodo: React.FC<{ navigation: any }> = ({ navigation }) => {
                         <CustomButton
                             label="Save"
                             onPress={handleSubmit(handleAddTodo)}
-                            disable={isDisable}
-                            colorCode={isDisable ? Colors.background : Colors.white}
+                            disable={isDisableButton}
+                            colorCode={isDisableButton ? Colors.background : Colors.white}
                             colorLabel='black'
                         />
                     </View>

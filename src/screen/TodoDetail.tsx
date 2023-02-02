@@ -26,8 +26,8 @@ const TodoDetail: React.FC<{ navigation: any }> = ({ navigation }) => {
         resolver: yupResolver(schema)
     });
     const dataDetail = useSelector((state: any) => state.reducerTask.detail_list)
-    const [isDisable, setIsDisable] = useState(true);
-    const [modalVisible, setModalVisible] = useState(false)
+    const [isDisableButton, setIsDisableButton] = useState(true);
+    const [modalVisiblePopupSave, setModalVisiblePopupSave] = useState(false)
     const dispatch = useDispatch()
 
     const handleSaveData = useCallback((value: any) => {
@@ -40,9 +40,9 @@ const TodoDetail: React.FC<{ navigation: any }> = ({ navigation }) => {
 
 
     const onDisableButton = useCallback((value: any) => {
-        value.title || value.describe ? setIsDisable(false) : setIsDisable(true)
+        value.title || value.describe ? setIsDisableButton(false) : setIsDisableButton(true)
         if (value.title || value.describe) {
-            setIsDisable(false)
+            setIsDisableButton(false)
         }
     }, [])
 
@@ -104,13 +104,13 @@ const TodoDetail: React.FC<{ navigation: any }> = ({ navigation }) => {
                         <View style={{ marginRight: 20 }}>
                             <CustomButton
                                 label="Save"
-                                onPress={() => { setModalVisible(true) }}
-                                disable={isDisable}
-                                colorCode={isDisable ? Colors.background : Colors.white}
+                                onPress={() => { setModalVisiblePopupSave(true) }}
+                                disable={isDisableButton}
+                                colorCode={isDisableButton ? Colors.background : Colors.white}
                                 colorLabel='black'
                             />
 
-                            <Modal isVisible={modalVisible} style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                            <Modal isVisible={modalVisiblePopupSave} style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                                 <View style={styles.popupDelete}>
                                     {
                                         errors.title ?
@@ -122,7 +122,7 @@ const TodoDetail: React.FC<{ navigation: any }> = ({ navigation }) => {
                                                 <View style={styles.viewBtnPopupDelete}>
                                                     <TouchableOpacity
                                                         style={styles.btnConfirmDelete}
-                                                        onPress={() => setModalVisible(false)}
+                                                        onPress={() => setModalVisiblePopupSave(false)}
                                                     >
                                                         <Text style={styles.textButton}>OK</Text>
                                                     </TouchableOpacity>
@@ -159,11 +159,11 @@ const TodoDetail: React.FC<{ navigation: any }> = ({ navigation }) => {
                             <CustomButton
                                 label="Cancle"
                                 onPress={() => {
-                                    setIsDisable(true)
+                                    setIsDisableButton(true)
                                     reset()
                                 }}
-                                disable={isDisable}
-                                colorCode={isDisable ? Colors.background : Colors.white}
+                                disable={isDisableButton}
+                                colorCode={isDisableButton ? Colors.background : Colors.white}
                                 colorLabel='black'
                             />
                         </View>

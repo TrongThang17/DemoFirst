@@ -144,7 +144,7 @@ const Signin: React.FC<{ navigation: any }> = ({ navigation }) => {
                                 >
                                     {tick ? <Image source={image.tick} style={{ width: 18, height: 18, justifyContent: 'center', alignItems: 'center' }} /> : ''}
                                 </TouchableOpacity>
-                                <View style={{ width: 275, height: 40, left: 18 }}>
+                                <View style={{ left: 18 }}>
                                     <Text style={styles.textChoosen}>by clicking on "Register" you agree to our
                                         <Text style={styles.textSpecial}> Term & Conditions</Text> and
                                         <Text style={styles.textSpecial}> Privacy Policy</Text>
@@ -218,8 +218,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     textUp: {
-        width: 88.82,
-        height: 27.59,
+    
         fontFamily: 'Outfit',
         fontStyle: 'normal',
         fontWeight: '900',
@@ -238,8 +237,7 @@ const styles = StyleSheet.create({
         display: "flex",
         alignItems: 'center',
         color: Colors.textDown,
-        width: 134.54,
-        height: 17.59
+     
     },
     viewBody: {
         display: 'flex',
@@ -297,7 +295,7 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         backgroundColor: '#A4BCC1',
         marginLeft: 40,
-        marginTop: 10
+        
     },
     textChoosen: {
         fontSize: 15,
@@ -309,7 +307,8 @@ const styles = StyleSheet.create({
         color: '#FF5889',
         fontSize: 15,
         fontWeight: '400',
-        lineHeight: 20
+        lineHeight: 20,
+        
     }
 })
 

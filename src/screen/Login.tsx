@@ -213,8 +213,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     textUp: {
-        width: 88.82,
-        height: 27.59,
+        
         fontFamily: 'Outfit',
         fontStyle: 'normal',
         fontWeight: '900',
@@ -233,8 +232,7 @@ const styles = StyleSheet.create({
         display: "flex",
         alignItems: 'center',
         color: Colors.textDown,
-        width: 134.54,
-        height: 17.59
+      
     },
     viewBody: {
         display: 'flex',
@@ -289,8 +287,7 @@ const styles = StyleSheet.create({
         paddingTop: 20
     },
     textLeft: {
-        width: 170,
-        height: 20,
+       
         fontStyle: 'normal',
         fontWeight: '400',
         fontSize: 15,
@@ -299,8 +296,7 @@ const styles = StyleSheet.create({
         color: Colors.white
     },
     textRight: {
-        width: 60,
-        height: 20,
+      
         color: Colors.signUp,
         fontStyle: 'normal',
         fontWeight: '700',
