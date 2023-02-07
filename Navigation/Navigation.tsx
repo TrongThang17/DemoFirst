@@ -5,10 +5,11 @@ import Home from "../src/screen/Home";
 import AddTodo from "../src/screen/AddTodo";
 import Signip from "../src/screen/Signup";
 import TodoDetail from "../src/screen/TodoDetail";
+import SlideMenu from "../src/screen/SlideMenu";
 import React,{useState,useEffect} from "react";
 import {auth} from '../src/Firebase/firebase'
-const stack = createNativeStackNavigator();
 
+const stack = createNativeStackNavigator();
 
 const Navigation:React.FC = () =>{
     const [user,setUser] = useState();
@@ -18,21 +19,23 @@ const Navigation:React.FC = () =>{
         })
     },[])
    
+   
     return  (    
             <NavigationContainer>
                  <stack.Navigator screenOptions={{headerShown:false}}>  
-                    {!user ?
+                    {user ?
                     (  
                         <>
                             <stack.Screen name={'Login'} component={Login}/>
-                            <stack.Screen name={'Signup'} component={Signip}/>
+                            <stack.Screen name={'Signup'} component={Signip}/> 
                         </>
                     )     :    
                      (
                         <> 
-                            <stack.Screen name={'Home'} component={Home} />
-                            <stack.Screen name={'AddTodo'} component={AddTodo} />  
-                            <stack.Screen name={'TodoDetail'} component={TodoDetail} />                
+                                <stack.Screen name={'Menu'} component={SlideMenu} />
+                                <stack.Screen name={'Home'} component={Home} />
+                                <stack.Screen name={'AddTodo'} component={AddTodo} />  
+                                <stack.Screen name={'TodoDetail'} component={TodoDetail} />
                          </>  
                        ) 
                      }                                                                                                                        

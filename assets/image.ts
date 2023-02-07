@@ -11,5 +11,18 @@ export const image ={
     eye:require('./image/eye.png'),
     tick:require('./image/tick.png'),
     backgroundtodo:require('./image/backgroundTodo.jpg'),
-    loading:require('./image/loading.gif')
+    loading:require('./image/loading.gif'),
+    logoMenu:require('./image/logoMenu.png'),
+    home:require('./image/home.png'),
+    reminder:require('./image/remind.png'),
+    gmail:require('./image/gmail.png'),
+    video:require('./image/video.png'),
+    reward:require('./image/reward.png'),
+    help:require('./image/help.png'),
+    setting:require('./image/setting.png'),
+    disclaimer:require('./image/disclaimer.png'),
+    avatar:require('./image/avatar.png'),
+    iconMenu:require('./image/menu.png'),
+    iconExit:require('./image/iconExit.png')
+
 }

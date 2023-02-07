@@ -9,6 +9,8 @@ import { Colors } from "../../assets/Colors";
 import { addTodo } from "../redux/thunk/thunkTask";
 import { image } from '../../assets/image'
 import {  useDispatch } from "react-redux";
+import { useDrawerProgress } from '@react-navigation/drawer'
+import Animated,{interpolate,useAnimatedStyle} from 'react-native-reanimated';
 interface validate {
     title: string,
 }
@@ -29,9 +31,24 @@ const AddTodo: React.FC<{ navigation: any }> = ({ navigation }) => {
         navigation.navigate('Home')
     }, [])
 
+    const progressDrawer = useDrawerProgress()
+    const viewDrawerStyle = useAnimatedStyle(() => {
+        const scale = interpolate(progressDrawer.value,
+            [0, 1],
+            [1, 0.8]
+        )
+        const borderRadius = interpolate(progressDrawer.value,
+            [0, 1],
+            [0, 50]
+        )
+        return {
+            transform: [{ scale }], borderRadius
+        }
+    })
+
 
     return (
-        <View>
+        <Animated.View style={viewDrawerStyle}>
             <ImageBackground source={image.backgroundtodo} style={{ width: '100%', height: '100%' }}>
                 <View style={styles.viewContainer}>
                     <View>
@@ -85,7 +102,7 @@ const AddTodo: React.FC<{ navigation: any }> = ({ navigation }) => {
                     </View>
                 </View>
             </ImageBackground>
-        </View>
+        </Animated.View>
     )
 
 }

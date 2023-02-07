@@ -11,4 +11,7 @@ export const Colors={
     hr:'#2D8CFF',
     hr1:'rgba(0, 0, 0, 0.2)',
     signUp:'#FF5889',
+    colorTouchMenu:['rgba(0, 0, 0, 0.5)','rgba(0, 0, 0, 0)'],
+    null:['rgba(45, 55, 72, 0)','rgba(45, 55, 72, 0)'],
+    backColorMain:'#2AC6A8'
 }
