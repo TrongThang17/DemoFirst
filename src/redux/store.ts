@@ -2,6 +2,7 @@ import thunk from 'redux-thunk';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import reducerLogin from './Reducer/reducerLogin';
 import reducerTask from './Reducer/reducerTask';
+import reducerCurrentScreen from './Reducer/reducerCurrentScreen';
 import createSagaMiddleware from 'redux-saga'
 import rootSaga from './saga/rootSaga'
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -19,7 +20,7 @@ const middlewares = [
 
 
 const rootReducer = combineReducers({
-  reducerLogin, reducerTask
+  reducerLogin, reducerTask,reducerCurrentScreen
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 

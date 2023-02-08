@@ -1,16 +1,17 @@
-import React, { useEffect, useRef, useState, useCallback } from "react";
-import { ImageBackground, View, Text, StyleSheet, TouchableOpacity, FlatList, Image } from 'react-native';
+import React, { useState, useCallback } from "react";
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image } from 'react-native';
 import CustomButton from "../../assets/Custom/customButtonLogin";
 import { useSelector, useDispatch } from "react-redux";
-import { image } from '../../assets/image'
 import CustomButtonDelete from "../../assets/Custom/customButtonDelete";
 import Item from "../../assets/Custom/customItem";
 import { deleteTodo, updateDetail } from "../redux/thunk/thunkTask";
 import Modal from "react-native-modal";
 import { logout } from "../redux/thunk/thunkLogin";
+import { sendCurrentScreen } from "../redux/thunk/thunkCurrentScreen";
 import { auth } from "../Firebase/firebase";
 import { useDrawerProgress } from '@react-navigation/drawer'
-import Animated,{interpolate,useAnimatedStyle} from 'react-native-reanimated';
+import DropShadow from "react-native-drop-shadow";
+import Animated, { interpolate, useAnimatedStyle,useSharedValue } from 'react-native-reanimated';
 import { Colors } from "../../assets/Colors";
 const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
     const inf = useSelector((state: any) => state.reducerTask.list)
@@ -20,7 +21,8 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
     const [allDataCheckbox, setAllDataCheckbox]: any = useState([])
     const [modalShowPopupDelete, setModalShowPopupDelete] = useState(false)
     const dispatch = useDispatch()
-
+    let user = auth.currentUser
+    const progressDrawer = useDrawerProgress()
     const onSelectItem = useCallback(
         (id: number) => {
             const newSelected = new Map(selected);
@@ -31,11 +33,13 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
     );
 
     const onSendValueToDetail = (id: number) => {
+        dispatch(sendCurrentScreen('TodoDetail'))
         inf.forEach((element: any) => {
             if (element.id == id) dispatch(updateDetail(element))
         });
         navigation.navigate('TodoDetail')
     }
+
     const onSelectCheck = (
         (id: number) => {
             const newSelectedCheck = new Map(selectedCheck);
@@ -57,9 +61,7 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
         dispatch(logout())
     }, [])
 
-    let user = auth.currentUser
 
-    const progressDrawer = useDrawerProgress()
     const viewDrawerStyle = useAnimatedStyle(() => {
         const scale = interpolate(progressDrawer.value,
             [0, 1],
@@ -69,85 +71,108 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
             [0, 1],
             [0, 50]
         )
+    
         return {
             transform: [{ scale }], borderRadius
         }
     })
-
+   
     return (
-        <Animated.View style={[{flex: 1,backgroundColor:Colors.backColorMain},viewDrawerStyle]}>
-            <View>
-                <Text style={styles.title}>All Tasks {user?.displayName}  </Text>
-            </View>
-            <View style={styles.viewBody}>
+
+        <DropShadow
+            style={{
+                flex:1,
+                shadowColor: "#000",
+                shadowOffset: {
+                    width: -15,
+                    height: 13,
+                },
+                shadowOpacity: 0.7,
+                shadowRadius: 2,
+                elevation:10,
+                
+                
+            }}
+        >
+            <Animated.View style={[{ flex: 1 ,backgroundColor:Colors.backColorMain}, viewDrawerStyle]}>
                 <View>
-                    <View style={{ height: 30, alignItems: 'flex-end', marginBottom: 10, marginRight: 30 }}>
-                        {allSelectCheck ? <CustomButtonDelete onPress={() => {
-                            setModalShowPopupDelete(true)
-                        }} /> : ''}
-
-                        <Modal isVisible={modalShowPopupDelete} style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                            <View style={styles.popupDelete}>
-                                <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: '700', color: 'red' }}>Are you sure you want to delete it?</Text>
-                                <View style={styles.viewBtnPopupDelete}>
-                                    <TouchableOpacity
-                                        style={styles.btnConfirmDelete}
-                                        onPress={() => {
-                                            dispatch(deleteTodo(allDataCheckbox))
-                                            navigation.replace('Home')
-                                        }}
-                                    >
-                                        <Text style={styles.textButton}>OK</Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={styles.btnConfirmDelete} onPress={() => setModalShowPopupDelete(false)}>
-                                        <Text style={styles.textButton}>CANCLE</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                        </Modal>
-                    </View>
+                    <Text style={styles.title}>All Tasks {user?.displayName}  </Text>
+                </View>
+                <View style={styles.viewBody}>
                     <View>
-                        <FlatList
-                            style={{ height: 400, width: '100%' }}
-                            data={inf}
-                            keyExtractor={(item: any) => item.id}
-                            renderItem={({ item }) => (
-                                <Item
-                                    id={item.id}
-                                    title={item.title}
-                                    describe={item.describe}
-                                    selected={!!selected.get(item.id)}
-                                    selectedCheck={!!selectedCheck.get(item.id)}
-                                    onSelectItem={onSelectItem}
-                                    onSelectCheck={onSelectCheck}
-                                    allSelectCheck={allSelectCheck}
-                                    onSendValue={onSendValueToDetail}
-                                />
-                            )}
-                            extraData={selected}
-                        />
+                        <View style={{ height: 30, alignItems: 'flex-end', marginBottom: 10, marginRight: 30 }}>
+                            {allSelectCheck ? <CustomButtonDelete onPress={() => {
+                                setModalShowPopupDelete(true)
+                            }} /> : ''}
+
+                            <Modal isVisible={modalShowPopupDelete} style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                <View style={styles.popupDelete}>
+                                    <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: '700', color: 'red' }}>Are you sure you want to delete it?</Text>
+                                    <View style={styles.viewBtnPopupDelete}>
+                                        <TouchableOpacity
+                                            style={styles.btnConfirmDelete}
+                                            onPress={() => {
+                                                dispatch(deleteTodo(allDataCheckbox))
+                                                navigation.replace('Home')
+                                            }}
+                                        >
+                                            <Text style={styles.textButton}>OK</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={styles.btnConfirmDelete} onPress={() => setModalShowPopupDelete(false)}>
+                                            <Text style={styles.textButton}>CANCLE</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                            </Modal>
+                        </View>
+                        <View>
+                            <FlatList
+                                style={{ height: 400, width: '100%' }}
+                                data={inf}
+                                keyExtractor={(item: any) => item.id}
+                                renderItem={({ item }) => (
+                                    <Item
+                                        id={item.id}
+                                        title={item.title}
+                                        describe={item.describe}
+                                        selected={!!selected.get(item.id)}
+                                        selectedCheck={!!selectedCheck.get(item.id)}
+                                        onSelectItem={onSelectItem}
+                                        onSelectCheck={onSelectCheck}
+                                        allSelectCheck={allSelectCheck}
+                                        onSendValue={onSendValueToDetail}
+                                    />
+                                )}
+                                extraData={selected}
+                            />
+                        </View>
+                    </View>
+
+                    <View style={styles.viewTouchPlus}>
+                        <TouchableOpacity style={styles.touchPlus} onPress={() => {
+                            dispatch(sendCurrentScreen('AddTodo'))
+                            navigation.navigate('AddTodo')
+                        }}>
+                            <Text style={styles.textPlus}>+</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    <View style={{ padding: 30 }}>
+                        <CustomButton label="Logout" onPress={() => logout()} colorCode="#9ee6e6" />
                     </View>
                 </View>
 
-                <View style={styles.viewTouchPlus}>
-                    <TouchableOpacity style={styles.touchPlus} onPress={() => { navigation.navigate('AddTodo') }}>
-                        <Text style={styles.textPlus}>+</Text>
-                    </TouchableOpacity>
-                </View>
+            </Animated.View>
 
-                <View style={{ padding: 30 }}>
-                    <CustomButton label="Logout" onPress={() => navigation.goBack()} colorCode="#9ee6e6" />
-                </View>
-            </View>
+         </DropShadow>
 
-        </Animated.View>
     )
 };
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor:'red'
+        backgroundColor: 'red'
     },
     viewBody: {
         flex: 1,

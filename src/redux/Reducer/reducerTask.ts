@@ -1,4 +1,4 @@
-import initTask from '../data/initTask'
+import {initTask} from '../data/data'
 import * as f from '../action'
 
 const reducerTask = (state = initTask, { type, payload }: any) => {

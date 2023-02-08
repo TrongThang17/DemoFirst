@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { updateTodo } from "../redux/thunk/thunkTask";
 import Modal from "react-native-modal";
 import { image } from '../../assets/image'
+import { sendCurrentScreen } from "../redux/thunk/thunkCurrentScreen";
 interface validate {
     title: string,
     describe: string
@@ -30,10 +31,11 @@ const TodoDetail: React.FC<{ navigation: any }> = ({ navigation }) => {
     const [modalVisiblePopupSave, setModalVisiblePopupSave] = useState(false)
     const dispatch = useDispatch()
 
-    const handleSaveData = useCallback((value: any) => {
+    const onSaveData = useCallback((value: any) => {
         value.title == undefined ? dispatch(updateTodo(dataDetail.id, dataDetail.title, value.describe))
             : value.describe == undefined ? dispatch(updateTodo(dataDetail.id, value.title, dataDetail.describe))
                 : dispatch(updateTodo(dataDetail.id, value.title, value.describe))
+        dispatch(sendCurrentScreen('Home'))
         navigation.navigate('Home')
 
     }, [])
@@ -126,7 +128,7 @@ const TodoDetail: React.FC<{ navigation: any }> = ({ navigation }) => {
                                                     >
                                                         <Text style={styles.textButton}>OK</Text>
                                                     </TouchableOpacity>
-                                                    <TouchableOpacity style={styles.btnConfirmDelete} onPress={() => setModalVisible(false)}>
+                                                    <TouchableOpacity style={styles.btnConfirmDelete} onPress={() => setModalVisiblePopupSave(false)}>
                                                         <Text style={styles.textButton}>CANCLE</Text>
                                                     </TouchableOpacity>
                                                 </View>
@@ -140,11 +142,11 @@ const TodoDetail: React.FC<{ navigation: any }> = ({ navigation }) => {
                                                 <View style={styles.viewBtnPopupDelete}>
                                                     <TouchableOpacity
                                                         style={styles.btnConfirmDelete}
-                                                        onPress={handleSubmit(handleSaveData)}
+                                                        onPress={handleSubmit(onSaveData)}
                                                     >
                                                         <Text style={styles.textButton}>OK</Text>
                                                     </TouchableOpacity>
-                                                    <TouchableOpacity style={styles.btnConfirmDelete} onPress={() => setModalVisible(false)}>
+                                                    <TouchableOpacity style={styles.btnConfirmDelete} onPress={() => setModalVisiblePopupSave(false)}>
                                                         <Text style={styles.textButton}>CANCLE</Text>
                                                     </TouchableOpacity>
                                                 </View>

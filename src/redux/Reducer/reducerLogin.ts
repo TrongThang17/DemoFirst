@@ -1,4 +1,4 @@
-import initData from "../data/initData"
+import {initData} from "../data/data"
 import * as f from '../action'
 import { formToJSON } from "axios"
 
