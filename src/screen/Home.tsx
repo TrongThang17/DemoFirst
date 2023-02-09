@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image,Dimensions } from 'react-native';
 import CustomButton from "../../assets/Custom/customButtonLogin";
 import { useSelector, useDispatch } from "react-redux";
 import CustomButtonDelete from "../../assets/Custom/customButtonDelete";
@@ -23,6 +23,8 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
     const dispatch = useDispatch()
     let user = auth.currentUser
     const progressDrawer = useDrawerProgress()
+    const width = Dimensions.get('screen').width
+    const height = Dimensions.get('screen').height
     const onSelectItem = useCallback(
         (id: number) => {
             const newSelected = new Map(selected);
@@ -69,7 +71,7 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
         )
         const borderRadius = interpolate(progressDrawer.value,
             [0, 1],
-            [0, 50]
+            [0, 30]
         )
     
         return {
@@ -78,23 +80,7 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
     })
    
     return (
-
-        <DropShadow
-            style={{
-                flex:1,
-                shadowColor: "#000",
-                shadowOffset: {
-                    width: -15,
-                    height: 13,
-                },
-                shadowOpacity: 0.7,
-                shadowRadius: 2,
-                elevation:10,
-                
-                
-            }}
-        >
-            <Animated.View style={[{ flex: 1 ,backgroundColor:Colors.backColorMain}, viewDrawerStyle]}>
+            <Animated.View style={[{flex:1, backgroundColor:Colors.backColorMain}, viewDrawerStyle]}>
                 <View>
                     <Text style={styles.title}>All Tasks {user?.displayName}  </Text>
                 </View>
@@ -161,11 +147,8 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
                         <CustomButton label="Logout" onPress={() => logout()} colorCode="#9ee6e6" />
                     </View>
                 </View>
-
+                    <View style={[styles.viewShadow,{left:-5*width/100,top:(height-90*height/100)/2}]}/>
             </Animated.View>
-
-         </DropShadow>
-
     )
 };
 
@@ -242,6 +225,14 @@ const styles = StyleSheet.create({
     viewTouchPlus: {
         alignItems: 'center',
     },
+    viewShadow:{
+        backgroundColor:'black',
+        width:'5%',height:'90%',
+        position:'absolute',
+        borderBottomLeftRadius:30,
+        borderTopLeftRadius:30,
+        opacity:0.7
+    }
 
 })
 

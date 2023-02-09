@@ -44,11 +44,11 @@ const SlideMenu = (props: any) => {
 
 
                 <TouchableOpacity onPress={() => {
-                    dispatch(sendCurrentScreen('AddTodo'))
-                    props.navigation.navigate('AddTodo')
+                    dispatch(sendCurrentScreen('Reminder'))
+                    props.navigation.navigate('Reminder')
                 }} >
                     <LinearGradient
-                        colors={currentTab == 'AddTodo' ? Colors.colorTouchMenu : Colors.null}
+                        colors={currentTab == 'Reminder' ? Colors.colorTouchMenu : Colors.null}
                         start={{ x: 0, y: 0 }}
                         end={{ x: 1, y: 0 }}
                         style={styles.touchMenu}
@@ -59,11 +59,11 @@ const SlideMenu = (props: any) => {
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={() => {
-                    dispatch(sendCurrentScreen('TodoDetail'))
-                    props.navigation.navigate('TodoDetail')
+                    dispatch(sendCurrentScreen('AddTodo'))
+                    props.navigation.navigate('AddTodo')
                 }}>
                     <LinearGradient
-                        colors={currentTab == 'TodoDetail' ? Colors.colorTouchMenu : Colors.null}
+                        colors={currentTab == 'AddTodo' ? Colors.colorTouchMenu : Colors.null}
                         start={{ x: 0, y: 0 }}
                         end={{ x: 1, y: 0 }}
                         style={styles.touchMenu}
@@ -74,10 +74,11 @@ const SlideMenu = (props: any) => {
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={() => {
-                    dispatch(sendCurrentScreen('Send a testimonial'))
+                    dispatch(sendCurrentScreen('TodoDetail'))
+                    props.navigation.navigate('TodoDetail')
                 }}>
                     <LinearGradient
-                        colors={currentTab == 'Send a testimonial' ? Colors.colorTouchMenu : Colors.null}
+                        colors={currentTab == 'TodoDetail' ? Colors.colorTouchMenu : Colors.null}
                         start={{ x: 0, y: 0 }}
                         end={{ x: 1, y: 0 }}
                         style={styles.touchMenu}

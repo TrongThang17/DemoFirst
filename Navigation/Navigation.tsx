@@ -7,6 +7,7 @@ import AddTodo from "../src/screen/AddTodo";
 import Signip from "../src/screen/Signup";
 import TodoDetail from "../src/screen/TodoDetail";
 import SlideMenu from "../src/screen/SlideMenu";
+import Reminder from '../src/screen/Reminder';
 import { Colors } from '../assets/Colors';
 import { image } from '../assets/image'
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -14,7 +15,8 @@ import React, { useState, useEffect } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { auth } from '../src/Firebase/firebase'
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
+import { sendCurrentScreen } from '../src/redux/thunk/thunkCurrentScreen';
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
@@ -34,7 +36,7 @@ const MainScreen = (props: any) => {
     const navigation = useNavigation()
     var statusDrawer = useDrawerStatus();
     const currentScreen = useSelector((state: any) => state.reducerCurrentScreen.currentScreen)
-   
+    const dispatch = useDispatch();
 
     useEffect(() => {
         statusDrawer == 'open' ? setIsOpenMenu(true) : setIsOpenMenu(false)
@@ -69,6 +71,18 @@ const MainScreen = (props: any) => {
             }}
         >
             <Stack.Screen name={'Home'} component={Home} />
+            <Stack.Screen name={'Reminder'} component={Reminder} options={{
+                headerLeft: () => (
+                    <TouchableOpacity onPress={()=>{
+                        navigation.navigate('Home'),
+                        dispatch(sendCurrentScreen('Home'))
+                    }}
+                    style={styles.goBack}
+                    >
+                        <Image source={image.goBack}/>
+                    </TouchableOpacity>
+            )
+            }} />
             <Stack.Screen name={'AddTodo'} component={AddTodo} />
             <Stack.Screen name={'TodoDetail'} component={TodoDetail} />
         </Stack.Navigator>
@@ -84,7 +98,7 @@ const DrawerScreen = () => {
             screenOptions={{
                 headerShown: false,
                 drawerType: 'slide',
-                drawerStyle:{width:'60%'},
+                drawerStyle: { width: '60%' },
                 overlayColor: Colors.backgroundOverLayColor,
             }}
         >
@@ -119,10 +133,11 @@ export default () => {
 }
 
 const styles = StyleSheet.create({
-    container:{
-        flex:1, 
-        marginLeft:30,
-        marginTop:20,
+    container: {
+        flex: 1,
+        marginLeft: 30,
+        marginTop: 20,
+  
     },
     iconMenu: {
         width: 30,
@@ -133,5 +148,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: 40,
         height: 40,
+    },
+    goBack:{
+       
+        padding:10
+
     }
 })

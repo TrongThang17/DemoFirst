@@ -23,6 +23,7 @@ export const image ={
     disclaimer:require('./image/disclaimer.png'),
     avatar:require('./image/avatar.png'),
     iconMenu:require('./image/menu.png'),
-    iconExit:require('./image/iconExit.png')
-
+    iconExit:require('./image/iconExit.png'),
+    goBack:require('./image/goBack.png'),
+    streak:require('./image/streak.png')
 }
