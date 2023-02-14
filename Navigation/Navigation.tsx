@@ -49,6 +49,7 @@ const MainScreen = (props: any) => {
             screenOptions={{
                 headerTitle: '',
                 headerTransparent: true,
+                headerMode:'float',
                 headerLeft: () => (
                     <View style={styles.container}>
                         <TouchableOpacity
@@ -63,7 +64,7 @@ const MainScreen = (props: any) => {
                                 }
                             }}
                         >
-                            {!isOpenMenu ? <Image source={image.iconMenu} style={styles.iconMenu} /> : <Image source={image.iconExit} style={{ width: 25, height: 25, }} />}
+                            {!isOpenMenu ? <Image source={image.iconMenu} style={styles.iconMenu} /> : <Image source={image.iconExit} style={styles.iconExit} />}
                         </TouchableOpacity>
                     </View>
 
@@ -92,14 +93,15 @@ const MainScreen = (props: any) => {
 const DrawerScreen = () => {
     return (
         <Drawer.Navigator
+        
             drawerContent={(props: any) => {
                 return <SlideMenu {...props} />
             }}
             screenOptions={{
                 headerShown: false,
                 drawerType: 'slide',
-                drawerStyle: { width: '60%' },
                 overlayColor: Colors.backgroundOverLayColor,
+                
             }}
         >
             <Drawer.Screen name={'MainScreen'}>
@@ -134,14 +136,19 @@ export default () => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         marginLeft: 30,
-        marginTop: 20,
-  
+        marginTop: 20,  
+        
     },
     iconMenu: {
         width: 30,
-        height: 30
+        height: 30,
+
+    },
+    iconExit:{
+        width:25,
+        height:25,
+        
     },
     iconTouchMenu: {
         alignItems: 'center',
@@ -149,9 +156,7 @@ const styles = StyleSheet.create({
         width: 40,
         height: 40,
     },
-    goBack:{
-       
+    goBack:{   
         padding:10
-
     }
 })

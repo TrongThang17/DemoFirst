@@ -67,7 +67,7 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
     const viewDrawerStyle = useAnimatedStyle(() => {
         const scale = interpolate(progressDrawer.value,
             [0, 1],
-            [1, 0.8]
+            [1, 0.86]
         )
         const borderRadius = interpolate(progressDrawer.value,
             [0, 1],
@@ -80,7 +80,7 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
     })
    
     return (
-            <Animated.View style={[{flex:1, backgroundColor:Colors.backColorMain}, viewDrawerStyle]}>
+            <Animated.View style={[{flex:1, backgroundColor:Colors.backColorMain,zIndex:1}, viewDrawerStyle]}>
                 <View>
                     <Text style={styles.title}>All Tasks {user?.displayName}  </Text>
                 </View>
@@ -231,7 +231,8 @@ const styles = StyleSheet.create({
         position:'absolute',
         borderBottomLeftRadius:30,
         borderTopLeftRadius:30,
-        opacity:0.7
+        opacity:0.7,
+        zIndex:-1
     }
 
 })
