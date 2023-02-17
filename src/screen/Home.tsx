@@ -13,6 +13,7 @@ import { useDrawerProgress } from '@react-navigation/drawer'
 import DropShadow from "react-native-drop-shadow";
 import Animated, { interpolate, useAnimatedStyle,useSharedValue } from 'react-native-reanimated';
 import { Colors } from "../../assets/Colors";
+import { image } from "../../assets/image";
 const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
     const inf = useSelector((state: any) => state.reducerTask.list)
     const [selected, setSelected] = useState(new Map());
@@ -67,12 +68,13 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
     const viewDrawerStyle = useAnimatedStyle(() => {
         const scale = interpolate(progressDrawer.value,
             [0, 1],
-            [1, 0.86]
+            [1, 0.8]
         )
         const borderRadius = interpolate(progressDrawer.value,
             [0, 1],
             [0, 30]
         )
+        
     
         return {
             transform: [{ scale }], borderRadius
@@ -80,7 +82,8 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
     })
    
     return (
-            <Animated.View style={[{flex:1, backgroundColor:Colors.backColorMain,zIndex:1}, viewDrawerStyle]}>
+      <View style={{flex:1,backgroundColor:Colors.backgroundOverLayColor}}>
+            <Animated.View style={[{flex:1, backgroundColor:Colors.backColorMain,zIndex:0}, viewDrawerStyle]}>
                 <View>
                     <Text style={styles.title}>All Tasks {user?.displayName}  </Text>
                 </View>
@@ -149,6 +152,7 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
                 </View>
                     <View style={[styles.viewShadow,{left:-5*width/100,top:(height-90*height/100)/2}]}/>
             </Animated.View>
+            </View>       
     )
 };
 

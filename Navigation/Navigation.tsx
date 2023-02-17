@@ -11,12 +11,13 @@ import Reminder from '../src/screen/Reminder';
 import { Colors } from '../assets/Colors';
 import { image } from '../assets/image'
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import React, { useState, useEffect } from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Image, StyleSheet, View, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { auth } from '../src/Firebase/firebase'
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { sendCurrentScreen } from '../src/redux/thunk/thunkCurrentScreen';
+import { DrawerActions } from '@react-navigation/native';
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
@@ -32,15 +33,49 @@ const AuthScreen = () => {
 }
 
 const MainScreen = (props: any) => {
-    const [isOpenMenu, setIsOpenMenu] = useState(false)
     const navigation = useNavigation()
     var statusDrawer = useDrawerStatus();
+    let drawerActions = DrawerActions;
+    const [statusDrawerState, setStatusDrawerState] = useState(statusDrawer)
     const currentScreen = useSelector((state: any) => state.reducerCurrentScreen.currentScreen)
     const dispatch = useDispatch();
 
+    const onPressOpenDrawer = () => {
+
+        setStatusDrawerState('open')
+
+        navigation.dispatch(drawerActions.closeDrawer)
+        console.log('bbb')
+
+        console.log(1, statusDrawer)
+        console.log(drawerActions)
+    }
+
+    const onPressClosedDrawer = () => {
+
+        setStatusDrawerState('closed')
+        navigation.dispatch(drawerActions.openDrawer)
+        console.log('aaa')
+
+
+        console.log(2, statusDrawer)
+        console.log(drawerActions)
+    }
+
+
     useEffect(() => {
-        statusDrawer == 'open' ? setIsOpenMenu(true) : setIsOpenMenu(false)
-    }, [statusDrawer])
+        if (statusDrawerState == 'open') {
+            setStatusDrawerState('open')
+            console.log('effect', statusDrawer)
+            console.log('effect state', statusDrawerState, '--------------')
+        }
+        else if (statusDrawerState == 'closed') {
+            setStatusDrawerState('closed')
+            console.log('effect 2', statusDrawer)
+            console.log('effect state 2', statusDrawerState, '--------------')
+        }
+    }, [statusDrawerState, statusDrawer])
+
 
 
     return (
@@ -49,22 +84,16 @@ const MainScreen = (props: any) => {
             screenOptions={{
                 headerTitle: '',
                 headerTransparent: true,
-                headerMode:'float',
                 headerLeft: () => (
                     <View style={styles.container}>
                         <TouchableOpacity
-                            style={styles.iconTouchMenu}
-                            onPress={() => {
-                                if (statusDrawer == 'open') {
-                                    navigation.closeDrawer()
-                                    setIsOpenMenu(false)
-                                } else {
-                                    navigation.openDrawer()
-                                    setIsOpenMenu(true)
-                                }
-                            }}
+                            style={[styles.iconTouchMenu, {
+                                marginLeft: statusDrawer == 'open' ? 50 : 0,
+                                marginTop: statusDrawer == 'open' ? 20 : 0,
+                            }]}
+                            onPress={statusDrawerState == 'open' ? onPressClosedDrawer : onPressOpenDrawer}
                         >
-                            {!isOpenMenu ? <Image source={image.iconMenu} style={styles.iconMenu} /> : <Image source={image.iconExit} style={styles.iconExit} />}
+                            {statusDrawer == 'closed' ? <Image source={image.iconMenu} style={styles.iconMenu} /> : <Image source={image.iconExit} style={styles.iconExit} />}
                         </TouchableOpacity>
                     </View>
 
@@ -74,15 +103,15 @@ const MainScreen = (props: any) => {
             <Stack.Screen name={'Home'} component={Home} />
             <Stack.Screen name={'Reminder'} component={Reminder} options={{
                 headerLeft: () => (
-                    <TouchableOpacity onPress={()=>{
+                    <TouchableOpacity onPress={() => {
                         navigation.navigate('Home'),
-                        dispatch(sendCurrentScreen('Home'))
+                            dispatch(sendCurrentScreen('Home'))
                     }}
-                    style={styles.goBack}
+                        style={styles.goBack}
                     >
-                        <Image source={image.goBack}/>
+                        <Image source={image.goBack} />
                     </TouchableOpacity>
-            )
+                )
             }} />
             <Stack.Screen name={'AddTodo'} component={AddTodo} />
             <Stack.Screen name={'TodoDetail'} component={TodoDetail} />
@@ -93,15 +122,13 @@ const MainScreen = (props: any) => {
 const DrawerScreen = () => {
     return (
         <Drawer.Navigator
-        
+
             drawerContent={(props: any) => {
                 return <SlideMenu {...props} />
             }}
             screenOptions={{
                 headerShown: false,
-                drawerType: 'slide',
-                overlayColor: Colors.backgroundOverLayColor,
-                
+                drawerType: 'back',
             }}
         >
             <Drawer.Screen name={'MainScreen'}>
@@ -137,18 +164,18 @@ export default () => {
 const styles = StyleSheet.create({
     container: {
         marginLeft: 30,
-        marginTop: 20,  
-        
+        marginTop: 20,
+
+
     },
     iconMenu: {
         width: 30,
         height: 30,
 
     },
-    iconExit:{
-        width:25,
-        height:25,
-        
+    iconExit: {
+        width: 25,
+        height: 25
     },
     iconTouchMenu: {
         alignItems: 'center',
@@ -156,7 +183,7 @@ const styles = StyleSheet.create({
         width: 40,
         height: 40,
     },
-    goBack:{   
-        padding:10
+    goBack: {
+        padding: 10
     }
 })
