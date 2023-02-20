@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { View, Text, ImageBackground, TouchableOpacity, StyleSheet } from 'react-native'
-import CustomInputTodo from "../../assets/Custom/customInputTodo";
-import CustomButton from "../../assets/Custom/customButtonLogin";
+import CustomInputTodo from "../../../assets/Custom/customInputTodo";
+import CustomButton from "../../../assets/Custom/customButtonLogin";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from "react-hook-form";
-import { Colors } from "../../assets/Colors";
-import { addTodo } from "../redux/thunk/thunkTask";
-import { sendCurrentScreen } from "../redux/thunk/thunkCurrentScreen";
-import { image } from '../../assets/image'
+import { Colors } from "../../../assets/Colors";
+import { addTodo } from "../../redux/thunk/thunkTask";
+import { sendCurrentScreen } from "../../redux/thunk/thunkCurrentScreen";
+import { image } from '../../../assets/image'
 import { useDispatch } from "react-redux";
 import { useDrawerProgress } from '@react-navigation/drawer'
 import Animated, { interpolate, useAnimatedStyle } from 'react-native-reanimated';

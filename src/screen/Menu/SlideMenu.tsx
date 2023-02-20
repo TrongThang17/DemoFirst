@@ -1,9 +1,9 @@
 import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
-import { Colors } from '../../assets/Colors'
-import { image } from '../../assets/image'
+import { Colors } from '../../../assets/Colors'
+import { image } from '../../../assets/image'
 import LinearGradient from 'react-native-linear-gradient'
-import { sendCurrentScreen } from '../redux/thunk/thunkCurrentScreen'
+import { sendCurrentScreen } from '../../redux/thunk/thunkCurrentScreen'
 import { useSelector, useDispatch } from "react-redux";
 const SlideMenu = (props: any) => {
     const dispatch = useDispatch();
@@ -44,17 +44,17 @@ const SlideMenu = (props: any) => {
 
 
                 <TouchableOpacity onPress={() => {
-                    dispatch(sendCurrentScreen('Reminder'))
-                    props.navigation.navigate('Reminder')
+                    dispatch(sendCurrentScreen('Calendar'))
+                    props.navigation.navigate('Calendar')
                 }} >
                     <LinearGradient
-                        colors={currentTab == 'Reminder' ? Colors.colorTouchMenu : Colors.null}
+                        colors={currentTab == 'Calendar' ? Colors.colorTouchMenu : Colors.null}
                         start={{ x: 0, y: 0 }}
                         end={{ x: 1, y: 0 }}
                         style={styles.touchMenu}
                     >
                         <Image source={image.reminder} style={styles.iconMenu} />
-                        <Text style={styles.textMenu}>Reminder</Text>
+                        <Text style={styles.textMenu}>Calendar</Text>
                     </LinearGradient>
                 </TouchableOpacity>
 

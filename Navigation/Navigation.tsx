@@ -1,14 +1,13 @@
 import { createDrawerNavigator, useDrawerStatus, useDrawerProgress } from '@react-navigation/drawer';
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from '@react-navigation/stack';
-import Login from "../src/screen/Login";
-import Home from "../src/screen/Home";
-import AddTodo from "../src/screen/AddTodo";
-import Signip from "../src/screen/Signup";
-import TodoDetail from "../src/screen/TodoDetail";
-import SlideMenu from "../src/screen/SlideMenu";
-import Reminder from '../src/screen/Reminder';
-import { Colors } from '../assets/Colors';
+import Login from "../src/screen/Login/Login";
+import Home from "../src/screen/Home/Home";
+import AddTodo from "../src/screen/TodoList/AddTodo";
+import Signip from "../src/screen/Login/Signup";
+import TodoDetail from "../src/screen/TodoList/TodoDetail";
+import SlideMenu from "../src/screen/Menu/SlideMenu";
+import Calendar from '../src/screen/Calendar/Calendar';
 import { image } from '../assets/image'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
@@ -93,7 +92,7 @@ const MainScreen = (props: any) => {
             }}
         >
             <Stack.Screen name={'Home'} component={Home} />
-            <Stack.Screen name={'Reminder'} component={Reminder} options={{
+            <Stack.Screen name={'Calendar'} component={Calendar} options={{
                 headerLeft: () => (
                     <TouchableOpacity onPress={() => {
                         navigation.navigate('Home'),

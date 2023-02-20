@@ -1,19 +1,19 @@
 import React, { useState, useCallback } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image,Dimensions } from 'react-native';
-import CustomButton from "../../assets/Custom/customButtonLogin";
+import CustomButton from "../../../assets/Custom/customButtonLogin";
 import { useSelector, useDispatch } from "react-redux";
-import CustomButtonDelete from "../../assets/Custom/customButtonDelete";
-import Item from "../../assets/Custom/customItem";
-import { deleteTodo, updateDetail } from "../redux/thunk/thunkTask";
+import CustomButtonDelete from "../../../assets/Custom/customButtonDelete";
+import Item from "../../../assets/Custom/customItem";
+import { deleteTodo, updateDetail } from "../../redux/thunk/thunkTask";
 import Modal from "react-native-modal";
-import { logout } from "../redux/thunk/thunkLogin";
-import { sendCurrentScreen } from "../redux/thunk/thunkCurrentScreen";
-import { auth } from "../Firebase/firebase";
+import { logout } from "../../redux/thunk/thunkLogin";
+import { sendCurrentScreen } from "../../redux/thunk/thunkCurrentScreen";
+import { auth } from "../../Firebase/firebase";
 import { useDrawerProgress } from '@react-navigation/drawer'
 import DropShadow from "react-native-drop-shadow";
 import Animated, { interpolate, useAnimatedStyle,useSharedValue } from 'react-native-reanimated';
-import { Colors } from "../../assets/Colors";
-import { image } from "../../assets/image";
+import { Colors } from "../../../assets/Colors";
+import { image } from "../../../assets/image";
 const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
     const inf = useSelector((state: any) => state.reducerTask.list)
     const [selected, setSelected] = useState(new Map());

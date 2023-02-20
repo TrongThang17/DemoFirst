@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Image, StatusBar } from 'react-native'
 import React, { useState, useMemo, useEffect,useCallback } from 'react'
-import { Colors } from '../../assets/Colors'
-import { image } from '../../assets/image'
+import { Colors } from '../../../assets/Colors'
+import { image } from '../../../assets/image'
 import LinearGradient from 'react-native-linear-gradient'
 import { Calendar } from 'react-native-calendars';
 const Reminder: React.FC<{ navigation: any }> = ({ navigation }) => {

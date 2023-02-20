@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native'
-import CustomInputTodo from "../../assets/Custom/customInputTodo";
-import CustomButton from "../../assets/Custom/customButtonLogin";
+import CustomInputTodo from "../../../assets/Custom/customInputTodo";
+import CustomButton from "../../../assets/Custom/customButtonLogin";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from "react-hook-form";
-import { Colors } from "../../assets/Colors";
+import { Colors } from "../../../assets/Colors";
 import { useSelector, useDispatch } from "react-redux";
-import { updateTodo } from "../redux/thunk/thunkTask";
+import { updateTodo } from "../../redux/thunk/thunkTask";
 import Modal from "react-native-modal";
-import { image } from '../../assets/image'
-import { sendCurrentScreen } from "../redux/thunk/thunkCurrentScreen";
+import { image } from '../../../assets/image'
+import { sendCurrentScreen } from "../../redux/thunk/thunkCurrentScreen";
 interface validate {
     title: string,
     describe: string

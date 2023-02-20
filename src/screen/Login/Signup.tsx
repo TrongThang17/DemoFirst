@@ -1,45 +1,48 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { StyleSheet, View, Text, Image, TouchableOpacity, Linking, Alert } from "react-native";
-import { image } from '../../assets/image';
-import CustomInput from "../../assets/Custom/customInputLogin";
-import CustomButton from "../../assets/Custom/customButtonLogin";
+import React, { useCallback, useState } from "react";
+import { StyleSheet, View, Text, Image, TouchableOpacity, Alert } from "react-native";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import { image } from '../../../assets/image';
+import { Colors } from '../../../assets/Colors'
+import CustomInput from "../../../assets/Custom/customInputLogin";
+import CustomButton from "../../../assets/Custom/customButtonLogin";
 import LinearGradient from 'react-native-linear-gradient';
-import { Colors } from '../../assets/Colors'
-import Loading from "./Loading";
-import { auth } from '../Firebase/firebase'
-import { login } from '../redux/thunk/thunkLogin'
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { useDispatch } from "react-redux";
+import { signup } from "../../redux/thunk/thunkLogin";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 interface validate {
+    firstname: string,
+    lastname: string,
     email: string,
-    password: string
+    password: string,
 }
-
 const schema = yup.object().shape({
-    email: yup.string().required(),
-    password: yup.string().required().min(8, 'At least 8 characters')
+    firstname: yup.string().required(),
+    lastname: yup.string().required(),
+    password: yup.string().required().min(8, 'At least 8 characters'),
+    email: yup.string().email()
 })
-const Login: React.FC<{ navigation: any }> = ({ navigation }) => {
+
+const Signin: React.FC<{ navigation: any }> = ({ navigation }) => {
+    const [showPW, setShowPW] = useState(true);
+    const [tick, setTick] = useState(false);
+
     const { control, register, handleSubmit, watch, formState: { errors } }: any = useForm<validate>({
         resolver: yupResolver(schema)
     });
-    const dispatch = useDispatch()
-    
-    const isLoading = useSelector((state: any) => state.reducerLogin.isLoading)
-    
-    const [showPW, setShowPW] = useState(true);
-
-    const onLoginThunk = useCallback((value: any) => {
-        dispatch(login(value))
-    }, [])
 
     const onShowPW = useCallback(() => {
         showPW ? setShowPW(false) : setShowPW(true)
     }, [showPW])
-    return isLoading ? (<Loading />) : (
+
+    const dispatch = useDispatch()
+
+    const onSignUp = useCallback((value: any) => {
+        dispatch(signup(value))
+    }, [])
+
+    return (
         <View style={{ backgroundColor: Colors.background, height: '100%' }}>
             <KeyboardAwareScrollView>
                 <View style={styles.container}>
@@ -58,11 +61,42 @@ const Login: React.FC<{ navigation: any }> = ({ navigation }) => {
                         <View style={styles.viewTextLogin}>
                             <View style={styles.hr} />
                             <View style={styles.hr1} />
-                            <Text style={styles.textLogin}>Log In </Text>
+                            <Text style={styles.textLogin}>Register </Text>
                         </View>
-
                         <View style={styles.viewTextInput}>
                             <View>
+                                <Controller
+                                    control={control}
+                                    rules={{
+                                        required: true
+                                    }}
+                                    render={({ field: { onChange, value } }) =>
+                                        <CustomInput
+                                            placeholder="First name"
+                                            onChange={onChange}
+                                            value={value}
+                                            img={image.user}
+                                        />
+                                    }
+                                    name={'firstname'}
+                                />
+                                {errors.firstname && <Text style={styles.errorText}>This is required Firstname.</Text>}
+                                <Controller
+                                    control={control}
+                                    rules={{
+                                        required: true
+                                    }}
+                                    render={({ field: { onChange, value } }) =>
+                                        <CustomInput
+                                            placeholder="Last name"
+                                            onChange={onChange}
+                                            value={value}
+                                            img={image.user}
+                                        />
+                                    }
+                                    name={'lastname'}
+                                />
+                                {errors.lastname && <Text style={styles.errorText}>This is required Lastname.</Text>}
                                 <Controller
                                     control={control}
                                     rules={{
@@ -73,11 +107,10 @@ const Login: React.FC<{ navigation: any }> = ({ navigation }) => {
                                             placeholder="Email"
                                             onChange={onChange}
                                             value={value}
-                                            img={image.user}
+                                            img={image.email}
                                         />
                                     }
                                     name={'email'}
-
                                 />
                                 {errors.email && <Text style={styles.errorText}>This is required Email.</Text>}
                                 <Controller
@@ -96,19 +129,30 @@ const Login: React.FC<{ navigation: any }> = ({ navigation }) => {
                                             onClickEye={onShowPW}
                                             show={showPW}
                                         />
-
                                     }
                                     name={'password'}
                                 />
 
                                 {errors.password && <Text style={styles.errorText}>{errors.password.message}</Text>}
                             </View>
-                            <View>
-                                <View style={{ paddingTop: 10, paddingBottom: 20 }}>
-                                    <Text style={styles.textForget}>Forget Password</Text>
+                            <View style={styles.selectedButton} >
+                                <TouchableOpacity
+                                    style={styles.choosenButton}
+                                    onPress={() => {
+                                        tick ? setTick(false) : setTick(true)
+                                    }}
+                                >
+                                    {tick ? <Image source={image.tick} style={{ width: 18, height: 18, justifyContent: 'center', alignItems: 'center' }} /> : ''}
+                                </TouchableOpacity>
+                                <View style={{ left: 18 }}>
+                                    <Text style={styles.textChoosen}>by clicking on "Register" you agree to our
+                                        <Text style={styles.textSpecial}> Term & Conditions</Text> and
+                                        <Text style={styles.textSpecial}> Privacy Policy</Text>
+                                    </Text>
                                 </View>
-
-                                <View >
+                            </View>
+                            <View style={{ paddingTop: 120 }}>
+                                <View>
                                     <LinearGradient
                                         colors={Colors.colorLogin}
                                         style={styles.linearGradient}
@@ -117,52 +161,14 @@ const Login: React.FC<{ navigation: any }> = ({ navigation }) => {
                                     >
 
                                         <CustomButton
-                                            label="Log In"
-                                            onPress={handleSubmit(onLoginThunk)}
-                                            colorLabel={Colors.white}
+                                            label="Register"
+                                            onPress={handleSubmit(onSignUp)}
                                         />
                                     </LinearGradient>
                                 </View>
-                            </View>
-                            <View>
-                                <View style={styles.viewTextLR}>
-                                    <Text style={styles.textLeft}>Don't have an account ? </Text>
-                                    <Text style={styles.textRight} onPress={() => {
-                                        navigation.navigate('Signup')
-                                    }}>Sign Up </Text>
+                                <View style={{ alignItems: 'center', paddingTop: 20 }}>
+                                    <Text style={styles.textChoosen}>Already have an account ? <Text style={styles.textSpecial} onPress={() => { navigation.navigate('Login') }}>Log In</Text></Text>
                                 </View>
-                                <View style={{ flexDirection: 'row', alignItems: 'center', padding: 20, width: '100%' }}>
-                                    <View style={{ flex: 1, height: 2, backgroundColor: Colors.hr1, borderRadius: 90 }} />
-                                    <View>
-                                        <Text style={{ width: 150, textAlign: 'center', color: 'white', }}>Or Log in With </Text>
-                                    </View>
-                                    <View style={{ flex: 1, height: 2, backgroundColor: Colors.hr1, borderRadius: 90 }} />
-                                </View>
-                            </View>
-
-
-                            <View>
-                                <CustomButton
-                                    img={image.facebook}
-                                    label='Log in with Facebook'
-                                    colorCode={Colors.colorFacebook}
-                                    colorCodeIcon='white'
-                                    colorLabel={Colors.white}
-                                    onPress={() => {
-                                        Linking.openURL('https://facebook.com')
-                                    }}
-                                />
-
-                                <CustomButton
-                                    img={image.apple}
-                                    label='Log in with Aple'
-                                    colorCode={Colors.colorApple}
-                                    colorCodeIcon={Colors.colorApple}
-                                    colorLabel={Colors.white}
-                                    onPress={() => {
-                                        Linking.openURL('https://appleid.apple.com/sign-in')
-                                    }}
-                                />
                             </View>
                         </View>
                     </View>
@@ -175,7 +181,6 @@ const Login: React.FC<{ navigation: any }> = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-
     },
     viewHeader: {
         display: 'flex',
@@ -199,7 +204,7 @@ const styles = StyleSheet.create({
         bottom: 10,
         backgroundColor: Colors.combined,
         width: 31.47,
-        height: 31.47,
+        height: 31.47
     },
     oval: {
         bottom: 30,
@@ -213,7 +218,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     textUp: {
-        
+    
         fontFamily: 'Outfit',
         fontStyle: 'normal',
         fontWeight: '900',
@@ -232,7 +237,7 @@ const styles = StyleSheet.create({
         display: "flex",
         alignItems: 'center',
         color: Colors.textDown,
-      
+     
     },
     viewBody: {
         display: 'flex',
@@ -251,7 +256,6 @@ const styles = StyleSheet.create({
         borderRadius: 30,
     },
     textLogin: {
-
         marginTop: 20,
         marginLeft: 40,
         fontFamily: 'Outfit',
@@ -269,42 +273,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: 20
     },
-    textForget: {
-        fontStyle: 'normal',
-        fontWeight: '400',
-        fontSize: 15,
-        lineHeight: 20,
-        display: 'flex',
-        textAlign: "right",
-        alignItems: 'center',
-        color: Colors.white,
-
-    },
-
-    viewTextLR: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        paddingTop: 20
-    },
-    textLeft: {
-       
-        fontStyle: 'normal',
-        fontWeight: '400',
-        fontSize: 15,
-        lineHeight: 20,
-        fontFamily: 'Outfit',
-        color: Colors.white
-    },
-    textRight: {
-      
-        color: Colors.signUp,
-        fontStyle: 'normal',
-        fontWeight: '700',
-        fontSize: 15,
-        lineHeight: 20,
-        fontFamily: 'Outfit',
-    },
-
     errorText: {
         color: 'red',
         marginBottom: 5,
@@ -315,8 +283,33 @@ const styles = StyleSheet.create({
         height: 52,
         width: 327,
 
+    },
+    selectedButton: {
+        flexDirection: 'row',
+        paddingRight: 50,
+        paddingTop: 20
+    },
+    choosenButton: {
+        width: 18,
+        height: 18,
+        borderRadius: 4,
+        backgroundColor: '#A4BCC1',
+        marginLeft: 40,
+        
+    },
+    textChoosen: {
+        fontSize: 15,
+        fontWeight: '400',
+        lineHeight: 20,
+        color: 'white'
+    },
+    textSpecial: {
+        color: '#FF5889',
+        fontSize: 15,
+        fontWeight: '400',
+        lineHeight: 20,
+        
     }
 })
 
-export default Login;
-
+export default Signin

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Image, Modal, StyleSheet, Text, Pressable, View } from "react-native";
-import { image } from '../../assets/image'
+import { image } from '../../../assets/image'
 const Loading = () => {
 
   return (
