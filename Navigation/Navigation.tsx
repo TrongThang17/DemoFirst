@@ -11,7 +11,7 @@ import Reminder from '../src/screen/Reminder';
 import { Colors } from '../assets/Colors';
 import { image } from '../assets/image'
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Image, StyleSheet, View, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { auth } from '../src/Firebase/firebase'
@@ -36,46 +36,38 @@ const MainScreen = (props: any) => {
     const navigation = useNavigation()
     var statusDrawer = useDrawerStatus();
     let drawerActions = DrawerActions;
-    const [statusDrawerState, setStatusDrawerState] = useState(statusDrawer)
+    const [statusDrawerState, setStatusDrawerState] = useState(statusDrawer);
     const currentScreen = useSelector((state: any) => state.reducerCurrentScreen.currentScreen)
     const dispatch = useDispatch();
 
     const onPressOpenDrawer = () => {
-
-        setStatusDrawerState('open')
-
-        navigation.dispatch(drawerActions.closeDrawer)
-        console.log('bbb')
-
-        console.log(1, statusDrawer)
-        console.log(drawerActions)
-    }
-
-    const onPressClosedDrawer = () => {
-
-        setStatusDrawerState('closed')
         navigation.dispatch(drawerActions.openDrawer)
-        console.log('aaa')
-
-
-        console.log(2, statusDrawer)
-        console.log(drawerActions)
+        setStatusDrawerState('open')
     }
 
+    const onPressClosedDrawer = useCallback(() => {
+        navigation.dispatch(drawerActions.closeDrawer)
+        setStatusDrawerState('closed')
+    }, [statusDrawer])
+
+
+    const onPressDrawer = () => {
+        statusDrawerState == 'open' ? onPressClosedDrawer() : onPressOpenDrawer()
+    }
 
     useEffect(() => {
-        if (statusDrawerState == 'open') {
+        if (statusDrawer == 'open' && statusDrawerState == 'closed') {
             setStatusDrawerState('open')
-            console.log('effect', statusDrawer)
-            console.log('effect state', statusDrawerState, '--------------')
         }
-        else if (statusDrawerState == 'closed') {
-            setStatusDrawerState('closed')
-            console.log('effect 2', statusDrawer)
-            console.log('effect state 2', statusDrawerState, '--------------')
-        }
-    }, [statusDrawerState, statusDrawer])
+    }, [statusDrawer])
 
+    useEffect(() => {
+        setTimeout(() => {
+            if (statusDrawer == 'closed' && statusDrawerState == 'open') {
+                setStatusDrawerState('closed')
+            }
+        })
+    }, [statusDrawer])
 
 
     return (
@@ -91,7 +83,7 @@ const MainScreen = (props: any) => {
                                 marginLeft: statusDrawer == 'open' ? 50 : 0,
                                 marginTop: statusDrawer == 'open' ? 20 : 0,
                             }]}
-                            onPress={statusDrawerState == 'open' ? onPressClosedDrawer : onPressOpenDrawer}
+                            onPress={onPressDrawer}
                         >
                             {statusDrawer == 'closed' ? <Image source={image.iconMenu} style={styles.iconMenu} /> : <Image source={image.iconExit} style={styles.iconExit} />}
                         </TouchableOpacity>
@@ -148,7 +140,7 @@ export default () => {
     return (
         <NavigationContainer>
             {
-                !user ?
+                user ?
                     <>
                         <AuthScreen />
                     </>
