@@ -10,16 +10,66 @@ const Reminder: React.FC<{ navigation: any }> = ({ navigation }) => {
     const [selectedEndDay, setSelectedEndDay]: any = useState('');
     const marked = useMemo(() => ({
         [selectedStartDay]: {
+            startingDay:true,
             selected: true,
-            selectedColor: Colors.colorSelectedDay,
-            selectedTextColor: Colors.white,
+            // selectedColor: Colors.colorSelectedDay,
+            // selectedTextColor: Colors.white,
+            color: Colors.colorSelectedDay, 
+            textColor: Colors.white,
+            // borderTopLeftRadius: 30,
+            // borderBottomLeftRadius: 30,
+            
+            
         },
+        '2023-02-02': { 
+            
+            // selectedColor: Colors.colorSelectedDay,
+            // selectedTextColor: Colors.white,
+            // color: 'rgba(0, 0, 0, 0.2)', 
+            textColor: Colors.white,
+        },
+        '2023-02-03': { 
+            
+            // selectedColor: Colors.colorSelectedDay,
+            // selectedTextColor: Colors.white,
+            // color: 'rgba(0, 0, 0, 0.2)', 
+            textColor: Colors.white,
+        },
+        '2023-02-04': { 
+            
+            // selectedColor: Colors.colorSelectedDay,
+            // selectedTextColor: Colors.white,
+            // color: 'rgba(0, 0, 0, 0.2)', 
+            textColor: Colors.white,
+        },
+        '2023-02-05': { 
+            
+            // selectedColor: Colors.colorSelectedDay,
+            // selectedTextColor: Colors.white,
+            // color: 'rgba(0, 0, 0, 0.2)', 
+            textColor: Colors.white,
+        },
+            
         [selectedEndDay]: {
+            endingDay:true,
             selected: true,
-            selectedColor: Colors.colorSelectedDay,
-            selectedTextColor: Colors.white,
-        }
+            // selectedColor: Colors.colorSelectedDay,
+            // selectedTextColor: Colors.white,
+            color: Colors.colorSelectedDay, 
+            textColor: Colors.white,
+      
+        },
+       
     }), [selectedStartDay, selectedEndDay]);
+
+
+    const _renderArrow = (direction:any,state:any) => {
+        if(direction === 'left') {
+            return <Text>aaa</Text>
+        } else {
+            return <Text>bbb</Text>
+        }
+    }
 
     const onDayPress = (day:any)=>{
         selectedStartDay == '' && selectedEndDay == '' ? setSelectedStartDay(day.dateString) :
@@ -57,14 +107,17 @@ const Reminder: React.FC<{ navigation: any }> = ({ navigation }) => {
             <View style={styles.viewCalendar}>
                 <Calendar
                     onDayPress={onDayPress}
-
+                   
                     onPressArrowLeft={(goToPreviousMonth) => {
                         console.log('onPressArrowLeft'); goToPreviousMonth();
                     }}
                     onPressArrowRight={(goToNextMonth) => {
                         console.log('onPressArrowRight'); goToNextMonth();
                     }}
-
+                    // renderArrow={_renderArrow}
+                    pastScrollRange={0}
+                    markingType={'period'}
+                    
                     markedDates={marked}
                     theme={{
                         calendarBackground: Colors.backgroundCalendar,
@@ -74,7 +127,7 @@ const Reminder: React.FC<{ navigation: any }> = ({ navigation }) => {
                         textDayFontSize: 17,
                         monthTextColor: 'white',
                         textMonthFontSize: 20,
-                        textMonthFontWeight: '900',
+                        textMonthFontWeight: '600',
                         textDisabledColor: Colors.textDisableColor,
                         'stylesheet.calendar.header': {
                             dayTextAtIndex0: {
@@ -107,7 +160,27 @@ const Reminder: React.FC<{ navigation: any }> = ({ navigation }) => {
                                 fontSize: 15,
                             }
                         },
+                        // 'stylesheet.calendar.day.basic': {
+                        //     selected: {
+                        //       borderRadius: 20
+                        //     }
+                        //   }
+                        // 'stylesheet.day.period': {
+                        //     wrapper: {
+                        //         alignItems: 'center',
+                        //         // alignSelf: 'stretch',
+                        //         // marginLeft: -2,
+                             
+                              
+                        //     },
+                        //     leftFiller: {
+                        //         height: 26,
+                        //         flex: 1,
+                               
+                        //     }
+                        // }
                     }}
+                    
                     monthFormat='MMMM'
                     style={{
 
