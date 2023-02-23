@@ -1,0 +1,13 @@
+diff --git a/node_modules/@react-navigation/drawer/src/views/DrawerView.tsx b/node_modules/@react-navigation/drawer/src/views/DrawerView.tsx
+index 9ec1d45..5302235 100644
+--- a/node_modules/@react-navigation/drawer/src/views/DrawerView.tsx
++++ b/node_modules/@react-navigation/drawer/src/views/DrawerView.tsx
+@@ -107,7 +107,7 @@ function DrawerViewBase({
+     drawerType = Platform.select({ ios: 'slide', default: 'front' }),
+     gestureHandlerProps,
+     keyboardDismissMode = 'on-drag',
+-    overlayColor = 'rgba(0, 0, 0, 0.5)',
++    overlayColor = '',
+     swipeEdgeWidth = 32,
+     swipeEnabled = Platform.OS !== 'web' &&
+       Platform.OS !== 'windows' &&

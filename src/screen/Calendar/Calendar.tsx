@@ -8,68 +8,44 @@ const Reminder: React.FC<{ navigation: any }> = ({ navigation }) => {
 
     const [selectedStartDay, setSelectedStartDay]: any = useState('');
     const [selectedEndDay, setSelectedEndDay]: any = useState('');
-    const marked = useMemo(() => ({
-        [selectedStartDay]: {
-            startingDay:true,
-            selected: true,
-            // selectedColor: Colors.colorSelectedDay,
-            // selectedTextColor: Colors.white,
-            color: Colors.colorSelectedDay, 
-            textColor: Colors.white,
-            // borderTopLeftRadius: 30,
-            // borderBottomLeftRadius: 30,
-            
-            
-        },
-        '2023-02-02': { 
-            
-            // selectedColor: Colors.colorSelectedDay,
-            // selectedTextColor: Colors.white,
-            // color: 'rgba(0, 0, 0, 0.2)', 
-            textColor: Colors.white,
-        },
-        '2023-02-03': { 
-            
-            // selectedColor: Colors.colorSelectedDay,
-            // selectedTextColor: Colors.white,
-            // color: 'rgba(0, 0, 0, 0.2)', 
-            textColor: Colors.white,
-        },
-        '2023-02-04': { 
-            
-            // selectedColor: Colors.colorSelectedDay,
-            // selectedTextColor: Colors.white,
-            // color: 'rgba(0, 0, 0, 0.2)', 
-            textColor: Colors.white,
-        },
-        '2023-02-05': { 
-            
-            // selectedColor: Colors.colorSelectedDay,
-            // selectedTextColor: Colors.white,
-            // color: 'rgba(0, 0, 0, 0.2)', 
-            textColor: Colors.white,
-        },
-            
-        [selectedEndDay]: {
-            endingDay:true,
-            selected: true,
-            // selectedColor: Colors.colorSelectedDay,
-            // selectedTextColor: Colors.white,
-            color: Colors.colorSelectedDay, 
-            textColor: Colors.white,
-      
-        },
-       
-    }), [selectedStartDay, selectedEndDay]);
 
 
-    const _renderArrow = (direction:any,state:any) => {
-        if(direction === 'left') {
-            return <Text>aaa</Text>
-        } else {
-            return <Text>bbb</Text>
+    const getDateForCalendar = (date:any) => {
+        let myDate = new Date(date)
+        const yr = myDate.getFullYear();
+        const month = `${myDate.getMonth() + 1 < 10 ? 0 : ''}${myDate.getMonth() + 1}`;
+        const d = `${myDate.getDate() < 10 ? 0 : ''}${myDate.getDate()}`;
+        return `${yr}-${month}-${d}`;
+    };
+
+    const getAllDatesBetween = (fromDate:any, toDate:any) => {
+        
+        let startDate = new Date(fromDate)
+        let endDate = new Date(toDate)
+        let curDate = new Date(startDate.getTime());
+        const datesForCalendar:any = {};
+        datesForCalendar[getDateForCalendar(fromDate)] = {
+            startingDay: true,
+            color: Colors.colorSelectedDay,
+            textColor: 'white'
+        };
+        if (toDate) {
+            while (curDate < endDate) {
+                curDate = new Date(curDate.setDate(curDate.getDate() + 1));
+                datesForCalendar[getDateForCalendar(curDate)] = {
+                    color: 'rgba(0, 0, 0, 0.1)',
+                    textColor: 'white'
+                };
+            }
+            datesForCalendar[getDateForCalendar(toDate)] = {
+                endingDay: true,
+                color:  Colors.colorSelectedDay,
+                textColor: 'white'
+            };
         }
-    }
+    
+        return datesForCalendar;
+    };
 
     const onDayPress = (day:any)=>{
         selectedStartDay == '' && selectedEndDay == '' ? setSelectedStartDay(day.dateString) :
@@ -80,7 +56,12 @@ const Reminder: React.FC<{ navigation: any }> = ({ navigation }) => {
                             && selectedEndDay > day.dateString ? setSelectedStartDay(day.dateString) :
                             selectedStartDay != day.dateString && selectedEndDay != day.dateString &&
                                 selectedEndDay < day.dateString ? setSelectedEndDay(day.dateString) : ''
+        // if(selectedEndDay < day.dateString){
+        //     setSelectedEndDay(selectedStartDay)
+        //     setSelectedStartDay(selectedEndDay)
+        // }
     }
+
     return (
         <View style={styles.container}>
             <View style={styles.viewHeader}>
@@ -114,11 +95,8 @@ const Reminder: React.FC<{ navigation: any }> = ({ navigation }) => {
                     onPressArrowRight={(goToNextMonth) => {
                         console.log('onPressArrowRight'); goToNextMonth();
                     }}
-                    // renderArrow={_renderArrow}
-                    pastScrollRange={0}
                     markingType={'period'}
-                    
-                    markedDates={marked}
+                    markedDates={getAllDatesBetween(selectedStartDay,selectedEndDay)}
                     theme={{
                         calendarBackground: Colors.backgroundCalendar,
                         todayTextColor: '#141617',
@@ -162,9 +140,9 @@ const Reminder: React.FC<{ navigation: any }> = ({ navigation }) => {
                         },
                         // 'stylesheet.calendar.day.basic': {
                         //     selected: {
-                        //       borderRadius: 20
+                        //       borderRadius: 90
                         //     }
-                        //   }
+                        //   },
                         // 'stylesheet.day.period': {
                         //     wrapper: {
                         //         alignItems: 'center',
@@ -177,8 +155,32 @@ const Reminder: React.FC<{ navigation: any }> = ({ navigation }) => {
                         //         height: 26,
                         //         flex: 1,
                                
+                        //     },
+                        //     fillers: {
+                        //         position: 'absolute',
+                        //         height: 26,
+                        //         flexDirection: 'row',
+                                
+                        //         right: 0,
+                        //         left:1
                         //     }
                         // }
+                        'stylesheet.marking':{
+                            startingDay:{
+                                // borderTopLeftRadius: 2,
+                                // borderBottomLeftRadius: 2,
+                                // borderTopRightRadius: 2,
+                                // borderBottomRightRadius: 2,
+                                marginLeft: 4
+                            },
+                            endingDay:{
+                                // borderTopLeftRadius: 2,
+                                // borderBottomLeftRadius: 2,
+                                // borderTopRightRadius: 2,
+                                // borderBottomRightRadius: 2,
+                                marginLeft: 4
+                            }
+                        }
                     }}
                     
                     monthFormat='MMMM'

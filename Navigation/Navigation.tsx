@@ -17,6 +17,7 @@ import { auth } from '../src/Firebase/firebase'
 import { useSelector, useDispatch } from "react-redux";
 import { sendCurrentScreen } from '../src/redux/thunk/thunkCurrentScreen';
 import { DrawerActions } from '@react-navigation/native';
+
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
