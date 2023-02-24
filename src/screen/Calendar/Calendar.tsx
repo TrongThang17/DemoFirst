@@ -26,7 +26,6 @@ const Reminder: React.FC<{ navigation: any }> = ({ navigation }) => {
         const datesForCalendar:any = {};
         datesForCalendar[getDateForCalendar(fromDate)] = {
             startingDay: true,
-            color: Colors.colorSelectedDay,
             textColor: 'white'
         };
         if (toDate) {
@@ -34,12 +33,12 @@ const Reminder: React.FC<{ navigation: any }> = ({ navigation }) => {
                 curDate = new Date(curDate.setDate(curDate.getDate() + 1));
                 datesForCalendar[getDateForCalendar(curDate)] = {
                     color: 'rgba(0, 0, 0, 0.1)',
-                    textColor: 'white'
+                    textColor: 'white',
+                    
                 };
             }
             datesForCalendar[getDateForCalendar(toDate)] = {
                 endingDay: true,
-                color:  Colors.colorSelectedDay,
                 textColor: 'white'
             };
         }
@@ -56,10 +55,7 @@ const Reminder: React.FC<{ navigation: any }> = ({ navigation }) => {
                             && selectedEndDay > day.dateString ? setSelectedStartDay(day.dateString) :
                             selectedStartDay != day.dateString && selectedEndDay != day.dateString &&
                                 selectedEndDay < day.dateString ? setSelectedEndDay(day.dateString) : ''
-        // if(selectedEndDay < day.dateString){
-        //     setSelectedEndDay(selectedStartDay)
-        //     setSelectedStartDay(selectedEndDay)
-        // }
+     
     }
 
     return (
@@ -138,47 +134,26 @@ const Reminder: React.FC<{ navigation: any }> = ({ navigation }) => {
                                 fontSize: 15,
                             }
                         },
-                        // 'stylesheet.calendar.day.basic': {
-                        //     selected: {
-                        //       borderRadius: 90
-                        //     }
-                        //   },
-                        // 'stylesheet.day.period': {
-                        //     wrapper: {
-                        //         alignItems: 'center',
-                        //         // alignSelf: 'stretch',
-                        //         // marginLeft: -2,
-                             
-                              
-                        //     },
-                        //     leftFiller: {
-                        //         height: 26,
-                        //         flex: 1,
-                               
-                        //     },
-                        //     fillers: {
-                        //         position: 'absolute',
-                        //         height: 26,
-                        //         flexDirection: 'row',
+                       
+                        'stylesheet.day.period': {
+                            wrapper: {
+                                alignItems: 'center',
+                                alignSelf: 'stretch',
+                                marginLeft: -1,
+                                borderRadius: 2,
+                                overflow: 'hidden',
                                 
-                        //         right: 0,
-                        //         left:1
-                        //     }
-                        // }
-                        'stylesheet.marking':{
-                            startingDay:{
-                                // borderTopLeftRadius: 2,
-                                // borderBottomLeftRadius: 2,
-                                // borderTopRightRadius: 2,
-                                // borderBottomRightRadius: 2,
-                                marginLeft: 4
                             },
-                            endingDay:{
-                                // borderTopLeftRadius: 2,
-                                // borderBottomLeftRadius: 2,
-                                // borderTopRightRadius: 2,
-                                // borderBottomRightRadius: 2,
-                                marginLeft: 4
+                            leftFiller: {
+                                height: 26,
+                                flex: 1,
+                                marginLeft: -10,
+                                
+                            },
+                            rightFiller:{
+                                height: 26,
+                                flex: 1,
+                                marginRight: 60
                             }
                         }
                     }}
