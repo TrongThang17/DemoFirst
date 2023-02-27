@@ -17,6 +17,7 @@ import { auth } from '../src/Firebase/firebase'
 import { useSelector, useDispatch } from "react-redux";
 import { sendCurrentScreen } from '../src/redux/thunk/thunkCurrentScreen';
 import { DrawerActions } from '@react-navigation/native';
+import { Colors } from '../assets/Colors';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -73,9 +74,11 @@ const MainScreen = (props: any) => {
     return (
         <Stack.Navigator
             initialRouteName={currentScreen}
+            
             screenOptions={{
                 headerTitle: '',
                 headerTransparent: true,
+              
                 headerLeft: () => (
                     <View style={styles.container}>
                         <TouchableOpacity
@@ -118,9 +121,14 @@ const DrawerScreen = () => {
             drawerContent={(props: any) => {
                 return <SlideMenu {...props} />
             }}
+            
             screenOptions={{
                 headerShown: false,
-                drawerType: 'back',
+                drawerType: 'slide',
+                drawerStyle:{},
+                
+                
+                
             }}
         >
             <Drawer.Screen name={'MainScreen'}>

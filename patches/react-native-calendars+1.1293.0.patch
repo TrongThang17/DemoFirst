@@ -28,44 +28,38 @@ index 50c6e7a..d834b98 100644
          endingDay: {
              borderTopRightRadius: 2,
 diff --git a/node_modules/react-native-calendars/src/calendar/day/period/index.js b/node_modules/react-native-calendars/src/calendar/day/period/index.js
-index f27db0e..fe5f3f4 100644
+index f27db0e..8faa3b1 100644
 --- a/node_modules/react-native-calendars/src/calendar/day/period/index.js
 +++ b/node_modules/react-native-calendars/src/calendar/day/period/index.js
-@@ -3,13 +3,18 @@ import React, { useCallback, useRef, useMemo } from 'react';
+@@ -3,9 +3,13 @@ import React, { useCallback, useRef, useMemo } from 'react';
  import { TouchableWithoutFeedback, TouchableOpacity, Text, View } from 'react-native';
  import { xdateToData } from '../../../interface';
  import styleConstructor from './style';
-+import {Colors}  from '../../../../../../assets/Colors'
++import { Colors } from '../../../../../../assets/Colors'
 +import LinearGradient from 'react-native-linear-gradient';
  import Dot from '../dot';
++import { backgroundColor } from 'react-native-calendars/src/style';
  const PeriodDay = (props) => {
      const { theme, marking, date, onPress, onLongPress, state, accessibilityLabel, testID, children } = props;
-+    
++
      const dateData = date ? xdateToData(date) : undefined;
-+    // console.log(marking.start)
      const style = useRef(styleConstructor(theme));
      const markingStyle = useMemo(() => {
-         const defaultStyle = { textStyle: {}, containerStyle: {} };
-+        // console.log(marking.startingDay)
-         if (!marking) {
-             return defaultStyle;
-         }
-@@ -105,12 +110,72 @@ const PeriodDay = (props) => {
+@@ -105,12 +109,67 @@ const PeriodDay = (props) => {
          }
          return { leftFillerStyle, rightFillerStyle, fillerStyle };
      }, [marking]);
 +    const customStyles = {
 +        dayStylesLeft: {
++            backgroundColor: 'rgba(0, 0, 0, 0.1)', 
 +            width: 40,
-+            height: 40,
-+            borderRadius: 114,
-+            paddingLeft:10
++            height: 35,
++            position: 'absolute',
++            marginLeft: 20
 +        },
 +        dayStylesRight: {
-+            width: 40,
-+            height: 40,
-+            borderRadius: 114,
-+            paddingRight:10
++            backgroundColor: 'rgba(0, 0, 0, 0.1)', 
++            width: 30
 +        },
 +    }
      const renderFillers = () => {
@@ -75,27 +69,23 @@ index f27db0e..fe5f3f4 100644
 -          <View style={[style.current.rightFiller, fillerStyles.rightFillerStyle]}/>
 -        </View>);
 +            return (
-+                // <View style={[style.current.fillers, fillerStyles.fillerStyle]}>
-+                //     <View style={[style.current.leftFiller, fillerStyles.leftFillerStyle]} />
-+                //     <View style={[style.current.rightFiller, fillerStyles.rightFillerStyle]} />
-+                // </View>
 +                <View style={[style.current.fillers, fillerStyles.fillerStyle]}>
 +                    {markingStyle.endingDay ?
-+                        <View>
++                        <View style={customStyles.dayStylesRight}>
 +                            <LinearGradient
 +                                colors={Colors.colorLogin}
 +                                style={{
-+                                    width: 40,
-+                                    height: 40,
++                                    width: 35,
++                                    height: 35,
 +                                    borderRadius: 114,
-+                                    flex:1,
-+                                    marginLeft:5
-+                                   
++                                    position: 'absolute',
++                                    marginLeft: 9
++
 +                                }}
 +                                start={{ x: 0, y: 0 }}
 +                                end={{ x: 1, y: 0 }}
 +                            >
-+                                 <View style={customStyles.dayStylesRight}></View>
++                                <View  />
 +                            </LinearGradient>
 +                        </View>
 +                        : null}
@@ -104,21 +94,21 @@ index f27db0e..fe5f3f4 100644
 +                    <View style={[style.current.rightFiller, fillerStyles.rightFillerStyle]} />
 +
 +                    {markingStyle.startingDay ?
-+                        <View>
++                        <View style={customStyles.dayStylesLeft}>
 +                            <LinearGradient
 +                                colors={Colors.colorLogin}
 +                                style={{
-+                                    width: 40,
-+                                    height: 40,
++                                    width: 35,
++                                    height: 35,
 +                                    borderRadius: 114,
-+                                    flex:1,
-+                                    marginLeft:-45
++                                    position: 'absolute',
++                                    marginLeft: -10
 +
 +                                }}
 +                                start={{ x: 0, y: 0 }}
 +                                end={{ x: 1, y: 0 }}
 +                            >
-+                                <View style={customStyles.dayStylesLeft}></View>
++                                <View  />
 +                            </LinearGradient>
 +                        </View>
 +                        : null}
@@ -127,11 +117,11 @@ index f27db0e..fe5f3f4 100644
          }
      };
      const _onPress = useCallback(() => {
-@@ -120,17 +185,18 @@ const PeriodDay = (props) => {
+@@ -120,18 +179,19 @@ const PeriodDay = (props) => {
          onLongPress?.(dateData);
      }, [onLongPress]);
      const Component = marking ? TouchableWithoutFeedback : TouchableOpacity;
-+    
++
      return (<Component testID={testID} onPress={_onPress} onLongPress={_onLongPress} disabled={marking?.disableTouchEvent} accessible accessibilityRole={marking?.disableTouchEvent ? undefined : 'button'} accessibilityLabel={accessibilityLabel}>
 -      <View style={style.current.wrapper}>
 -        {renderFillers()}
@@ -142,20 +132,21 @@ index f27db0e..fe5f3f4 100644
 -          <View style={style.current.dotContainer}>
 -            <Dot theme={theme} color={marking?.dotColor} marked={marking?.marked}/>
 -          </View>
--        </View>
 +        <View style={[style.current.wrapper]}>
 +            {renderFillers()}
-+            <View style={[containerStyle]}> 
-+                         <Text allowFontScaling={false} style={[textStyle]}>
-+                            {String(children)}
-+                        </Text>            
++            <View style={[containerStyle]}>
++                <Text allowFontScaling={false} style={[textStyle]}>
++                    {String(children)}
++                </Text>
 +                <View style={style.current.dotContainer}>
 +                    <Dot theme={theme} color={marking?.dotColor} marked={marking?.marked} />
 +                </View>
 +            </View>
-       </View>
+         </View>
+-      </View>
      </Component>);
  };
+ export default PeriodDay;
 diff --git a/node_modules/react-native-calendars/src/calendar/day/period/style.js b/node_modules/react-native-calendars/src/calendar/day/period/style.js
 index bbbdc78..ec2ad6d 100644
 --- a/node_modules/react-native-calendars/src/calendar/day/period/style.js
@@ -195,10 +186,10 @@ index bbbdc78..ec2ad6d 100644
          dotContainer: {
              position: 'absolute',
 diff --git a/node_modules/react-native-calendars/src/calendar/header/index.js b/node_modules/react-native-calendars/src/calendar/header/index.js
-index bd75364..54f07be 100644
+index bd75364..e9e1830 100644
 --- a/node_modules/react-native-calendars/src/calendar/header/index.js
 +++ b/node_modules/react-native-calendars/src/calendar/header/index.js
-@@ -1,84 +1,130 @@
+@@ -1,84 +1,124 @@
  import includes from 'lodash/includes';
 +import PropTypes from 'prop-types';
 +import memoize from 'memoize-one';
@@ -206,6 +197,8 @@ index bd75364..54f07be 100644
 -import React, { Fragment, useCallback, useMemo, forwardRef, useImperativeHandle, useRef } from 'react';
 -import { ActivityIndicator, Platform, View, Text, TouchableOpacity, Image } from 'react-native';
 +import React, { Component, Fragment } from 'react';
++import {Colors}  from '../../../../../assets/Colors'
++import LinearGradient from 'react-native-linear-gradient';
 +import { ActivityIndicator, Platform, View, Text, TouchableOpacity } from 'react-native';
 +import { shouldUpdate } from '../../componentUpdater';
  import { formatNumbers, weekDayNames } from '../../dateutils';
@@ -322,14 +315,6 @@ index bd75364..54f07be 100644
 +        const { addMonth } = this.props;
 +        addMonth?.(-1);
 +    };
-+    // addNextMonth = () => {
-+    //     const { addMonth } = this.props;
-+    //     addMonth?.(1);
-+    // };
-+    // subtractPreviousMonth = () => {
-+    //     const { addMonth } = this.props;
-+    //     addMonth?.(-1);
-+    // };
 +    onPressLeft = () => {
 +        const { onPressArrowLeft,month} = this.props;
          if (typeof onPressArrowLeft === 'function') {
@@ -345,8 +330,7 @@ index bd75364..54f07be 100644
 +        const { onPressArrowRight,month } = this.props;
          if (typeof onPressArrowRight === 'function') {
 -            return onPressArrowRight(addMonth, month);
-+            return onPressArrowRight(this.addMonth, month);
-         }
+-        }
 -        return addMonth();
 -    }, [onPressArrowRight, addMonth, month]);
 -    const onAccessibilityAction = useCallback((event) => {
@@ -359,7 +343,8 @@ index bd75364..54f07be 100644
 -                break;
 -            default:
 -                break;
--        }
++            return onPressArrowRight(this.addMonth, month);
+         }
 -    }, [onPressLeft, onPressRight]);
 -    const renderWeekDays = useMemo(() => {
 -        const dayOfTheWeek = new XDate(current).getDay();
@@ -397,7 +382,7 @@ index bd75364..54f07be 100644
          const webProps = Platform.OS === 'web' ? { 'aria-level': webAriaLevel } : {};
          if (renderHeader) {
              return renderHeader(month);
-@@ -86,60 +132,158 @@ const CalendarHeader = forwardRef((props, ref) => {
+@@ -86,60 +126,163 @@ const CalendarHeader = forwardRef((props, ref) => {
          if (customHeaderTitle) {
              return customHeaderTitle;
          }
@@ -526,17 +511,8 @@ index bd75364..54f07be 100644
 +            return (<View style={this.style.week} testID={testID ? `${HEADER_DAY_NAMES}-${testID}` : HEADER_DAY_NAMES}>
 +          {showWeekNumbers && <Text allowFontScaling={false} style={this.style.dayHeader}></Text>}
 +          {this.renderWeekDays(weekDaysNames)}
-         </View>);
-         }
--    };
--    return (<View testID={testID} style={propsStyle} accessible accessibilityRole={'adjustable'} accessibilityActions={accessibilityActions} onAccessibilityAction={onAccessibilityAction} accessibilityElementsHidden={accessibilityElementsHidden} // iOS
--     importantForAccessibility={importantForAccessibility} // Android
--    >
--      <View style={headerStyle}>
--        {_renderArrow('left')}
--        <View style={style.current.headerContainer}>
--          {_renderHeader()}
--          {renderIndicator()}
++        </View>);
++        }
 +    }
 +    render() {
 +        const { style, testID } = this.props;
@@ -551,34 +527,34 @@ index bd75364..54f07be 100644
 +          <View style={this.style.headerContainer}>
 +            {this.renderHeader()}
 +            {this.renderIndicator()}
-+          </View>
-+          {this.renderArrow('right')}
-         </View>
--        {_renderArrow('right')}
--      </View>
--      {renderDayNames()}
--    </View>);
--});
-+       
++                </View>
++                {this.renderArrow('right')}
++            </View>
++
 +            <View style={{
 +                width: '90%',
 +                height: 2,
 +                backgroundColor: 'rgba(0, 0, 0, 0.4)',
 +                alignSelf: 'center',
 +                borderRadius: 20,
-+                marginBottom:20,
-+                marginTop:5
++                marginBottom: 20,
++                marginTop: 5
 +            }} >
-+                <View style={{
-+                    width: '30%',
-+                    height: 2,
-+                    backgroundColor: 'rgba(255, 87, 137, 1)',
-+                    alignSelf: 'center',
-+                    borderRadius: 20
-+                }} />
++                <LinearGradient
++                    colors={Colors.colorLogin}
++                    style={{
++                        width: '30%',
++                        height: 2,
++                        borderRadius: 20,
++                        alignSelf: 'center',
++
++                    }}
++                    start={{ x: 0, y: 0 }}
++                    end={{ x: 1, y: 0 }}
++                />
 +            </View>
-+        {this.renderDayNames()}
-+      </View>);
++            {this.renderDayNames()}
+         </View>);
 +    }
 +    onAccessibilityAction = (event) => {
 +        switch (event.nativeEvent.actionName) {
@@ -590,8 +566,22 @@ index bd75364..54f07be 100644
 +                break;
 +            default:
 +                break;
-+        }
-+    };
+         }
+     };
+-    return (<View testID={testID} style={propsStyle} accessible accessibilityRole={'adjustable'} accessibilityActions={accessibilityActions} onAccessibilityAction={onAccessibilityAction} accessibilityElementsHidden={accessibilityElementsHidden} // iOS
+-     importantForAccessibility={importantForAccessibility} // Android
+-    >
+-      <View style={headerStyle}>
+-        {_renderArrow('left')}
+-        <View style={style.current.headerContainer}>
+-          {_renderHeader()}
+-          {renderIndicator()}
+-        </View>
+-        {_renderArrow('right')}
+-      </View>
+-      {renderDayNames()}
+-    </View>);
+-});
 +}
  export default CalendarHeader;
 -CalendarHeader.displayName = 'CalendarHeader';

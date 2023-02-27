@@ -86,10 +86,10 @@ const Reminder: React.FC<{ navigation: any }> = ({ navigation }) => {
                     onDayPress={onDayPress}
                    
                     onPressArrowLeft={(goToPreviousMonth) => {
-                        console.log('onPressArrowLeft'); goToPreviousMonth();
+                      goToPreviousMonth();
                     }}
                     onPressArrowRight={(goToNextMonth) => {
-                        console.log('onPressArrowRight'); goToNextMonth();
+                        goToNextMonth();
                     }}
                     markingType={'period'}
                     markedDates={getAllDatesBetween(selectedStartDay,selectedEndDay)}

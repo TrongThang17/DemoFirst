@@ -5,6 +5,7 @@ import { image } from '../../../assets/image'
 import LinearGradient from 'react-native-linear-gradient'
 import { sendCurrentScreen } from '../../redux/thunk/thunkCurrentScreen'
 import { useSelector, useDispatch } from "react-redux";
+import { ScrollView } from 'react-native-gesture-handler'
 const SlideMenu = (props: any) => {
     const dispatch = useDispatch();
     const currentScreen = useSelector((state: any) => state.reducerCurrentScreen.currentScreen)
@@ -26,7 +27,7 @@ const SlideMenu = (props: any) => {
                 <Image source={image.avatar} style={styles.avatarImg} />
                 <Text style={styles.avatarText}>James B.</Text>
             </View>
-            <View style={styles.menuBar}>
+            <ScrollView style={styles.menuBar}>
                 <TouchableOpacity onPress={() => {
                     dispatch(sendCurrentScreen('Home'))
                     props.navigation.navigate('Home')
@@ -157,10 +158,11 @@ const SlideMenu = (props: any) => {
                         <Text style={styles.textMenu}>Disclaimer</Text>
                     </LinearGradient>
                 </TouchableOpacity>
-            </View>
+           
             <View style={styles.footer}>
                 <Text style={{ color: 'white' }}>Power by <Text style={{ fontWeight: '700' }}>UpNow</Text></Text>
             </View>
+            </ScrollView>
         </View>
     )
 }
@@ -170,7 +172,9 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: Colors.background,
         alignItems: 'flex-start',
-        justifyContent: 'flex-start'
+        justifyContent: 'flex-start',
+        borderRightWidth:0,
+        borderColor:Colors.background
     },
     viewLogo: {
         justifyContent: 'flex-start',
