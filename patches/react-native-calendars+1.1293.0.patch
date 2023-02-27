@@ -1,3 +1,199 @@
+diff --git a/node_modules/react-native-calendars/src/calendar/day/marking/index.js b/node_modules/react-native-calendars/src/calendar/day/marking/index.js
+index 338c1e5..a757eca 100644
+--- a/node_modules/react-native-calendars/src/calendar/day/marking/index.js
++++ b/node_modules/react-native-calendars/src/calendar/day/marking/index.js
+@@ -39,8 +39,10 @@ const Marking = (props) => {
+     const renderMultiMarkings = (containerStyle, items) => {
+         return <View style={containerStyle}>{getItems(items)}</View>;
+     };
++      
+     const renderPeriod = (index, item) => {
+         const { color, startingDay, endingDay } = item;
++        console.log('marking',startingDay,'  ',endingDay)
+         const styles = [
+             style.current.period,
+             {
+diff --git a/node_modules/react-native-calendars/src/calendar/day/marking/style.js b/node_modules/react-native-calendars/src/calendar/day/marking/style.js
+index 50c6e7a..d834b98 100644
+--- a/node_modules/react-native-calendars/src/calendar/day/marking/style.js
++++ b/node_modules/react-native-calendars/src/calendar/day/marking/style.js
+@@ -17,7 +17,8 @@ export default function styleConstructor(theme = {}) {
+         startingDay: {
+             borderTopLeftRadius: 2,
+             borderBottomLeftRadius: 2,
+-            marginLeft: 4
++            marginLeft: 4,
++            
+         },
+         endingDay: {
+             borderTopRightRadius: 2,
+diff --git a/node_modules/react-native-calendars/src/calendar/day/period/index.js b/node_modules/react-native-calendars/src/calendar/day/period/index.js
+index f27db0e..fe5f3f4 100644
+--- a/node_modules/react-native-calendars/src/calendar/day/period/index.js
++++ b/node_modules/react-native-calendars/src/calendar/day/period/index.js
+@@ -3,13 +3,18 @@ import React, { useCallback, useRef, useMemo } from 'react';
+ import { TouchableWithoutFeedback, TouchableOpacity, Text, View } from 'react-native';
+ import { xdateToData } from '../../../interface';
+ import styleConstructor from './style';
++import {Colors}  from '../../../../../../assets/Colors'
++import LinearGradient from 'react-native-linear-gradient';
+ import Dot from '../dot';
+ const PeriodDay = (props) => {
+     const { theme, marking, date, onPress, onLongPress, state, accessibilityLabel, testID, children } = props;
++    
+     const dateData = date ? xdateToData(date) : undefined;
++    // console.log(marking.start)
+     const style = useRef(styleConstructor(theme));
+     const markingStyle = useMemo(() => {
+         const defaultStyle = { textStyle: {}, containerStyle: {} };
++        // console.log(marking.startingDay)
+         if (!marking) {
+             return defaultStyle;
+         }
+@@ -105,12 +110,72 @@ const PeriodDay = (props) => {
+         }
+         return { leftFillerStyle, rightFillerStyle, fillerStyle };
+     }, [marking]);
++    const customStyles = {
++        dayStylesLeft: {
++            width: 40,
++            height: 40,
++            borderRadius: 114,
++            paddingLeft:10
++        },
++        dayStylesRight: {
++            width: 40,
++            height: 40,
++            borderRadius: 114,
++            paddingRight:10
++        },
++    }
+     const renderFillers = () => {
+         if (marking) {
+-            return (<View style={[style.current.fillers, fillerStyles.fillerStyle]}>
+-          <View style={[style.current.leftFiller, fillerStyles.leftFillerStyle]}/>
+-          <View style={[style.current.rightFiller, fillerStyles.rightFillerStyle]}/>
+-        </View>);
++            return (
++                // <View style={[style.current.fillers, fillerStyles.fillerStyle]}>
++                //     <View style={[style.current.leftFiller, fillerStyles.leftFillerStyle]} />
++                //     <View style={[style.current.rightFiller, fillerStyles.rightFillerStyle]} />
++                // </View>
++                <View style={[style.current.fillers, fillerStyles.fillerStyle]}>
++                    {markingStyle.endingDay ?
++                        <View>
++                            <LinearGradient
++                                colors={Colors.colorLogin}
++                                style={{
++                                    width: 40,
++                                    height: 40,
++                                    borderRadius: 114,
++                                    flex:1,
++                                    marginLeft:5
++                                   
++                                }}
++                                start={{ x: 0, y: 0 }}
++                                end={{ x: 1, y: 0 }}
++                            >
++                                 <View style={customStyles.dayStylesRight}></View>
++                            </LinearGradient>
++                        </View>
++                        : null}
++
++                    <View style={[style.current.leftFiller, fillerStyles.leftFillerStyle]} />
++                    <View style={[style.current.rightFiller, fillerStyles.rightFillerStyle]} />
++
++                    {markingStyle.startingDay ?
++                        <View>
++                            <LinearGradient
++                                colors={Colors.colorLogin}
++                                style={{
++                                    width: 40,
++                                    height: 40,
++                                    borderRadius: 114,
++                                    flex:1,
++                                    marginLeft:-45
++
++                                }}
++                                start={{ x: 0, y: 0 }}
++                                end={{ x: 1, y: 0 }}
++                            >
++                                <View style={customStyles.dayStylesLeft}></View>
++                            </LinearGradient>
++                        </View>
++                        : null}
++                </View>
++            );
+         }
+     };
+     const _onPress = useCallback(() => {
+@@ -120,17 +185,18 @@ const PeriodDay = (props) => {
+         onLongPress?.(dateData);
+     }, [onLongPress]);
+     const Component = marking ? TouchableWithoutFeedback : TouchableOpacity;
++    
+     return (<Component testID={testID} onPress={_onPress} onLongPress={_onLongPress} disabled={marking?.disableTouchEvent} accessible accessibilityRole={marking?.disableTouchEvent ? undefined : 'button'} accessibilityLabel={accessibilityLabel}>
+-      <View style={style.current.wrapper}>
+-        {renderFillers()}
+-        <View style={containerStyle}>
+-          <Text allowFontScaling={false} style={textStyle}>
+-            {String(children)}
+-          </Text>
+-          <View style={style.current.dotContainer}>
+-            <Dot theme={theme} color={marking?.dotColor} marked={marking?.marked}/>
+-          </View>
+-        </View>
++        <View style={[style.current.wrapper]}>
++            {renderFillers()}
++            <View style={[containerStyle]}> 
++                         <Text allowFontScaling={false} style={[textStyle]}>
++                            {String(children)}
++                        </Text>            
++                <View style={style.current.dotContainer}>
++                    <Dot theme={theme} color={marking?.dotColor} marked={marking?.marked} />
++                </View>
++            </View>
+       </View>
+     </Component>);
+ };
+diff --git a/node_modules/react-native-calendars/src/calendar/day/period/style.js b/node_modules/react-native-calendars/src/calendar/day/period/style.js
+index bbbdc78..ec2ad6d 100644
+--- a/node_modules/react-native-calendars/src/calendar/day/period/style.js
++++ b/node_modules/react-native-calendars/src/calendar/day/period/style.js
+@@ -19,25 +19,28 @@ export default function styleConstructor(theme = {}) {
+             position: 'absolute',
+             height: FILLER_HEIGHT,
+             flexDirection: 'row',
+-            left: 0,
+-            right: 0
++            left: 1,
++            right: 0,
++           
+         },
+         leftFiller: {
+             backgroundColor: appStyle.calendarBackground,
+             height: FILLER_HEIGHT,
+-            flex: 1
++            flex: 1,
++           
+         },
+         rightFiller: {
+             backgroundColor: appStyle.calendarBackground,
+             height: FILLER_HEIGHT,
+-            flex: 1
++            flex: 1,
++       
+         },
+         text: {
+             fontSize: appStyle.textDayFontSize,
+             fontFamily: appStyle.textDayFontFamily,
+             fontWeight: appStyle.textDayFontWeight,
+             color: appStyle.dayTextColor,
+-            backgroundColor: 'rgba(255, 255, 255, 0)'
++            backgroundColor: 'rgba(255, 255, 255, 0)',
+         },
+         dotContainer: {
+             position: 'absolute',
 diff --git a/node_modules/react-native-calendars/src/calendar/header/index.js b/node_modules/react-native-calendars/src/calendar/header/index.js
 index bd75364..54f07be 100644
 --- a/node_modules/react-native-calendars/src/calendar/header/index.js
