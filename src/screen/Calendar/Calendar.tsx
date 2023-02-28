@@ -3,13 +3,14 @@ import React, { useState, useMemo, useEffect,useCallback } from 'react'
 import { Colors } from '../../../assets/Colors'
 import { image } from '../../../assets/image'
 import LinearGradient from 'react-native-linear-gradient'
-import { Calendar } from 'react-native-calendars';
-const Reminder: React.FC<{ navigation: any }> = ({ navigation }) => {
+import { Calendar } from 'react-native-calendars'
 
+const Reminder: React.FC<{ navigation: any }> = ({ navigation }) => {
     const [selectedStartDay, setSelectedStartDay]: any = useState('');
     const [selectedEndDay, setSelectedEndDay]: any = useState('');
 
 
+    
     const getDateForCalendar = (date:any) => {
         let myDate = new Date(date)
         const yr = myDate.getFullYear();
@@ -17,6 +18,8 @@ const Reminder: React.FC<{ navigation: any }> = ({ navigation }) => {
         const d = `${myDate.getDate() < 10 ? 0 : ''}${myDate.getDate()}`;
         return `${yr}-${month}-${d}`;
     };
+
+
 
     const getAllDatesBetween = (fromDate:any, toDate:any) => {
         
@@ -46,6 +49,15 @@ const Reminder: React.FC<{ navigation: any }> = ({ navigation }) => {
         return datesForCalendar;
     };
 
+    useEffect(()=>{
+        if (selectedEndDay < selectedStartDay ){
+            setSelectedEndDay(selectedStartDay)
+            setSelectedStartDay(selectedEndDay)
+            console.log('11')
+        }
+           
+    },[selectedEndDay])
+
     const onDayPress = (day:any)=>{
         selectedStartDay == '' && selectedEndDay == '' ? setSelectedStartDay(day.dateString) :
             selectedStartDay == day.dateString ? setSelectedStartDay('') :
@@ -55,9 +67,10 @@ const Reminder: React.FC<{ navigation: any }> = ({ navigation }) => {
                             && selectedEndDay > day.dateString ? setSelectedStartDay(day.dateString) :
                             selectedStartDay != day.dateString && selectedEndDay != day.dateString &&
                                 selectedEndDay < day.dateString ? setSelectedEndDay(day.dateString) : ''
-     
-    }
+       
+    }   
 
+  
     return (
         <View style={styles.container}>
             <View style={styles.viewHeader}>

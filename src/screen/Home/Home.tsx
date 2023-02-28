@@ -14,6 +14,9 @@ import DropShadow from "react-native-drop-shadow";
 import Animated, { interpolate, useAnimatedStyle,useSharedValue } from 'react-native-reanimated';
 import { Colors } from "../../../assets/Colors";
 import { image } from "../../../assets/image";
+
+
+
 const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
     const inf = useSelector((state: any) => state.reducerTask.list)
     const [selected, setSelected] = useState(new Map());
@@ -26,6 +29,8 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
     const progressDrawer = useDrawerProgress()
     const width = Dimensions.get('screen').width
     const height = Dimensions.get('screen').height
+
+    
     const onSelectItem = useCallback(
         (id: number) => {
             const newSelected = new Map(selected);
