@@ -19,7 +19,7 @@ import { auth } from '../src/Firebase/firebase';
 import { useSelector, useDispatch } from 'react-redux';
 import { sendCurrentScreen } from '../src/redux/thunk/thunkCurrentScreen';
 import { DrawerActions } from '@react-navigation/native';
-
+import UserInfor from '../src/screen/UserInfor/UserInfor';
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
@@ -44,20 +44,24 @@ const MainScreen = (props: any) => {
   const currentScreen = useSelector((state: any) => state.reducerCurrentScreen.currentScreen);
   const dispatch = useDispatch();
 
-  const onPressOpenDrawer = () => {
+  const onPressOpenDrawer = useCallback(() => {
     navigation.dispatch(drawerActions.openDrawer);
     setStatusDrawerState('open');
-  };
+  },[statusDrawer]);
 
   const onPressClosedDrawer = useCallback(() => {
     navigation.dispatch(drawerActions.closeDrawer);
     setStatusDrawerState('closed');
   }, [statusDrawer]);
 
-  const onPressDrawer = () => {
+  const onPressDrawer = useCallback(() => {
     statusDrawerState == 'open' ? onPressClosedDrawer() : onPressOpenDrawer();
-  };
+  },[statusDrawerState]);
 
+  const onPressGoback = useCallback(()=>{
+    navigation.navigate('Home'), 
+    dispatch(sendCurrentScreen('Home'));
+  },[])
   useEffect(() => {
     if (statusDrawer == 'open' && statusDrawerState == 'closed') {
       setStatusDrawerState('open');
@@ -73,13 +77,11 @@ const MainScreen = (props: any) => {
   }, [statusDrawer]);
 
   return (
-  
     <Stack.Navigator
       initialRouteName={currentScreen}
       screenOptions={{
         headerTitle: '',
         headerTransparent: true,
-        
 
         headerLeft: () => (
           <View style={styles.container}>
@@ -110,9 +112,7 @@ const MainScreen = (props: any) => {
         options={{
           headerLeft: () => (
             <TouchableOpacity
-              onPress={() => {
-                navigation.navigate('Home'), dispatch(sendCurrentScreen('Home'));
-              }}
+              onPress={onPressGoback}
               style={styles.goBack}
             >
               <Image source={image.goBack} />
@@ -122,8 +122,21 @@ const MainScreen = (props: any) => {
       />
       <Stack.Screen name={'AddTodo'} component={AddTodo} />
       <Stack.Screen name={'TodoDetail'} component={TodoDetail} />
+      <Stack.Screen
+        name={'UserInfor'}
+        component={UserInfor}
+        options={{
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={onPressGoback}
+              style={styles.goBack}
+            >
+              <Image source={image.goBack} />
+            </TouchableOpacity>
+          ),
+        }}
+      />
     </Stack.Navigator>
-
   );
 };
 

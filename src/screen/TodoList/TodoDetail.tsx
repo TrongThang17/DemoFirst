@@ -53,6 +53,14 @@ const TodoDetail: React.FC<{ navigation: any }> = ({ navigation }) => {
         reset(dataDetail);
     }, [dataDetail]);
 
+    const onHidePopupConfirm = useCallback(()=>{
+        setModalVisiblePopupSave(false)
+    },[])
+
+    const onShowPopupConfirm = useCallback(()=>{
+        setModalVisiblePopupSave(true)
+    },[])
+
     return (
         <View>
             <ImageBackground source={image.backgroundtodo} style={{ width: '100%', height: '100%' }}>
@@ -106,7 +114,7 @@ const TodoDetail: React.FC<{ navigation: any }> = ({ navigation }) => {
                         <View style={{ marginRight: 20 }}>
                             <CustomButton
                                 label="Save"
-                                onPress={() => { setModalVisiblePopupSave(true) }}
+                                onPress={onShowPopupConfirm}
                                 disable={isDisableButton}
                                 colorCode={isDisableButton ? Colors.background : Colors.white}
                                 colorLabel='black'
@@ -124,7 +132,7 @@ const TodoDetail: React.FC<{ navigation: any }> = ({ navigation }) => {
                                                 <View style={styles.viewBtnPopupDelete}>
                                                     <TouchableOpacity
                                                         style={styles.btnConfirmDelete}
-                                                        onPress={() => setModalVisiblePopupSave(false)}
+                                                        onPress={onHidePopupConfirm}
                                                     >
                                                         <Text style={styles.textButton}>OK</Text>
                                                     </TouchableOpacity>
@@ -146,7 +154,7 @@ const TodoDetail: React.FC<{ navigation: any }> = ({ navigation }) => {
                                                     >
                                                         <Text style={styles.textButton}>OK</Text>
                                                     </TouchableOpacity>
-                                                    <TouchableOpacity style={styles.btnConfirmDelete} onPress={() => setModalVisiblePopupSave(false)}>
+                                                    <TouchableOpacity style={styles.btnConfirmDelete} onPress={onHidePopupConfirm}>
                                                         <Text style={styles.textButton}>CANCLE</Text>
                                                     </TouchableOpacity>
                                                 </View>

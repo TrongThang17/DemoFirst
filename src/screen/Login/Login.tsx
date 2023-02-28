@@ -39,6 +39,18 @@ const Login: React.FC<{ navigation: any }> = ({ navigation }) => {
     const onShowPW = useCallback(() => {
         showPW ? setShowPW(false) : setShowPW(true)
     }, [showPW])
+
+    const onPressSignUp = useCallback(()=>{
+        navigation.navigate('Signup')
+    },[])
+
+    const onPressOpenLinkFB = useCallback(()=>{
+        Linking.openURL('https://facebook.com')
+    },[])
+
+    const onPressOpenLinkApple = useCallback(()=>{
+        Linking.openURL('https://appleid.apple.com/sign-in')
+    },[])
     return isLoading ? (<Loading />) : (
         <View style={{ backgroundColor: Colors.background, height: '100%' }}>
             <KeyboardAwareScrollView>
@@ -127,9 +139,7 @@ const Login: React.FC<{ navigation: any }> = ({ navigation }) => {
                             <View>
                                 <View style={styles.viewTextLR}>
                                     <Text style={styles.textLeft}>Don't have an account ? </Text>
-                                    <Text style={styles.textRight} onPress={() => {
-                                        navigation.navigate('Signup')
-                                    }}>Sign Up </Text>
+                                    <Text style={styles.textRight} onPress={onPressSignUp}>Sign Up </Text>
                                 </View>
                                 <View style={{ flexDirection: 'row', alignItems: 'center', padding: 20, width: '100%' }}>
                                     <View style={{ flex: 1, height: 2, backgroundColor: Colors.hr1, borderRadius: 90 }} />
@@ -148,9 +158,7 @@ const Login: React.FC<{ navigation: any }> = ({ navigation }) => {
                                     colorCode={Colors.colorFacebook}
                                     colorCodeIcon='white'
                                     colorLabel={Colors.white}
-                                    onPress={() => {
-                                        Linking.openURL('https://facebook.com')
-                                    }}
+                                    onPress={onPressOpenLinkFB}
                                 />
 
                                 <CustomButton
@@ -159,9 +167,7 @@ const Login: React.FC<{ navigation: any }> = ({ navigation }) => {
                                     colorCode={Colors.colorApple}
                                     colorCodeIcon={Colors.colorApple}
                                     colorLabel={Colors.white}
-                                    onPress={() => {
-                                        Linking.openURL('https://appleid.apple.com/sign-in')
-                                    }}
+                                    onPress={onPressOpenLinkApple}
                                 />
                             </View>
                         </View>

@@ -73,6 +73,24 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
     dispatch(logout());
   }, []);
 
+  const onShowPopupDelete = useCallback(()=>{
+    setModalShowPopupDelete(true);
+  },[])
+
+  const onHidePopupDelete = useCallback(()=>{
+    setModalShowPopupDelete(false);
+  },[])
+
+  const onPressAddButton = useCallback(()=>{
+    dispatch(sendCurrentScreen('AddTodo'));
+    navigation.navigate('AddTodo');
+  },[])
+  
+  const onPressConfirmDelete = useCallback(()=>{
+    dispatch(deleteTodo(allDataCheckbox));
+    navigation.replace('Home');
+  },[allDataCheckbox])
+
   const viewDrawerStyle = useAnimatedStyle(() => {
     const scale = interpolate(progressDrawer.value, [0, 1], [1, 0.8]);
     const borderRadius = interpolate(progressDrawer.value, [0, 1], [0, 30]);
@@ -86,7 +104,7 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
   return (
     <View style={{ flex: 1, backgroundColor: Colors.backgroundOverLayColor }}>
       <Animated.View
-        style={[{ flex: 1, backgroundColor: Colors.backColorMain, zIndex: 0 }, viewDrawerStyle]}
+        style={[{ flex: 1, backgroundColor: Colors.backColorMain}, viewDrawerStyle]}
       >
         <View>
           <Text style={styles.title}>All Tasks {user?.displayName} </Text>
@@ -96,9 +114,7 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
             <View style={{ height: 30, alignItems: 'flex-end', marginBottom: 10, marginRight: 30 }}>
               {allSelectCheck ? (
                 <CustomButtonDelete
-                  onPress={() => {
-                    setModalShowPopupDelete(true);
-                  }}
+                  onPress={onShowPopupDelete}
                 />
               ) : (
                 ''
@@ -117,16 +133,13 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
                   <View style={styles.viewBtnPopupDelete}>
                     <TouchableOpacity
                       style={styles.btnConfirmDelete}
-                      onPress={() => {
-                        dispatch(deleteTodo(allDataCheckbox));
-                        navigation.replace('Home');
-                      }}
+                      onPress={onPressConfirmDelete}
                     >
                       <Text style={styles.textButton}>OK</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                       style={styles.btnConfirmDelete}
-                      onPress={() => setModalShowPopupDelete(false)}
+                      onPress={onHidePopupDelete}
                     >
                       <Text style={styles.textButton}>CANCLE</Text>
                     </TouchableOpacity>
@@ -160,10 +173,7 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
           <View style={styles.viewTouchPlus}>
             <TouchableOpacity
               style={styles.touchPlus}
-              onPress={() => {
-                dispatch(sendCurrentScreen('AddTodo'));
-                navigation.navigate('AddTodo');
-              }}
+              onPress={onPressAddButton}
             >
               <Text style={styles.textPlus}>+</Text>
             </TouchableOpacity>

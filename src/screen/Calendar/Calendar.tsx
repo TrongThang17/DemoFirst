@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Image, StatusBar } from 'react-native';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Colors } from '../../../assets/Colors';
 import { image } from '../../../assets/image';
 import LinearGradient from 'react-native-linear-gradient';
@@ -50,7 +50,7 @@ const Reminder: React.FC<{ navigation: any }> = ({ navigation }) => {
     }
   }, [selectedEndDay]);
 
-  const onDayPress = (day: any) => {
+  const onDayPress = useCallback((day: any) => {
     selectedStartDay == '' && selectedEndDay == ''
       ? setSelectedStartDay(day.dateString) 
       : selectedStartDay == day.dateString
@@ -68,8 +68,15 @@ const Reminder: React.FC<{ navigation: any }> = ({ navigation }) => {
         selectedEndDay < day.dateString 
       ? [setSelectedStartDay(selectedEndDay) ,setSelectedEndDay(day.dateString)]
       : '';
-  };
+  },[selectedStartDay,selectedEndDay]);
 
+  const onPressArrowRight = useCallback((goToNextMonth:Function)=>{
+    goToNextMonth();
+  },[])
+
+  const onPressArrowLeft = useCallback((goToPreviousMonth:Function)=>{
+        goToPreviousMonth()
+  },[])
   return (
     <View style={styles.container}>
       <View style={styles.viewHeader}>
@@ -96,12 +103,8 @@ const Reminder: React.FC<{ navigation: any }> = ({ navigation }) => {
       <View style={styles.viewCalendar}>
         <Calendar
           onDayPress={onDayPress}
-          onPressArrowLeft={(goToPreviousMonth) => {
-            goToPreviousMonth();
-          }}
-          onPressArrowRight={(goToNextMonth) => {
-            goToNextMonth();
-          }}
+          onPressArrowLeft={onPressArrowLeft}
+          onPressArrowRight={onPressArrowRight}
           markingType={'period'}
           markedDates={getAllDatesBetween(selectedStartDay, selectedEndDay)}
           theme={{

@@ -2,6 +2,7 @@ export const Colors={
     colorFacebook:'#3F60B2',
     colorApple:'#131416',
     colorLogin:['#FF5789' , '#FF9B9C'],
+    colorItemInfor:['rgba(0, 0, 0, 0)','rgba(0, 0, 0, 0.2)'],
     colorSelectedDay:'rgba(255, 87, 137,1)',
     background:'rgba(47, 63, 81, 1)',
     combined:'linear-gradient(278.65deg, #5DF4CA 6.6%, #A9ECFD 95.41%)',
@@ -19,4 +20,6 @@ export const Colors={
     backgroundCalendar:'rgba(45, 55, 72, 0)',
     longestStreak:'rgba(130, 129, 135, 1)',
     textDisableColor:'rgba(172, 174, 180, 1)',
+    colorTextHeaderInfor:'rgba(255, 255, 255, 1)',
+    colorTextUnderAvatar:'rgba(255, 88, 137, 1)'
 }

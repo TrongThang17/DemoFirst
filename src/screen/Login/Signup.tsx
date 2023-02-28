@@ -42,6 +42,10 @@ const Signin: React.FC<{ navigation: any }> = ({ navigation }) => {
         dispatch(signup(value))
     }, [])
 
+    const onHandleSetTick = useCallback(()=>{
+        tick ? setTick(false) : setTick(true)
+    },[])
+
     return (
         <View style={{ backgroundColor: Colors.background, height: '100%' }}>
             <KeyboardAwareScrollView>
@@ -138,9 +142,7 @@ const Signin: React.FC<{ navigation: any }> = ({ navigation }) => {
                             <View style={styles.selectedButton} >
                                 <TouchableOpacity
                                     style={styles.choosenButton}
-                                    onPress={() => {
-                                        tick ? setTick(false) : setTick(true)
-                                    }}
+                                    onPress={onHandleSetTick}
                                 >
                                     {tick ? <Image source={image.tick} style={{ width: 18, height: 18, justifyContent: 'center', alignItems: 'center' }} /> : ''}
                                 </TouchableOpacity>

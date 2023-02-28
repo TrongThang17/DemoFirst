@@ -17,171 +17,198 @@ const SlideMenu = (props: any) => {
     setCurrentTab(currentScreen);
   });
 
+  const onAvatarPress = useCallback(()=>{
+    props.navigation.navigate('UserInfor');
+  },[])
+
+  const onPressItemHome = useCallback(()=>{
+    dispatch(sendCurrentScreen('Home'));
+    props.navigation.navigate('Home');
+  },[])
+
+  const onPressItemCalendar = useCallback(()=>{
+    dispatch(sendCurrentScreen('Calendar'));
+    props.navigation.navigate('Calendar');
+  },[])
+
+  const onPressItemAddTodo = useCallback(()=>{
+    dispatch(sendCurrentScreen('AddTodo'));
+    props.navigation.navigate('AddTodo');
+  },[])
+
+  const onPressItemTodoDetail = useCallback(()=>{
+    dispatch(sendCurrentScreen('TodoDetail'));
+    props.navigation.navigate('TodoDetail');
+  },[])
+
+  const onPressItemWelcomeVideo = useCallback(()=>{
+    dispatch(sendCurrentScreen('Welcome video'));
+  },[])
+
+  const onPressItemReward = useCallback(()=>{
+    dispatch(sendCurrentScreen('Rewards'));
+  },[])
+
+  const onPressItemHelp = useCallback(()=>{
+    dispatch(sendCurrentScreen('Help & Support'));
+  },[])
+
+  const onPressItemSetting = useCallback(()=>{
+    dispatch(sendCurrentScreen('Settings'));
+  },[])
+
+  const onPressItemDisclaimer = useCallback(()=>{
+    dispatch(sendCurrentScreen('Disclaimer'));
+  },[])
+
+ 
+
+
   return (
-      <View style={styles.container}>
-        <View style={styles.viewLogo}>
-          <Image source={image.logoMenu} style={styles.logoMenu} />
-        </View>
+    <View style={styles.container}>
+      <View style={styles.viewLogo}>
+        <Image source={image.logoMenu} style={styles.logoMenu} />
+      </View>
+      <TouchableOpacity onPress={onAvatarPress}>
         <View style={styles.avatar}>
           <Image source={image.avatar} style={styles.avatarImg} />
           <Text style={styles.avatarText}>James B.</Text>
         </View>
-        <ScrollView style={styles.menuBar}>
-          <TouchableOpacity
-            onPress={() => {
-              dispatch(sendCurrentScreen('Home'));
-              props.navigation.navigate('Home');
-            }}
+      </TouchableOpacity>
+      <ScrollView style={styles.menuBar}>
+        <TouchableOpacity
+          onPress={onPressItemHome}
+        >
+          <LinearGradient
+            colors={currentTab == 'Home' ? Colors.colorTouchMenu : Colors.null}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            style={styles.touchMenu}
           >
-            <LinearGradient
-              colors={currentTab == 'Home' ? Colors.colorTouchMenu : Colors.null}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 0 }}
-              style={styles.touchMenu}
-            >
-              <Image source={image.home} style={styles.iconMenu} />
-              <Text style={styles.textMenu}>Home</Text>
-            </LinearGradient>
-          </TouchableOpacity>
+            <Image source={image.home} style={styles.iconMenu} />
+            <Text style={styles.textMenu}>Home</Text>
+          </LinearGradient>
+        </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              dispatch(sendCurrentScreen('Calendar'));
-              props.navigation.navigate('Calendar');
-            }}
+        <TouchableOpacity
+          onPress={onPressItemCalendar}
+        >
+          <LinearGradient
+            colors={currentTab == 'Calendar' ? Colors.colorTouchMenu : Colors.null}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            style={styles.touchMenu}
           >
-            <LinearGradient
-              colors={currentTab == 'Calendar' ? Colors.colorTouchMenu : Colors.null}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 0 }}
-              style={styles.touchMenu}
-            >
-              <Image source={image.reminder} style={styles.iconMenu} />
-              <Text style={styles.textMenu}>Calendar</Text>
-            </LinearGradient>
-          </TouchableOpacity>
+            <Image source={image.reminder} style={styles.iconMenu} />
+            <Text style={styles.textMenu}>Calendar</Text>
+          </LinearGradient>
+        </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              dispatch(sendCurrentScreen('AddTodo'));
-              props.navigation.navigate('AddTodo');
-            }}
+        <TouchableOpacity
+          onPress={onPressItemAddTodo}
+        >
+          <LinearGradient
+            colors={currentTab == 'AddTodo' ? Colors.colorTouchMenu : Colors.null}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            style={styles.touchMenu}
           >
-            <LinearGradient
-              colors={currentTab == 'AddTodo' ? Colors.colorTouchMenu : Colors.null}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 0 }}
-              style={styles.touchMenu}
-            >
-              <Image source={image.user} style={styles.iconUser} />
-              <Text style={styles.textMenu}>Invite your friends</Text>
-            </LinearGradient>
-          </TouchableOpacity>
+            <Image source={image.user} style={styles.iconUser} />
+            <Text style={styles.textMenu}>Invite your friends</Text>
+          </LinearGradient>
+        </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              dispatch(sendCurrentScreen('TodoDetail'));
-              props.navigation.navigate('TodoDetail');
-            }}
+        <TouchableOpacity
+          onPress={onPressItemTodoDetail}
+        >
+          <LinearGradient
+            colors={currentTab == 'TodoDetail' ? Colors.colorTouchMenu : Colors.null}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            style={styles.touchMenu}
           >
-            <LinearGradient
-              colors={currentTab == 'TodoDetail' ? Colors.colorTouchMenu : Colors.null}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 0 }}
-              style={styles.touchMenu}
-            >
-              <Image source={image.gmail} style={styles.iconMenu} />
-              <Text style={styles.textMenu}>Send a testimonial</Text>
-            </LinearGradient>
-          </TouchableOpacity>
+            <Image source={image.gmail} style={styles.iconMenu} />
+            <Text style={styles.textMenu}>Send a testimonial</Text>
+          </LinearGradient>
+        </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              dispatch(sendCurrentScreen('Welcome video'));
-            }}
+        <TouchableOpacity
+          onPress={onPressItemWelcomeVideo}
+        >
+          <LinearGradient
+            colors={currentTab == 'Welcome video' ? Colors.colorTouchMenu : Colors.null}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            style={styles.touchMenu}
           >
-            <LinearGradient
-              colors={currentTab == 'Welcome video' ? Colors.colorTouchMenu : Colors.null}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 0 }}
-              style={styles.touchMenu}
-            >
-              <Image source={image.video} style={styles.iconMenu} />
-              <Text style={styles.textMenu}>Welcome video</Text>
-            </LinearGradient>
-          </TouchableOpacity>
+            <Image source={image.video} style={styles.iconMenu} />
+            <Text style={styles.textMenu}>Welcome video</Text>
+          </LinearGradient>
+        </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              dispatch(sendCurrentScreen('Rewards'));
-            }}
+        <TouchableOpacity
+          onPress={onPressItemReward}
+        >
+          <LinearGradient
+            colors={currentTab == 'Rewards' ? Colors.colorTouchMenu : Colors.null}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            style={styles.touchMenu}
           >
-            <LinearGradient
-              colors={currentTab == 'Rewards' ? Colors.colorTouchMenu : Colors.null}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 0 }}
-              style={styles.touchMenu}
-            >
-              <Image source={image.reward} style={styles.iconMenu} />
-              <Text style={styles.textMenu}>Rewards</Text>
-            </LinearGradient>
-          </TouchableOpacity>
+            <Image source={image.reward} style={styles.iconMenu} />
+            <Text style={styles.textMenu}>Rewards</Text>
+          </LinearGradient>
+        </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              dispatch(sendCurrentScreen('Help & Support'));
-            }}
+        <TouchableOpacity
+          onPress={onPressItemHelp}
+        >
+          <LinearGradient
+            colors={currentTab == 'Help & Support' ? Colors.colorTouchMenu : Colors.null}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            style={styles.touchMenu}
           >
-            <LinearGradient
-              colors={currentTab == 'Help & Support' ? Colors.colorTouchMenu : Colors.null}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 0 }}
-              style={styles.touchMenu}
-            >
-              <Image source={image.help} style={styles.iconHelpSetting} />
-              <Text style={styles.textMenu}>Help & Support</Text>
-            </LinearGradient>
-          </TouchableOpacity>
+            <Image source={image.help} style={styles.iconHelpSetting} />
+            <Text style={styles.textMenu}>Help & Support</Text>
+          </LinearGradient>
+        </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              dispatch(sendCurrentScreen('Settings'));
-            }}
+        <TouchableOpacity
+          onPress={onPressItemSetting}
+        >
+          <LinearGradient
+            colors={currentTab == 'Settings' ? Colors.colorTouchMenu : Colors.null}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            style={styles.touchMenu}
           >
-            <LinearGradient
-              colors={currentTab == 'Settings' ? Colors.colorTouchMenu : Colors.null}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 0 }}
-              style={styles.touchMenu}
-            >
-              <Image source={image.setting} style={styles.iconHelpSetting} />
-              <Text style={styles.textMenu}>Settings</Text>
-            </LinearGradient>
-          </TouchableOpacity>
+            <Image source={image.setting} style={styles.iconHelpSetting} />
+            <Text style={styles.textMenu}>Settings</Text>
+          </LinearGradient>
+        </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              dispatch(sendCurrentScreen('Disclaimer'));
-            }}
+        <TouchableOpacity
+          onPress={onPressItemDisclaimer}
+        >
+          <LinearGradient
+            colors={currentTab == 'Disclaimer' ? Colors.colorTouchMenu : Colors.null}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            style={styles.touchMenu}
           >
-            <LinearGradient
-              colors={currentTab == 'Disclaimer' ? Colors.colorTouchMenu : Colors.null}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 0 }}
-              style={styles.touchMenu}
-            >
-              <Image source={image.disclaimer} style={styles.iconMenu} />
-              <Text style={styles.textMenu}>Disclaimer</Text>
-            </LinearGradient>
-          </TouchableOpacity>
+            <Image source={image.disclaimer} style={styles.iconMenu} />
+            <Text style={styles.textMenu}>Disclaimer</Text>
+          </LinearGradient>
+        </TouchableOpacity>
 
-          <View style={styles.footer}>
-            <Text style={{ color: 'white' }}>
-              Power by <Text style={{ fontWeight: '700' }}>UpNow</Text>
-            </Text>
-          </View>
-        </ScrollView>
-      </View>
+        <View style={styles.footer}>
+          <Text style={{ color: 'white' }}>
+            Power by <Text style={{ fontWeight: '700' }}>UpNow</Text>
+          </Text>
+        </View>
+      </ScrollView>
+    </View>
   );
 };
 
