@@ -5,7 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   FlatList,
-  Image,
+  StatusBar,
   Dimensions,
 } from 'react-native';
 import CustomButton from '../../../assets/Custom/customButtonLogin';
@@ -18,10 +18,8 @@ import { logout } from '../../redux/thunk/thunkLogin';
 import { sendCurrentScreen } from '../../redux/thunk/thunkCurrentScreen';
 import { auth } from '../../Firebase/firebase';
 import { useDrawerProgress } from '@react-navigation/drawer';
-import DropShadow from 'react-native-drop-shadow';
-import Animated, { interpolate, useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
+import Animated, { interpolate, useAnimatedStyle } from 'react-native-reanimated';
 import { Colors } from '../../../assets/Colors';
-import { image } from '../../../assets/image';
 
 const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
   const inf = useSelector((state: any) => state.reducerTask.list);
