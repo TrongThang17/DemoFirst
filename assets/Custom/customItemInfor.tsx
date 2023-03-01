@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   linearGradient: {
     width: '100%',
     height: 52,
-    marginBottom:10
+    marginBottom:8
   },
   container:{
     flex:1,
@@ -44,9 +44,10 @@ const styles = StyleSheet.create({
     marginLeft:40
   },
   viewContent:{
-    flex:2,
+    flex:3,
     justifyContent:'center',
-    alignItems:'flex-start'
+    alignItems:'flex-start',
+    marginLeft:10
   },
   text:{
     color:Colors.white,
@@ -60,7 +61,8 @@ const styles = StyleSheet.create({
     fontSize:15,
     fontFamily:'Outfit',
     fontWeight:'500',
-    width:'100%'
+    width:'100%',
+    marginTop:2,
   }
 
 });

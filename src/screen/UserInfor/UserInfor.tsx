@@ -16,7 +16,7 @@ const UserInfor = () => {
         </View>
         <View style={styles.infor}>
             <CustomItemInfor label='First name' value='Renata'/>
-            <CustomItemInfor label='Last name' value='Jame'/>
+            <CustomItemInfor label='Last name' value='Andryshyn'/>
             <CustomItemInfor label='Email' value='renataandryshyn@gmail.com'/>
             <CustomItemInfor label='Password' value='********'/>
         </View>
@@ -34,12 +34,12 @@ const styles = StyleSheet.create({
     header:{
         flex:1,
         justifyContent:'center',
-        alignItems:'center'
+        alignItems:'center',
     },
     textHeader:{
         fontSize:17,
         fontWeight:'500',
-        color:Colors.colorTextHeaderInfor
+        color:Colors.colorTextHeaderInfor,
     },
     avatar:{
         flex:3,
