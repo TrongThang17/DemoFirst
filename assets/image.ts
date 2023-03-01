@@ -25,5 +25,7 @@ export const image ={
     iconMenu:require('./image/menu.png'),
     iconExit:require('./image/iconExit.png'),
     goBack:require('./image/goBack.png'),
-    streak:require('./image/streak.png')
+    streak:require('./image/streak.png'),
+    iconSetting:require('./image/iconSetting.png'),
+    tickLanguage:require('./image/tickLanguage.png')
 }

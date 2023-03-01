@@ -5,7 +5,6 @@ import {
   StyleSheet,
   TouchableOpacity,
   FlatList,
-  StatusBar,
   Dimensions,
 } from 'react-native';
 import CustomButton from '../../../assets/Custom/customButtonLogin';
@@ -20,9 +19,11 @@ import { auth } from '../../Firebase/firebase';
 import { useDrawerProgress } from '@react-navigation/drawer';
 import Animated, { interpolate, useAnimatedStyle } from 'react-native-reanimated';
 import { Colors } from '../../../assets/Colors';
+import I18n from '../../languages/i18n';
 
 const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
   const inf = useSelector((state: any) => state.reducerTask.list);
+  
   const [selected, setSelected] = useState(new Map());
   const [selectedCheck, setSelectedCheck] = useState(new Map());
   const [allSelectCheck, setAllSelectCheck] = useState(false);
@@ -99,24 +100,20 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
     };
   });
 
+
+
   return (
     <View style={{ flex: 1, backgroundColor: Colors.backgroundOverLayColor }}>
-      <Animated.View
-        style={[{ flex: 1, backgroundColor: Colors.backColorMain}, viewDrawerStyle]}
-      >
+      <Animated.View style={[{ flex: 1, backgroundColor: Colors.backColorMain }, viewDrawerStyle]}>
         <View>
-          <Text style={styles.title}>All Tasks {user?.displayName} </Text>
+          <Text style={styles.title}>
+            {I18n.t('All_Task')} 
+          </Text>
         </View>
         <View style={styles.viewBody}>
           <View>
             <View style={{ height: 30, alignItems: 'flex-end', marginBottom: 10, marginRight: 30 }}>
-              {allSelectCheck ? (
-                <CustomButtonDelete
-                  onPress={onShowPopupDelete}
-                />
-              ) : (
-                ''
-              )}
+              {allSelectCheck ? <CustomButtonDelete onPress={onShowPopupDelete} /> : ''}
 
               <Modal
                 isVisible={modalShowPopupDelete}
@@ -126,7 +123,7 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
                   <Text
                     style={{ textAlign: 'center', fontSize: 20, fontWeight: '700', color: 'red' }}
                   >
-                    Are you sure you want to delete it?
+                    {I18n.t('Sure_Delete')}
                   </Text>
                   <View style={styles.viewBtnPopupDelete}>
                     <TouchableOpacity
@@ -135,11 +132,8 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
                     >
                       <Text style={styles.textButton}>OK</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity
-                      style={styles.btnConfirmDelete}
-                      onPress={onHidePopupDelete}
-                    >
-                      <Text style={styles.textButton}>CANCLE</Text>
+                    <TouchableOpacity style={styles.btnConfirmDelete} onPress={onHidePopupDelete}>
+                      <Text style={styles.textButton}>{I18n.t('Cancle')}</Text>
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -169,16 +163,13 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
           </View>
 
           <View style={styles.viewTouchPlus}>
-            <TouchableOpacity
-              style={styles.touchPlus}
-              onPress={onPressAddButton}
-            >
+            <TouchableOpacity style={styles.touchPlus} onPress={onPressAddButton}>
               <Text style={styles.textPlus}>+</Text>
             </TouchableOpacity>
           </View>
 
           <View style={{ padding: 30 }}>
-            <CustomButton label="Logout" onPress={() => logout()} colorCode="#9ee6e6" />
+            <CustomButton label={I18n.t('Logout')} onPress={() => logout()} colorCode="#9ee6e6" />
           </View>
         </View>
         <View

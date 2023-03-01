@@ -11,6 +11,7 @@ import { updateTodo } from "../../redux/thunk/thunkTask";
 import Modal from "react-native-modal";
 import { image } from '../../../assets/image'
 import { sendCurrentScreen } from "../../redux/thunk/thunkCurrentScreen";
+import I18n from '../../languages/i18n';
 interface validate {
     title: string,
     describe: string
@@ -67,7 +68,7 @@ const TodoDetail: React.FC<{ navigation: any }> = ({ navigation }) => {
                 <View style={styles.viewContainer}>
                     <View>
                         <Text style={styles.textHeader}>
-                            Write Here !!
+                        {I18n.t('Write_Here')}
                         </Text>
                     </View>
 
@@ -81,8 +82,8 @@ const TodoDetail: React.FC<{ navigation: any }> = ({ navigation }) => {
                             render={({ field: { onChange, value } }) =>
 
                                 <CustomInputTodo
-                                    label="Title"
-                                    placeholder="Write your title here !"
+                                    label={I18n.t('Title')}
+                                    placeholder={I18n.t('Title_PlaceHolder')}
                                     values={value}
                                     onChangeText={onChange}
                                     onChangeee={() => { onDisableButton(dataDetail) }}
@@ -98,8 +99,8 @@ const TodoDetail: React.FC<{ navigation: any }> = ({ navigation }) => {
                             render={({ field: { onChange, value } }) =>
 
                                 <CustomInputTodo
-                                    label="Description"
-                                    placeholder="Write your description here !"
+                                    label={I18n.t('Description')}
+                                    placeholder={I18n.t('Description_PlaceHolder')}
                                     values={value}
                                     onChangeText={onChange}
                                     onChangeee={() => { onDisableButton(dataDetail) }}
@@ -113,7 +114,7 @@ const TodoDetail: React.FC<{ navigation: any }> = ({ navigation }) => {
                     <View style={styles.viewButton}>
                         <View style={{ marginRight: 20 }}>
                             <CustomButton
-                                label="Save"
+                                label={I18n.t('Save')}
                                 onPress={onShowPopupConfirm}
                                 disable={isDisableButton}
                                 colorCode={isDisableButton ? Colors.background : Colors.white}
@@ -137,14 +138,14 @@ const TodoDetail: React.FC<{ navigation: any }> = ({ navigation }) => {
                                                         <Text style={styles.textButton}>OK</Text>
                                                     </TouchableOpacity>
                                                     <TouchableOpacity style={styles.btnConfirmDelete} onPress={() => setModalVisiblePopupSave(false)}>
-                                                        <Text style={styles.textButton}>CANCLE</Text>
+                                                        <Text style={styles.textButton}>{I18n.t('Cancle')}</Text>
                                                     </TouchableOpacity>
                                                 </View>
                                             </>
                                             :
                                             <>
                                                 <View >
-                                                    <Text style={styles.textPopup}>Are you sure you want to save it?</Text>
+                                                    <Text style={styles.textPopup}>{I18n.t('Sure_Save')}</Text>
                                                 </View>
 
                                                 <View style={styles.viewBtnPopupDelete}>
@@ -155,7 +156,7 @@ const TodoDetail: React.FC<{ navigation: any }> = ({ navigation }) => {
                                                         <Text style={styles.textButton}>OK</Text>
                                                     </TouchableOpacity>
                                                     <TouchableOpacity style={styles.btnConfirmDelete} onPress={onHidePopupConfirm}>
-                                                        <Text style={styles.textButton}>CANCLE</Text>
+                                                        <Text style={styles.textButton}>{I18n.t('Cancle')}</Text>
                                                     </TouchableOpacity>
                                                 </View>
                                             </>
@@ -167,7 +168,7 @@ const TodoDetail: React.FC<{ navigation: any }> = ({ navigation }) => {
                         </View>
                         <View>
                             <CustomButton
-                                label="Cancle"
+                                label={I18n.t('Cancle')}
                                 onPress={() => {
                                     setIsDisableButton(true)
                                     reset()

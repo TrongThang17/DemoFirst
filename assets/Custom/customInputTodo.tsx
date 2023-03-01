@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, TextInput, StyleSheet, SafeAreaView, Image, Touchable, TouchableOpacity } from "react-native";
-
+import I18n from "../../src/languages/i18n";
 interface customInputProps {
     placeholder: string,
     onChangeText?: (val: string) => void,
@@ -16,16 +16,16 @@ const CustomInputTodo: React.FC<customInputProps> = (props) => {
         <SafeAreaView>
             <View style={[styles.viewLogin,
             {
-                height: props.label == 'Title' ? 50 : 250,
-                borderRadius: props.label == 'Title' ? 100 : 20,
-                flexDirection: props.label == 'Title' ? 'row' : 'column'
+                height: props.label == I18n.t('Title') ? 50 : 250,
+                borderRadius: props.label == I18n.t('Title') ? 100 : 20,
+                flexDirection: props.label == I18n.t('Title') ? 'row' : 'column'
             }]}>
-                <Text style={[styles.textLabel, {}]}>{props.label}</Text>
+                <Text style={[styles.textLabel, {marginLeft:props.label == I18n.t('Title') ? 30 : -10}]}>{props.label}</Text>
                 <TextInput
                     placeholder={props.placeholder}
                     onEndEditing={props.onChangeee}
                     placeholderTextColor="#828187"
-                    style={[styles.textInput, { height: props.label == 'Title' ? 50 : 150, }]}
+                    style={[styles.textInput, { height: props.label == I18n.t('Title') ? 50 : 150, }]}
                     value={props.values}
                     onChangeText={props.onChangeText}
                     defaultValue={props.defaultValue}
@@ -63,7 +63,6 @@ const styles = StyleSheet.create({
         fontSize: 20,
         justifyContent: 'center',
         marginBottom: 2,
-        marginLeft: 10
     },
 
 

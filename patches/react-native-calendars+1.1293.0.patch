@@ -28,7 +28,7 @@ index 50c6e7a..d834b98 100644
          endingDay: {
              borderTopRightRadius: 2,
 diff --git a/node_modules/react-native-calendars/src/calendar/day/period/index.js b/node_modules/react-native-calendars/src/calendar/day/period/index.js
-index f27db0e..5ddb415 100644
+index f27db0e..c100977 100644
 --- a/node_modules/react-native-calendars/src/calendar/day/period/index.js
 +++ b/node_modules/react-native-calendars/src/calendar/day/period/index.js
 @@ -3,9 +3,13 @@ import React, { useCallback, useRef, useMemo } from 'react';
@@ -45,18 +45,17 @@ index f27db0e..5ddb415 100644
      const dateData = date ? xdateToData(date) : undefined;
      const style = useRef(styleConstructor(theme));
      const markingStyle = useMemo(() => {
-@@ -105,12 +109,67 @@ const PeriodDay = (props) => {
+@@ -105,12 +109,66 @@ const PeriodDay = (props) => {
          }
          return { leftFillerStyle, rightFillerStyle, fillerStyle };
      }, [marking]);
 +    const customStyles = {
-+       
 +        dayStylesLeft: {
 +            backgroundColor:'rgba(0,0,0,0.1)',
 +            width: 40,
 +            height: 35,
 +            position: 'absolute',
-+            marginLeft: 22
++            marginLeft: 21
 +        },
 +        dayStylesRight: {
 +            backgroundColor:'rgba(0,0,0,0.1)',
@@ -80,7 +79,7 @@ index f27db0e..5ddb415 100644
 +                                    height: 35,
 +                                    borderRadius: 114,
 +                                    position: 'absolute',
-+                                    marginLeft: 10
++                                    marginLeft: 9
 +
 +                                }}
 +                                start={{ x: 0, y: 0 }}
@@ -103,7 +102,7 @@ index f27db0e..5ddb415 100644
 +                                    height: 35,
 +                                    borderRadius: 114,
 +                                    position: 'absolute',
-+                                    marginLeft: -11,
++                                    marginLeft: -13,
 +                                }}
 +                                start={{ x: 0, y: 0 }}
 +                                end={{ x: 1, y: 0 }}
@@ -117,7 +116,7 @@ index f27db0e..5ddb415 100644
          }
      };
      const _onPress = useCallback(() => {
-@@ -120,18 +179,19 @@ const PeriodDay = (props) => {
+@@ -120,18 +178,19 @@ const PeriodDay = (props) => {
          onLongPress?.(dateData);
      }, [onLongPress]);
      const Component = marking ? TouchableWithoutFeedback : TouchableOpacity;
@@ -194,10 +193,10 @@ index bbbdc78..fddc3ed 100644
          dotContainer: {
              position: 'absolute',
 diff --git a/node_modules/react-native-calendars/src/calendar/header/index.js b/node_modules/react-native-calendars/src/calendar/header/index.js
-index bd75364..e9e1830 100644
+index bd75364..02fbc56 100644
 --- a/node_modules/react-native-calendars/src/calendar/header/index.js
 +++ b/node_modules/react-native-calendars/src/calendar/header/index.js
-@@ -1,84 +1,124 @@
+@@ -1,84 +1,127 @@
  import includes from 'lodash/includes';
 +import PropTypes from 'prop-types';
 +import memoize from 'memoize-one';
@@ -210,6 +209,7 @@ index bd75364..e9e1830 100644
 +import { ActivityIndicator, Platform, View, Text, TouchableOpacity } from 'react-native';
 +import { shouldUpdate } from '../../componentUpdater';
  import { formatNumbers, weekDayNames } from '../../dateutils';
++import I18n from '../../../../../src/languages/i18n'
 +import { CHANGE_MONTH_LEFT_ARROW, CHANGE_MONTH_RIGHT_ARROW, HEADER_DAY_NAMES, HEADER_LOADING_INDICATOR, HEADER_MONTH_NAME
 +// @ts-expect-error
 + } from '../../testIDs';
@@ -366,7 +366,9 @@ index bd75364..e9e1830 100644
 +    };
 +    renderWeekDays = memoize(weekDaysNames => {
 +        const { disabledDaysIndexes } = this.props;
++       
 +        return weekDaysNames.map((day, idx) => {
++           
 +            const dayStyle = [this.style.dayHeader];
 +            if (includes(disabledDaysIndexes, idx)) {
 +                dayStyle.push(this.style.disabledDayHeader);
@@ -378,8 +380,9 @@ index bd75364..e9e1830 100644
 +                dayStyle.push(this.style[`dayTextAtIndex${idx}`]);
              }
 -            return (<Text allowFontScaling={false} key={index} style={dayStyle} numberOfLines={1} accessibilityLabel={''}>
+-          {day}
 +            return (<Text allowFontScaling={false} key={idx} style={dayStyle} numberOfLines={1} accessibilityLabel={''}>
-           {day}
++          {I18n.t(`${day}`)}
          </Text>);
          });
 -    }, [firstDay, current, numberOfDaysCondition, numberOfDays, disabledDaysIndexes]);
@@ -390,7 +393,7 @@ index bd75364..e9e1830 100644
          const webProps = Platform.OS === 'web' ? { 'aria-level': webAriaLevel } : {};
          if (renderHeader) {
              return renderHeader(month);
-@@ -86,60 +126,163 @@ const CalendarHeader = forwardRef((props, ref) => {
+@@ -86,60 +129,163 @@ const CalendarHeader = forwardRef((props, ref) => {
          if (customHeaderTitle) {
              return customHeaderTitle;
          }
@@ -401,7 +404,7 @@ index bd75364..e9e1830 100644
 -      </Fragment>);
 +        return (<Fragment >
 +                <Text allowFontScaling={false} style={this.style.monthText} testID={testID ? `${HEADER_MONTH_NAME}-${testID}` : HEADER_MONTH_NAME} {...webProps}>
-+                    {formatNumbers(month?.toString(monthFormat))}
++                    {I18n.t(`${formatNumbers(month?.toString(monthFormat))}`)}
 +                </Text>
 +        </Fragment>);
      };
@@ -414,66 +417,66 @@ index bd75364..e9e1830 100644
          }
 +        var prevMonth 
 +        var nextMonth 
-+        switch(formatNumbers(month?.toString(monthFormat))){
++        switch(I18n.t(`${formatNumbers(month?.toString(monthFormat))}`)){
 +            
-+            case 'January':{
-+                prevMonth = 'December';
-+                nextMonth = 'February';
++            case I18n.t('January'):{
++                prevMonth = I18n.t('December');
++                nextMonth = I18n.t('February');
 +                break;
 +            };
-+            case 'February':{
-+                prevMonth = 'January';
-+                nextMonth = 'March';
++            case I18n.t('February'):{
++                prevMonth =  I18n.t('January');
++                nextMonth =  I18n.t('March');
 +                break;
 +            };
-+            case 'March':{
-+                prevMonth = 'February';
-+                nextMonth = 'April';
++            case I18n.t('March'):{
++                prevMonth =  I18n.t('February');
++                nextMonth =  I18n.t('April');
 +                break;
 +            };
-+            case 'April':{
-+                prevMonth = 'March';
-+                nextMonth = 'May';
++            case I18n.t('April'):{
++                prevMonth =  I18n.t('March');
++                nextMonth =  I18n.t('May');
 +                break;
 +            };
-+            case 'May':{
-+                prevMonth = 'April';
-+                nextMonth = 'June';
++            case I18n.t('May'):{
++                prevMonth =  I18n.t('April');
++                nextMonth =  I18n.t('June');
 +                break;
 +            };
-+            case 'June':{
-+                prevMonth = 'May';
-+                nextMonth = 'July';
++            case I18n.t('June'):{
++                prevMonth =  I18n.t('May');
++                nextMonth =  I18n.t('July');
 +                break;
 +            };
-+            case 'July':{
-+                prevMonth = 'June';
-+                nextMonth = 'August';
++            case I18n.t('July'):{
++                prevMonth =  I18n.t('June');
++                nextMonth =  I18n.t('August');
 +                break;
 +            };
-+            case 'August':{
-+                prevMonth = 'July';
-+                nextMonth = 'September';
++            case I18n.t('August'):{
++                prevMonth =  I18n.t('July');
++                nextMonth =  I18n.t('September');
 +                break;
 +            };
-+            case 'September':{
-+                prevMonth = 'August';
-+                nextMonth = 'October';
++            case I18n.t('September'):{
++                prevMonth =  I18n.t('August');
++                nextMonth =  I18n.t('October');
 +                break;
 +            };
-+            case 'October':{
-+                prevMonth = 'September';
-+                nextMonth = 'November';
++            case I18n.t('October'):{
++                prevMonth =  I18n.t('September');
++                nextMonth =  I18n.t('November');
 +                break;
 +            };
-+            case 'November':{
-+                prevMonth = 'October';
-+                nextMonth = 'December';
++            case I18n.t('November'):{
++                prevMonth =  I18n.t('October');
++                nextMonth =  I18n.t('December');
 +                break;
 +            };
-+            case 'December':{
-+                prevMonth = 'November';
-+                nextMonth = 'January';
++            case I18n.t('December'):{
++                prevMonth =  I18n.t('November');
++                nextMonth =  I18n.t('January');
 +                break;
 +            };
 +        }
@@ -598,3 +601,16 @@ index bd75364..e9e1830 100644
 -    webAriaLevel: 1,
 -    arrowsHitSlop: 20
 -};
+diff --git a/node_modules/react-native-calendars/src/calendar/header/style.js b/node_modules/react-native-calendars/src/calendar/header/style.js
+index 16e5f71..0c1630c 100644
+--- a/node_modules/react-native-calendars/src/calendar/header/style.js
++++ b/node_modules/react-native-calendars/src/calendar/header/style.js
+@@ -55,7 +55,7 @@ export default function (theme = {}) {
+         dayHeader: {
+             marginTop: 2,
+             marginBottom: 7,
+-            width: 32,
++            width: 40,
+             textAlign: 'center',
+             fontSize: appStyle.textDayHeaderFontSize,
+             fontFamily: appStyle.textDayHeaderFontFamily,

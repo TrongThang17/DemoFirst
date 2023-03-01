@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, TouchableOpacity, View, StyleSheet, Image } from 'react-native'
-
+import I18n from '../../src/languages/i18n';
 
 interface CustomButtonProps {
     label: string;
@@ -17,7 +17,7 @@ const CustomButton: React.FC<CustomButtonProps> = (props) => {
         <View style={[styles.viewButton]}>
             <TouchableOpacity
                 onPress={props.onPress}
-                style={[styles.buttonLogin, { backgroundColor: props.colorCode, width: props.label == 'Save' || props.label == 'Cancle' ? 150 : 327 }]}
+                style={[styles.buttonLogin, { backgroundColor: props.colorCode, width: props.label == I18n.t('Save') || props.label == I18n.t('Cancle') ? 150 : 327 }]}
                 disabled={props.disable}>
                 <View style={[styles.viewImg, { backgroundColor: props.colorCodeIcon }]}>
                     <Image source={props.img}

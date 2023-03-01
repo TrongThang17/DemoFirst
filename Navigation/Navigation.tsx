@@ -11,6 +11,8 @@ import Signip from '../src/screen/Login/Signup';
 import TodoDetail from '../src/screen/TodoList/TodoDetail';
 import SlideMenu from '../src/screen/Menu/SlideMenu';
 import Calendar from '../src/screen/Calendar/Calendar';
+import Setting from '../src/screen/Setting/Setting';
+import Language from '../src/screen/Setting/Language';
 import { image } from '../assets/image';
 import React, { useState, useEffect, useCallback } from 'react';
 import { Image, StyleSheet, View, TouchableOpacity } from 'react-native';
@@ -20,6 +22,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { sendCurrentScreen } from '../src/redux/thunk/thunkCurrentScreen';
 import { DrawerActions } from '@react-navigation/native';
 import UserInfor from '../src/screen/UserInfor/UserInfor';
+import I18n from '../src/languages/i18n';
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
@@ -62,6 +65,14 @@ const MainScreen = (props: any) => {
     navigation.navigate('Home'), 
     dispatch(sendCurrentScreen('Home'));
   },[])
+
+  const onPressGobackSetting = useCallback(()=>{
+   
+    navigation.navigate('Setting'), 
+    dispatch(sendCurrentScreen('Settings'));
+    <Setting />
+  },[])
+
   useEffect(() => {
     if (statusDrawer == 'open' && statusDrawerState == 'closed') {
       setStatusDrawerState('open');
@@ -129,7 +140,35 @@ const MainScreen = (props: any) => {
           headerLeft: () => (
             <TouchableOpacity
               onPress={onPressGoback}
-              style={styles.goBack}
+              style={styles.goBack1}
+            >
+              <Image source={image.goBack} />
+            </TouchableOpacity>
+          ),
+        }}
+      />
+       <Stack.Screen
+        name={'Setting'}
+        component={Setting}
+        options={{
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={onPressGoback}
+              style={styles.goBack1}
+            >
+              <Image source={image.goBack} />
+            </TouchableOpacity>
+          ),
+        }}
+      />
+      <Stack.Screen
+        name={'Language'}
+        component={Language}
+        options={{
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={onPressGobackSetting}
+              style={styles.goBack1}
             >
               <Image source={image.goBack} />
             </TouchableOpacity>
@@ -141,6 +180,10 @@ const MainScreen = (props: any) => {
 };
 
 const DrawerScreen = () => {
+  const languages:any = useSelector((state:any)=> state.reducerLanguage.language)
+
+
+    I18n.locale=languages
   return (
     <Drawer.Navigator
       drawerContent={(props: any) => {
@@ -199,5 +242,9 @@ const styles = StyleSheet.create({
   },
   goBack: {
     padding: 10,
+  },
+  goBack1: {
+    padding: 10,
+    marginLeft:30
   },
 });

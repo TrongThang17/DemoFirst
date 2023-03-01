@@ -4,6 +4,8 @@ import { Colors } from '../../../assets/Colors';
 import { image } from '../../../assets/image';
 import LinearGradient from 'react-native-linear-gradient';
 import { Calendar } from 'react-native-calendars';
+import { LocaleConfig } from 'react-native-calendars';
+import I18n from '../../languages/i18n';
 
 const Reminder: React.FC<{ navigation: any }> = ({ navigation }) => {
   const [selectedStartDay, setSelectedStartDay]: any = useState('');
@@ -77,10 +79,11 @@ const Reminder: React.FC<{ navigation: any }> = ({ navigation }) => {
   const onPressArrowLeft = useCallback((goToPreviousMonth:Function)=>{
         goToPreviousMonth()
   },[])
+
   return (
     <View style={styles.container}>
       <View style={styles.viewHeader}>
-        <Text style={styles.textHeader}>My Streak</Text>
+        <Text style={styles.textHeader}>{I18n.t('Streak')}</Text>
       </View>
       <View style={styles.viewCurrentStreak}>
         <LinearGradient
@@ -94,8 +97,8 @@ const Reminder: React.FC<{ navigation: any }> = ({ navigation }) => {
               <Image source={image.streak} />
             </View>
             <View style={styles.streakRight}>
-              <Text style={styles.textCurrentStreak}>Current streak: 1 </Text>
-              <Text style={styles.textLongestStreak}>Longest streak: 2</Text>
+              <Text style={styles.textCurrentStreak}>{I18n.t('Current_Streak')} : 1 </Text>
+              <Text style={styles.textLongestStreak}>{I18n.t('Longest_Streak')} : 2</Text>
             </View>
           </View>
         </LinearGradient>

@@ -6,39 +6,39 @@ import LinearGradient from 'react-native-linear-gradient';
 import { sendCurrentScreen } from '../../redux/thunk/thunkCurrentScreen';
 import { useSelector, useDispatch } from 'react-redux';
 import { ScrollView } from 'react-native-gesture-handler';
+import I18n from '../../languages/i18n';
 
-
-const SlideMenu = (props: any) => {
+const SlideMenu:React.FC<{ navigation: any }> = ({navigation}) => {
   const dispatch = useDispatch();
   const currentScreen = useSelector((state: any) => state.reducerCurrentScreen.currentScreen);
   const [currentTab, setCurrentTab] = useState('Home');
-
+  const languages:any = useSelector((state:any)=> state.reducerLanguage.language)
   useEffect(() => {
     setCurrentTab(currentScreen);
   });
 
   const onAvatarPress = useCallback(()=>{
-    props.navigation.navigate('UserInfor');
+   navigation.navigate('UserInfor');
   },[])
 
   const onPressItemHome = useCallback(()=>{
     dispatch(sendCurrentScreen('Home'));
-    props.navigation.navigate('Home');
-  },[])
+    navigation.navigate('Home');
+  },[languages])
 
   const onPressItemCalendar = useCallback(()=>{
     dispatch(sendCurrentScreen('Calendar'));
-    props.navigation.navigate('Calendar');
-  },[])
+    navigation.navigate('Calendar');
+  },[languages])
 
   const onPressItemAddTodo = useCallback(()=>{
     dispatch(sendCurrentScreen('AddTodo'));
-    props.navigation.navigate('AddTodo');
+    navigation.navigate('AddTodo');
   },[])
 
   const onPressItemTodoDetail = useCallback(()=>{
     dispatch(sendCurrentScreen('TodoDetail'));
-    props.navigation.navigate('TodoDetail');
+    navigation.navigate('TodoDetail');
   },[])
 
   const onPressItemWelcomeVideo = useCallback(()=>{
@@ -55,6 +55,7 @@ const SlideMenu = (props: any) => {
 
   const onPressItemSetting = useCallback(()=>{
     dispatch(sendCurrentScreen('Settings'));
+    navigation.navigate('Setting');
   },[])
 
   const onPressItemDisclaimer = useCallback(()=>{
@@ -86,7 +87,7 @@ const SlideMenu = (props: any) => {
             style={styles.touchMenu}
           >
             <Image source={image.home} style={styles.iconMenu} />
-            <Text style={styles.textMenu}>Home</Text>
+            <Text style={styles.textMenu}>{I18n.t('Home')}</Text>
           </LinearGradient>
         </TouchableOpacity>
 
@@ -100,7 +101,7 @@ const SlideMenu = (props: any) => {
             style={styles.touchMenu}
           >
             <Image source={image.reminder} style={styles.iconMenu} />
-            <Text style={styles.textMenu}>Calendar</Text>
+            <Text style={styles.textMenu}>{I18n.t('Calendar')}</Text>
           </LinearGradient>
         </TouchableOpacity>
 
@@ -114,7 +115,7 @@ const SlideMenu = (props: any) => {
             style={styles.touchMenu}
           >
             <Image source={image.user} style={styles.iconUser} />
-            <Text style={styles.textMenu}>Invite your friends</Text>
+            <Text style={styles.textMenu}>{I18n.t('Invite')}</Text>
           </LinearGradient>
         </TouchableOpacity>
 
@@ -128,7 +129,7 @@ const SlideMenu = (props: any) => {
             style={styles.touchMenu}
           >
             <Image source={image.gmail} style={styles.iconMenu} />
-            <Text style={styles.textMenu}>Send a testimonial</Text>
+            <Text style={styles.textMenu}>{I18n.t('Send')}</Text>
           </LinearGradient>
         </TouchableOpacity>
 
@@ -142,7 +143,7 @@ const SlideMenu = (props: any) => {
             style={styles.touchMenu}
           >
             <Image source={image.video} style={styles.iconMenu} />
-            <Text style={styles.textMenu}>Welcome video</Text>
+            <Text style={styles.textMenu}>{I18n.t('Welcome')}</Text>
           </LinearGradient>
         </TouchableOpacity>
 
@@ -156,7 +157,7 @@ const SlideMenu = (props: any) => {
             style={styles.touchMenu}
           >
             <Image source={image.reward} style={styles.iconMenu} />
-            <Text style={styles.textMenu}>Rewards</Text>
+            <Text style={styles.textMenu}>{I18n.t('Reward')}</Text>
           </LinearGradient>
         </TouchableOpacity>
 
@@ -170,7 +171,7 @@ const SlideMenu = (props: any) => {
             style={styles.touchMenu}
           >
             <Image source={image.help} style={styles.iconHelpSetting} />
-            <Text style={styles.textMenu}>Help & Support</Text>
+            <Text style={styles.textMenu}>{I18n.t('Help')}</Text>
           </LinearGradient>
         </TouchableOpacity>
 
@@ -184,7 +185,7 @@ const SlideMenu = (props: any) => {
             style={styles.touchMenu}
           >
             <Image source={image.setting} style={styles.iconHelpSetting} />
-            <Text style={styles.textMenu}>Settings</Text>
+            <Text style={styles.textMenu}>{I18n.t('Setting')}</Text>
           </LinearGradient>
         </TouchableOpacity>
 
@@ -198,13 +199,13 @@ const SlideMenu = (props: any) => {
             style={styles.touchMenu}
           >
             <Image source={image.disclaimer} style={styles.iconMenu} />
-            <Text style={styles.textMenu}>Disclaimer</Text>
+            <Text style={styles.textMenu}>{I18n.t('Disclaimer')}</Text>
           </LinearGradient>
         </TouchableOpacity>
 
         <View style={styles.footer}>
           <Text style={{ color: 'white' }}>
-            Power by <Text style={{ fontWeight: '700' }}>UpNow</Text>
+            {I18n.t('Power_By')} <Text style={{ fontWeight: '700' }}> UpNow</Text>
           </Text>
         </View>
       </ScrollView>

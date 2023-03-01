@@ -8,7 +8,7 @@ import { Controller, useForm } from "react-hook-form";
 import { Colors } from "../../../assets/Colors";
 import { addTodo } from "../../redux/thunk/thunkTask";
 import { sendCurrentScreen } from "../../redux/thunk/thunkCurrentScreen";
-import { image } from '../../../assets/image'
+import I18n from '../../languages/i18n';
 import { useDispatch } from "react-redux";
 import { useDrawerProgress } from '@react-navigation/drawer'
 import Animated, { interpolate, useAnimatedStyle } from 'react-native-reanimated';
@@ -55,7 +55,7 @@ const AddTodo: React.FC<{ navigation: any }> = ({ navigation }) => {
             <View style={styles.viewContainer}>
                 <View>
                     <Text style={styles.textHeader}>
-                        Write Here !!
+                        {I18n.t('Write_Here')}
                     </Text>
                 </View>
 
@@ -68,8 +68,8 @@ const AddTodo: React.FC<{ navigation: any }> = ({ navigation }) => {
                         render={({ field: { onChange, value } }) =>
 
                             <CustomInputTodo
-                                label="Title"
-                                placeholder="Write your title here !"
+                                label={I18n.t('Title')}
+                                placeholder={I18n.t('Title_PlaceHolder')}
                                 onChangeText={onChange}
                                 values={value}
                                 onChangeee={() => { value ? setIsDisableButton(false) : setIsDisableButton(true) }}
@@ -84,8 +84,8 @@ const AddTodo: React.FC<{ navigation: any }> = ({ navigation }) => {
                         render={({ field: { onChange, value } }) =>
 
                             <CustomInputTodo
-                                label="Description"
-                                placeholder="Write your description here !"
+                                label={I18n.t('Description')}
+                                placeholder={I18n.t('Description_PlaceHolder')}
                                 onChangeText={onChange}
                                 values={value}
                             />
@@ -95,7 +95,7 @@ const AddTodo: React.FC<{ navigation: any }> = ({ navigation }) => {
                 </View>
                 <View>
                     <CustomButton
-                        label="Save"
+                        label={I18n.t('Save')}
                         onPress={handleSubmit(onAddTodo)}
                         disable={isDisableButton}
                         colorCode={isDisableButton ? Colors.background : Colors.white}

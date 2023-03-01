@@ -15,11 +15,13 @@ const initCurrentScreen ={
     currentScreen:'Home'
 }
 
-
+const initLanguage ={
+    language : 'en'
+}
 
 export {
     initData,
     initTask,
     initCurrentScreen,
-
+    initLanguage
 }
