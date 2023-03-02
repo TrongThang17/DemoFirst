@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, TouchableOpacity, StyleSheet } from 'react-native'
-import I18n from '../../src/languages/i18n'
+import I18n from '../../src/i18njs/i18n'
 interface customItem {
     onPress?: (val: any) => void
 }
@@ -11,7 +11,7 @@ const CustomButtonDelete: React.FC<customItem> = (props) => {
             onPress={props.onPress}
             style={styles.buttonDelete}
         >
-            <Text style={styles.textDelete}>{I18n.t('Delete')}</Text>
+            <Text style={styles.textDelete}>{I18n.t('Screen_Home.Delete')}</Text>
         </TouchableOpacity>
     )
 };

@@ -1,0 +1,111 @@
+{  
+  "Screen_Home":{
+    "All_Task": "All Task",
+    "Logout" :"Logout",
+    "Sure_Delete" :"Are you sure you want to delete it ?" ,
+    "Delete":"Delete",
+    "Cancle" :"Cancle"
+  },
+  "Screen_AddTodo":{
+    "Write_Here":"Write Here !!",
+    "Title" :"Title",
+    "Description" :"Description",
+    "Save" :"Save",
+    "Cancle" :"Cancle",
+    "Title_PlaceHolder":"Write your title here !",
+    "Description_PlaceHolder" :"Write your description here !"
+    
+  },
+  "Screen_TodoDetail":{
+    "Write_Here":"Write Here !!",
+    "Title" :"Title",
+    "Description" :"Description",
+    "Save" :"Save",
+    "Cancle" :"Cancle",
+    "Title_PlaceHolder":"Write your title here !",
+    "Description_PlaceHolder" :"Write your description here !",
+    "Sure_Save" :"Are you sure you want to save it ?" 
+  },
+  "Screen_Calendar":{
+    "January" :"January",
+    "February" :"February",
+    "March" : "March",
+    "April" :"April",
+    "May":"May",
+    "June":"June",
+    "July" :"July",
+    "August" :"August",
+    "September":"September",
+    "October":"October",
+    "November" :"November",
+    "December":"December",
+    "Sun" :"Sun",
+    "Mon":"Mon",
+    "Tue":"Tue",
+    "Wed":"Wed",
+    "Thu":"Thu",
+    "Fri":"Fri",
+    "Sat":"Sat",
+    "Streak":"My Streak",
+    "Current_Streak":"Current Streak",
+    "Longest_Streak":"Longest Streak"
+  },
+  "Screen_Menu":{
+    "Home":"Home",
+    "Calendar":"Calendar",
+    "Invite":"Invite your friends",
+    "Send":"Send a testimonial",
+    "Welcome":"Welcome video",
+    "Reward":"Reward",
+    "Help":"Help & Support",
+    "Setting":"Settings",
+    "Disclaimer":"Disclaimer",
+    "Power_By":"Power By"
+  },
+  "Screen_UserInfor":{
+    "UserInfor":"User Infor",
+    "Change_Profile" :"Change profile photo",
+    "First_Name":"First name",
+    "Last_Name":"Last name",
+    "Password":"Password"
+  },
+  "Screen_Setting":{
+    "Setting":"Settings",
+    "UserInfor":"User Infor",
+    "MySub":"My Subcriptions",
+    "Profile_Tag":"Profile Tags",
+    "Language":"Language",
+    "Term_Condition":"Term & Conditions",
+    "Privacy" :"Privacy Policy",
+    "Delete_Account":"Delete Account"
+  },
+  "Screen_Language":{
+    "Language":"Language",
+    "English":"English",
+    "Vietnamese":"Vietnamese"
+  },
+  "Screen_Login":{
+    "Log_In":"Log In",
+    "Password":"Password",
+    "Forget_Pass" :"Forget Password",
+    "Dont_Have_Account":"Don't have an account ?",
+    "Sign_Up" :"Sign Up",
+    "Or_Login_With":"Or Log in With",
+    "Login_With_FB":"Log in with Facebook",
+    "Login_With_AP":"Log in with Apple"
+  },
+  "Screen_Register":{
+    "Log_In":"Log In",
+    "Register":"Register",
+    "Register_Clicking":" ''Register'' ",
+    "First_Name":"First name",
+    "Last_Name":"Last name",
+    "Password":"Password",
+    "By_Clicking":"by clicking on",
+    "You_Agree":"you agree to our",
+    "Term_Condition":"Term & Conditions",
+    "and":"and ",
+    "Privacy" :"Privacy Policy",
+    "Already":"Already have an account ?"
+  }
+}

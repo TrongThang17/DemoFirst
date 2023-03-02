@@ -1,0 +1,112 @@
+ {  
+  "Screen_Home":{
+    "All_Task": "Việc cần làm",
+    "Logout" :"Đăng Xuất",
+    "Sure_Delete" :"Bạn có chắc chắn muốn xóa không ?" ,
+    "Delete":"Xóa",
+    "Cancle" :"Hủy"
+  },
+  "Screen_AddTodo":{
+    "Write_Here":"Nhập ở đây !!",
+    "Title" :"Tiêu đề",
+    "Description" :"Mô tả",
+    "Save" :"Lưu",
+    "Cancle" :"Hủy",
+    "Title_PlaceHolder":"Hãy nhập tiêu đề của bạn !",
+    "Description_PlaceHolder" :"Hãy nhập mô tả của bạn !"
+    
+  },
+  "Screen_TodoDetail":{
+    "Write_Here":"Nhập ở đây !!",
+    "Title" :"Tiêu đề",
+    "Description" :"Mô tả",
+    "Save" :"Lưu",
+    "Cancle" :"Hủy",
+    "Title_PlaceHolder":"Hãy nhập tiêu đề của bạn !",
+    "Description_PlaceHolder" :"Hãy nhập mô tả của bạn !",
+    "Sure_Save" :"Bạn chắc chắn muốn lưu chứ ?" 
+  },
+  "Screen_Calendar":{
+    "January" :"Tháng 1",
+    "February" :"Tháng 2",
+    "March" : "Tháng 3",
+    "April" :"Tháng 4",
+    "May":"Tháng 5",
+    "June":"Tháng 6",
+    "July" :"Tháng 7",
+    "August" :"Tháng 8",
+    "September":"Tháng 9",
+    "October":"Tháng 10",
+    "November" :"Tháng 11",
+    "December":"Tháng 12",
+    "Sun" :"CN",
+    "Mon":"Thứ 2",
+    "Tue":"Thứ 3",
+    "Wed":"Thứ 4",
+    "Thu":"Thứ 5",
+    "Fri":"Thứ 6",
+    "Sat":"Thứ 7",
+    "Streak":"Mục Tiêu",
+    "Current_Streak":"Chuỗi hiện tại",
+    "Longest_Streak":"Chuỗi dài nhất"
+  },
+  "Screen_Menu":{
+    "Home":"Trang chủ",
+    "Calendar":"Lịch",
+    "Invite":"Mời bạn bè",
+    "Send":"Gửi thư",
+    "Welcome":"Xem video",
+    "Reward":"Phần thưởng",
+    "Help":"Trợ giúp",
+    "Setting":"Cài đặt",
+    "Disclaimer":"Cảnh báo",
+    "Power_By":"Cung cấp bởi"
+  },
+  "Screen_UserInfor":{
+    "UserInfor":"Thông tin người dùng",
+    "Change_Profile" :"Thay ảnh hồ sơ",
+    "First_Name":"Họ",
+    "Last_Name":"Tên",
+    "Password":"Mật khẩu"
+  },
+  "Screen_Setting":{
+    "Setting":"Cài đặt",
+    "UserInfor":"Thông tin người dùng",
+    "MySub":"Thông tin hệ thống",
+    "Profile_Tag":"Hồ sơ",
+    "Language":"Ngôn ngữ",
+    "Term_Condition":"Điều khoản và điều kiện",
+    "Privacy" :"Chính sách bảo mật",
+    "Delete_Account":"Xóa tài khoản"
+  },
+  "Screen_Language":{
+    "Language":"Ngôn ngữ",
+    "English":"Tiếng Anh",
+    "Vietnamese":"Tiếng Việt"
+  },
+  "Screen_Login":{
+    "Register":"Đăng Ký",
+    "Log_In":"Đăng Nhập",
+    "Password":"Mật khẩu",
+    "Forget_Pass" :"Quên mật khẩu",
+    "Dont_Have_Account":"Chưa có tài khoản ?",
+    "Sign_Up" :"Đăng Ký",
+    "Or_Login_With":"Hoặc đăng nhập bằng",
+    "Login_With_FB":"Đăng nhập bằng Facebook",
+    "Login_With_AP":"Đăng nhập bằng Apple"
+  },
+  "Screen_Register":{
+    "Log_In":"Đăng Nhập",
+    "Register":"Đăng Ký",
+    "Register_Clicking":" ''Đăng Ký'' ",
+    "First_Name":"Họ",
+    "Last_Name":"Tên",
+    "Password":"Mật khẩu",
+    "By_Clicking":"Khi nhấn nút",
+    "You_Agree":"bạn đồng ý với",
+    "Term_Condition":"Điều khoản & Điều kiện",
+    "and":"và ",
+    "Privacy" :"chính sách bảo mật của chúng tôi",
+    "Already":"Đã có tài khoản ?"
+  }  
+}

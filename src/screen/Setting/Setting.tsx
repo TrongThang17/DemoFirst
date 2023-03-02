@@ -3,7 +3,7 @@ import React,{useCallback} from 'react'
 import { Colors } from '../../../assets/Colors'
 import {image} from '../../../assets/image'
 import CustomItemSetting from '../../../assets/Custom/cusomItemSetting'
-import I18n from '../../languages/i18n'
+import I18n from '../../i18njs/i18n'
 const Setting = (props: any) => {
 
     const onPressUserInforItem = useCallback(() => {
@@ -20,21 +20,21 @@ const Setting = (props: any) => {
   return (
     <View style={styles.container}>
         <View style={styles.header}>
-            <Text style={styles.textHeader}>{I18n.t('Setting')}</Text>
+            <Text style={styles.textHeader}>{I18n.t('Screen_Setting.Setting')}</Text>
         </View>
         <View style={styles.infor}>
             <View style={styles.view1}>
-                <CustomItemSetting label={I18n.t('UserInfor')} image={image.iconSetting} color={Colors.white} onPress={onPressUserInforItem}/>
-                <CustomItemSetting label={I18n.t('MySub')} image={image.iconSetting} color={Colors.white}/>
-                <CustomItemSetting label={I18n.t('Profile_Tag')}  image={image.iconSetting} color={Colors.white}/>
+                <CustomItemSetting label={I18n.t('Screen_Setting.UserInfor')} image={image.iconSetting} color={Colors.white} onPress={onPressUserInforItem}/>
+                <CustomItemSetting label={I18n.t('Screen_Setting.MySub')} image={image.iconSetting} color={Colors.white}/>
+                <CustomItemSetting label={I18n.t('Screen_Setting.Profile_Tag')}  image={image.iconSetting} color={Colors.white}/>
             </View>
             <View style={styles.view2}>
-                <CustomItemSetting label={I18n.t('Language')}  image={image.iconSetting} color={Colors.white} onPress={onPressLanguageItem}/>
-                <CustomItemSetting label={I18n.t('Term_Condition')}  image={image.iconSetting} color={Colors.white}/>
-                <CustomItemSetting label={I18n.t('Privacy')}  image={image.iconSetting} color={Colors.white}/>
+                <CustomItemSetting label={I18n.t('Screen_Setting.Language')}  image={image.iconSetting} color={Colors.white} onPress={onPressLanguageItem}/>
+                <CustomItemSetting label={I18n.t('Screen_Setting.Term_Condition')}  image={image.iconSetting} color={Colors.white}/>
+                <CustomItemSetting label={I18n.t('Screen_Setting.Privacy')}  image={image.iconSetting} color={Colors.white}/>
             </View>
             <View style={styles.view3}>
-                <CustomItemSetting label={I18n.t('Delete_Account')}  image={image.iconSetting} color={Colors.colorItemDelete}/>
+                <CustomItemSetting label={I18n.t('Screen_Setting.Delete_Account')}  image={image.iconSetting} color={Colors.colorItemDelete}/>
             </View>
            
            

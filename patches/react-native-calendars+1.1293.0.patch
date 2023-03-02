@@ -193,7 +193,7 @@ index bbbdc78..fddc3ed 100644
          dotContainer: {
              position: 'absolute',
 diff --git a/node_modules/react-native-calendars/src/calendar/header/index.js b/node_modules/react-native-calendars/src/calendar/header/index.js
-index bd75364..02fbc56 100644
+index bd75364..afb16a5 100644
 --- a/node_modules/react-native-calendars/src/calendar/header/index.js
 +++ b/node_modules/react-native-calendars/src/calendar/header/index.js
 @@ -1,84 +1,127 @@
@@ -209,7 +209,7 @@ index bd75364..02fbc56 100644
 +import { ActivityIndicator, Platform, View, Text, TouchableOpacity } from 'react-native';
 +import { shouldUpdate } from '../../componentUpdater';
  import { formatNumbers, weekDayNames } from '../../dateutils';
-+import I18n from '../../../../../src/languages/i18n'
++import I18n from '../../../../../src/i18njs/i18n'
 +import { CHANGE_MONTH_LEFT_ARROW, CHANGE_MONTH_RIGHT_ARROW, HEADER_DAY_NAMES, HEADER_LOADING_INDICATOR, HEADER_MONTH_NAME
 +// @ts-expect-error
 + } from '../../testIDs';
@@ -382,7 +382,7 @@ index bd75364..02fbc56 100644
 -            return (<Text allowFontScaling={false} key={index} style={dayStyle} numberOfLines={1} accessibilityLabel={''}>
 -          {day}
 +            return (<Text allowFontScaling={false} key={idx} style={dayStyle} numberOfLines={1} accessibilityLabel={''}>
-+          {I18n.t(`${day}`)}
++          {I18n.t(`Screen_Calendar.${day}`)}
          </Text>);
          });
 -    }, [firstDay, current, numberOfDaysCondition, numberOfDays, disabledDaysIndexes]);
@@ -404,7 +404,7 @@ index bd75364..02fbc56 100644
 -      </Fragment>);
 +        return (<Fragment >
 +                <Text allowFontScaling={false} style={this.style.monthText} testID={testID ? `${HEADER_MONTH_NAME}-${testID}` : HEADER_MONTH_NAME} {...webProps}>
-+                    {I18n.t(`${formatNumbers(month?.toString(monthFormat))}`)}
++                    {I18n.t(`Screen_Calendar.${formatNumbers(month?.toString(monthFormat))}`)}
 +                </Text>
 +        </Fragment>);
      };
@@ -417,66 +417,66 @@ index bd75364..02fbc56 100644
          }
 +        var prevMonth 
 +        var nextMonth 
-+        switch(I18n.t(`${formatNumbers(month?.toString(monthFormat))}`)){
++        switch(I18n.t(`Screen_Calendar.${formatNumbers(month?.toString(monthFormat))}`)){
 +            
-+            case I18n.t('January'):{
-+                prevMonth = I18n.t('December');
-+                nextMonth = I18n.t('February');
++            case I18n.t('Screen_Calendar.January'):{
++                prevMonth = I18n.t('Screen_Calendar.December');
++                nextMonth = I18n.t('Screen_Calendar.February');
 +                break;
 +            };
-+            case I18n.t('February'):{
-+                prevMonth =  I18n.t('January');
-+                nextMonth =  I18n.t('March');
++            case I18n.t('Screen_Calendar.February'):{
++                prevMonth =  I18n.t('Screen_Calendar.January');
++                nextMonth =  I18n.t('Screen_Calendar.March');
 +                break;
 +            };
-+            case I18n.t('March'):{
-+                prevMonth =  I18n.t('February');
-+                nextMonth =  I18n.t('April');
++            case I18n.t('Screen_Calendar.March'):{
++                prevMonth =  I18n.t('Screen_Calendar.February');
++                nextMonth =  I18n.t('Screen_Calendar.April');
 +                break;
 +            };
-+            case I18n.t('April'):{
-+                prevMonth =  I18n.t('March');
-+                nextMonth =  I18n.t('May');
++            case I18n.t('Screen_Calendar.April'):{
++                prevMonth =  I18n.t('Screen_Calendar.March');
++                nextMonth =  I18n.t('Screen_Calendar.May');
 +                break;
 +            };
-+            case I18n.t('May'):{
-+                prevMonth =  I18n.t('April');
-+                nextMonth =  I18n.t('June');
++            case I18n.t('Screen_Calendar.May'):{
++                prevMonth =  I18n.t('Screen_Calendar.April');
++                nextMonth =  I18n.t('Screen_Calendar.June');
 +                break;
 +            };
-+            case I18n.t('June'):{
-+                prevMonth =  I18n.t('May');
-+                nextMonth =  I18n.t('July');
++            case I18n.t('Screen_Calendar.June'):{
++                prevMonth =  I18n.t('Screen_Calendar.May');
++                nextMonth =  I18n.t('Screen_Calendar.July');
 +                break;
 +            };
-+            case I18n.t('July'):{
-+                prevMonth =  I18n.t('June');
-+                nextMonth =  I18n.t('August');
++            case I18n.t('Screen_Calendar.July'):{
++                prevMonth =  I18n.t('Screen_Calendar.June');
++                nextMonth =  I18n.t('Screen_Calendar.August');
 +                break;
 +            };
-+            case I18n.t('August'):{
-+                prevMonth =  I18n.t('July');
-+                nextMonth =  I18n.t('September');
++            case I18n.t('Screen_Calendar.August'):{
++                prevMonth =  I18n.t('Screen_Calendar.July');
++                nextMonth =  I18n.t('Screen_Calendar.September');
 +                break;
 +            };
-+            case I18n.t('September'):{
-+                prevMonth =  I18n.t('August');
-+                nextMonth =  I18n.t('October');
++            case I18n.t('Screen_Calendar.September'):{
++                prevMonth =  I18n.t('Screen_Calendar.August');
++                nextMonth =  I18n.t('Screen_Calendar.October');
 +                break;
 +            };
-+            case I18n.t('October'):{
-+                prevMonth =  I18n.t('September');
-+                nextMonth =  I18n.t('November');
++            case I18n.t('Screen_Calendar.October'):{
++                prevMonth =  I18n.t('Screen_Calendar.September');
++                nextMonth =  I18n.t('Screen_Calendar.November');
 +                break;
 +            };
-+            case I18n.t('November'):{
-+                prevMonth =  I18n.t('October');
-+                nextMonth =  I18n.t('December');
++            case I18n.t('Screen_Calendar.November'):{
++                prevMonth =  I18n.t('Screen_Calendar.October');
++                nextMonth =  I18n.t('Screen_Calendar.December');
 +                break;
 +            };
-+            case I18n.t('December'):{
-+                prevMonth =  I18n.t('November');
-+                nextMonth =  I18n.t('January');
++            case I18n.t('Screen_Calendar.December'):{
++                prevMonth =  I18n.t('Screen_Calendar.November');
++                nextMonth =  I18n.t('Screen_Calendar.January');
 +                break;
 +            };
 +        }

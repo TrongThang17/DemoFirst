@@ -3,23 +3,23 @@ import React from 'react'
 import CustomItemInfor from '../../../assets/Custom/customItemInfor'
 import { Colors } from '../../../assets/Colors'
 import {image} from '../../../assets/image'
-import I18n from '../../languages/i18n'
+import I18n from '../../i18njs/i18n'
 
 const UserInfor = () => {
   return (
     <View style={styles.container}>
         <View style={styles.header}>
-            <Text style={styles.textHeader}>{I18n.t('UserInfor')}</Text>
+            <Text style={styles.textHeader}>{I18n.t('Screen_UserInfor.UserInfor')}</Text>
         </View>
         <View style={styles.avatar}>
             <Image source={image.avatar} style={{width:85,height:85}}/>
-            <Text style={styles.textUnderAvatar}>{I18n.t('Change_Profile')}</Text>
+            <Text style={styles.textUnderAvatar}>{I18n.t('Screen_UserInfor.Change_Profile')}</Text>
         </View>
         <View style={styles.infor}>
-            <CustomItemInfor label={I18n.t('First_Name')} value='Renata'/>
-            <CustomItemInfor label={I18n.t('Last_Name')} value='Andryshyn'/>
+            <CustomItemInfor label={I18n.t('Screen_UserInfor.First_Name')} value='Renata'/>
+            <CustomItemInfor label={I18n.t('Screen_UserInfor.Last_Name')} value='Andryshyn'/>
             <CustomItemInfor label='Email' value='renataandryshyn@gmail.com'/>
-            <CustomItemInfor label={I18n.t('Password')} value='********'/>
+            <CustomItemInfor label={I18n.t('Screen_UserInfor.Password')} value='********'/>
         </View>
     </View>
   )

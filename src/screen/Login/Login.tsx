@@ -13,6 +13,7 @@ import Loading from "../Loading/Loading";
 import { auth } from '../../Firebase/firebase'
 import { login } from '../../redux/thunk/thunkLogin'
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import I18n from "../../i18njs/i18n";
 interface validate {
     email: string,
     password: string
@@ -70,7 +71,7 @@ const Login: React.FC<{ navigation: any }> = ({ navigation }) => {
                         <View style={styles.viewTextLogin}>
                             <View style={styles.hr} />
                             <View style={styles.hr1} />
-                            <Text style={styles.textLogin}>Log In </Text>
+                            <Text style={styles.textLogin}>{I18n.t('Screen_Login.Log_In')}</Text>
                         </View>
 
                         <View style={styles.viewTextInput}>
@@ -100,7 +101,7 @@ const Login: React.FC<{ navigation: any }> = ({ navigation }) => {
                                     }}
                                     render={({ field: { onChange, value } }) =>
                                         <CustomInput
-                                            placeholder="Password"
+                                            placeholder={I18n.t('Screen_Login.Password')}
                                             onChange={onChange}
                                             value={value}
                                             img={image.password}
@@ -117,7 +118,7 @@ const Login: React.FC<{ navigation: any }> = ({ navigation }) => {
                             </View>
                             <View>
                                 <View style={{ paddingTop: 10, paddingBottom: 20 }}>
-                                    <Text style={styles.textForget}>Forget Password</Text>
+                                    <Text style={styles.textForget}>{I18n.t('Screen_Login.Forget_Pass')}</Text>
                                 </View>
 
                                 <View >
@@ -129,7 +130,7 @@ const Login: React.FC<{ navigation: any }> = ({ navigation }) => {
                                     >
 
                                         <CustomButton
-                                            label="Log In"
+                                            label={I18n.t('Screen_Login.Log_In')}
                                             onPress={handleSubmit(onLoginThunk)}
                                             colorLabel={Colors.white}
                                         />
@@ -138,13 +139,13 @@ const Login: React.FC<{ navigation: any }> = ({ navigation }) => {
                             </View>
                             <View>
                                 <View style={styles.viewTextLR}>
-                                    <Text style={styles.textLeft}>Don't have an account ? </Text>
-                                    <Text style={styles.textRight} onPress={onPressSignUp}>Sign Up </Text>
+                                    <Text style={styles.textLeft}>{I18n.t('Screen_Login.Dont_Have_Account')} </Text>
+                                    <Text style={styles.textRight} onPress={onPressSignUp}>{I18n.t('Screen_Login.Register')}</Text>
                                 </View>
                                 <View style={{ flexDirection: 'row', alignItems: 'center', padding: 20, width: '100%' }}>
                                     <View style={{ flex: 1, height: 2, backgroundColor: Colors.hr1, borderRadius: 90 }} />
                                     <View>
-                                        <Text style={{ width: 150, textAlign: 'center', color: 'white', }}>Or Log in With </Text>
+                                        <Text style={{ width: 150, textAlign: 'center', color: 'white', }}>{I18n.t('Screen_Login.Or_Login_With')}</Text>
                                     </View>
                                     <View style={{ flex: 1, height: 2, backgroundColor: Colors.hr1, borderRadius: 90 }} />
                                 </View>
@@ -154,7 +155,7 @@ const Login: React.FC<{ navigation: any }> = ({ navigation }) => {
                             <View>
                                 <CustomButton
                                     img={image.facebook}
-                                    label='Log in with Facebook'
+                                    label={I18n.t('Screen_Login.Login_With_FB')}
                                     colorCode={Colors.colorFacebook}
                                     colorCodeIcon='white'
                                     colorLabel={Colors.white}
@@ -163,7 +164,7 @@ const Login: React.FC<{ navigation: any }> = ({ navigation }) => {
 
                                 <CustomButton
                                     img={image.apple}
-                                    label='Log in with Aple'
+                                    label={I18n.t('Screen_Login.Login_With_AP')}
                                     colorCode={Colors.colorApple}
                                     colorCodeIcon={Colors.colorApple}
                                     colorLabel={Colors.white}

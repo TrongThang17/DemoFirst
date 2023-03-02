@@ -4,7 +4,7 @@ import { Colors } from '../../../assets/Colors'
 import {image} from '../../../assets/image'
 import CustomItemLanguage from '../../../assets/Custom/customItemLanguage'
 import { useSelector,useDispatch } from 'react-redux'
-import I18n from '../../languages/i18n'
+import I18n from '../../i18njs/i18n'
 import { onChangeLanguaue } from '../../redux/thunk/thunkLanguage';
 import RNRestart from 'react-native-restart';
 const Language = (props: any) => {
@@ -32,17 +32,17 @@ const Language = (props: any) => {
   return (
     <View style={styles.container}>
         <View style={styles.header}>
-            <Text style={styles.textHeader}>{I18n.t('Language')}</Text>
+            <Text style={styles.textHeader}>{I18n.t('Screen_Language.Language')}</Text>
         </View>
         <View style={styles.infor}>
             <View style={styles.viewContent}>
                 <CustomItemLanguage 
-                    label={I18n.t('English')}  
+                    label={I18n.t('Screen_Language.English')}  
                     image={selectedEnglish ? image.tickLanguage :''} 
                     color={Colors.white} onPress={onChangeLanguageEng}
 
                 />
-                <CustomItemLanguage label={I18n.t('Vietnamese')}  image={selectedVietnamese ? image.tickLanguage :''} color={Colors.white} onPress={onChangeLanguageVie}/>
+                <CustomItemLanguage label={I18n.t('Screen_Language.Vietnamese')}  image={selectedVietnamese ? image.tickLanguage :''} color={Colors.white} onPress={onChangeLanguageVie}/>
             </View>          
         </View>
     </View>

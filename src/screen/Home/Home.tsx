@@ -19,7 +19,7 @@ import { auth } from '../../Firebase/firebase';
 import { useDrawerProgress } from '@react-navigation/drawer';
 import Animated, { interpolate, useAnimatedStyle } from 'react-native-reanimated';
 import { Colors } from '../../../assets/Colors';
-import I18n from '../../languages/i18n';
+import I18n from '../../i18njs/i18n';
 
 const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
   const inf = useSelector((state: any) => state.reducerTask.list);
@@ -101,13 +101,12 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
   });
 
 
-
   return (
     <View style={{ flex: 1, backgroundColor: Colors.backgroundOverLayColor }}>
       <Animated.View style={[{ flex: 1, backgroundColor: Colors.backColorMain }, viewDrawerStyle]}>
         <View>
           <Text style={styles.title}>
-            {I18n.t('All_Task')} 
+            {I18n.t('Screen_Home.All_Task')} 
           </Text>
         </View>
         <View style={styles.viewBody}>
@@ -123,7 +122,7 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
                   <Text
                     style={{ textAlign: 'center', fontSize: 20, fontWeight: '700', color: 'red' }}
                   >
-                    {I18n.t('Sure_Delete')}
+                    {I18n.t('Screen_Home.Sure_Delete')}
                   </Text>
                   <View style={styles.viewBtnPopupDelete}>
                     <TouchableOpacity
@@ -133,7 +132,7 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
                       <Text style={styles.textButton}>OK</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.btnConfirmDelete} onPress={onHidePopupDelete}>
-                      <Text style={styles.textButton}>{I18n.t('Cancle')}</Text>
+                      <Text style={styles.textButton}>{I18n.t('Screen_Home.Cancle')}</Text>
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -169,7 +168,7 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
           </View>
 
           <View style={{ padding: 30 }}>
-            <CustomButton label={I18n.t('Logout')} onPress={() => logout()} colorCode="#9ee6e6" />
+            <CustomButton label={I18n.t('Screen_Home.Logout')} onPress={() => logout()} colorCode="#9ee6e6" />
           </View>
         </View>
         <View

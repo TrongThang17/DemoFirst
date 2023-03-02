@@ -6,7 +6,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import { sendCurrentScreen } from '../../redux/thunk/thunkCurrentScreen';
 import { useSelector, useDispatch } from 'react-redux';
 import { ScrollView } from 'react-native-gesture-handler';
-import I18n from '../../languages/i18n';
+import I18n from '../../i18njs/i18n';
 
 const SlideMenu:React.FC<{ navigation: any }> = ({navigation}) => {
   const dispatch = useDispatch();
@@ -87,7 +87,7 @@ const SlideMenu:React.FC<{ navigation: any }> = ({navigation}) => {
             style={styles.touchMenu}
           >
             <Image source={image.home} style={styles.iconMenu} />
-            <Text style={styles.textMenu}>{I18n.t('Home')}</Text>
+            <Text style={styles.textMenu}>{I18n.t('Screen_Menu.Home')}</Text>
           </LinearGradient>
         </TouchableOpacity>
 
@@ -101,7 +101,7 @@ const SlideMenu:React.FC<{ navigation: any }> = ({navigation}) => {
             style={styles.touchMenu}
           >
             <Image source={image.reminder} style={styles.iconMenu} />
-            <Text style={styles.textMenu}>{I18n.t('Calendar')}</Text>
+            <Text style={styles.textMenu}>{I18n.t('Screen_Menu.Calendar')}</Text>
           </LinearGradient>
         </TouchableOpacity>
 
@@ -115,7 +115,7 @@ const SlideMenu:React.FC<{ navigation: any }> = ({navigation}) => {
             style={styles.touchMenu}
           >
             <Image source={image.user} style={styles.iconUser} />
-            <Text style={styles.textMenu}>{I18n.t('Invite')}</Text>
+            <Text style={styles.textMenu}>{I18n.t('Screen_Menu.Invite')}</Text>
           </LinearGradient>
         </TouchableOpacity>
 
@@ -129,7 +129,7 @@ const SlideMenu:React.FC<{ navigation: any }> = ({navigation}) => {
             style={styles.touchMenu}
           >
             <Image source={image.gmail} style={styles.iconMenu} />
-            <Text style={styles.textMenu}>{I18n.t('Send')}</Text>
+            <Text style={styles.textMenu}>{I18n.t('Screen_Menu.Send')}</Text>
           </LinearGradient>
         </TouchableOpacity>
 
@@ -143,7 +143,7 @@ const SlideMenu:React.FC<{ navigation: any }> = ({navigation}) => {
             style={styles.touchMenu}
           >
             <Image source={image.video} style={styles.iconMenu} />
-            <Text style={styles.textMenu}>{I18n.t('Welcome')}</Text>
+            <Text style={styles.textMenu}>{I18n.t('Screen_Menu.Welcome')}</Text>
           </LinearGradient>
         </TouchableOpacity>
 
@@ -157,7 +157,7 @@ const SlideMenu:React.FC<{ navigation: any }> = ({navigation}) => {
             style={styles.touchMenu}
           >
             <Image source={image.reward} style={styles.iconMenu} />
-            <Text style={styles.textMenu}>{I18n.t('Reward')}</Text>
+            <Text style={styles.textMenu}>{I18n.t('Screen_Menu.Reward')}</Text>
           </LinearGradient>
         </TouchableOpacity>
 
@@ -171,7 +171,7 @@ const SlideMenu:React.FC<{ navigation: any }> = ({navigation}) => {
             style={styles.touchMenu}
           >
             <Image source={image.help} style={styles.iconHelpSetting} />
-            <Text style={styles.textMenu}>{I18n.t('Help')}</Text>
+            <Text style={styles.textMenu}>{I18n.t('Screen_Menu.Help')}</Text>
           </LinearGradient>
         </TouchableOpacity>
 
@@ -185,7 +185,7 @@ const SlideMenu:React.FC<{ navigation: any }> = ({navigation}) => {
             style={styles.touchMenu}
           >
             <Image source={image.setting} style={styles.iconHelpSetting} />
-            <Text style={styles.textMenu}>{I18n.t('Setting')}</Text>
+            <Text style={styles.textMenu}>{I18n.t('Screen_Menu.Setting')}</Text>
           </LinearGradient>
         </TouchableOpacity>
 
@@ -199,13 +199,13 @@ const SlideMenu:React.FC<{ navigation: any }> = ({navigation}) => {
             style={styles.touchMenu}
           >
             <Image source={image.disclaimer} style={styles.iconMenu} />
-            <Text style={styles.textMenu}>{I18n.t('Disclaimer')}</Text>
+            <Text style={styles.textMenu}>{I18n.t('Screen_Menu.Disclaimer')}</Text>
           </LinearGradient>
         </TouchableOpacity>
 
         <View style={styles.footer}>
           <Text style={{ color: 'white' }}>
-            {I18n.t('Power_By')} <Text style={{ fontWeight: '700' }}> UpNow</Text>
+            {I18n.t('Screen_Menu.Power_By')} <Text style={{ fontWeight: '700' }}> UpNow</Text>
           </Text>
         </View>
       </ScrollView>

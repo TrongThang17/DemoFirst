@@ -24,6 +24,7 @@
         "deprecated-react-native-prop-types": "^4.0.0",
         "firebase": "^9.16.0",
         "json-server": "^0.17.1",
+        "lodash.memoize": "^4.1.2",
         "moment": "^2.29.4",
         "react": "18.1.0",
         "react-hook-form": "^7.41.0",
@@ -36,6 +37,7 @@
         "react-native-i18n": "^2.0.15",
         "react-native-keyboard-aware-scroll-view": "^0.9.5",
         "react-native-linear-gradient": "^2.6.2",
+        "react-native-localization": "^2.3.1",
         "react-native-modal": "^13.0.1",
         "react-native-paper": "^5.1.2",
         "react-native-reanimated": "^2.14.4",
@@ -13334,6 +13336,11 @@
         "node": ">=6"
       }
     },
+    "node_modules/localized-strings": {
+      "version": "0.2.4",
+      "resolved": "https://registry.npmjs.org/localized-strings/-/localized-strings-0.2.4.tgz",
+      "integrity": "sha512-TKDhqFPkIIN/if2FSvVVZTaM/GP9TzfgdQ2uY65mr32xgFu5nqkKXprXbzy5rfx32DF5LDvS/y1UqYF/mAscYA=="
+    },
     "node_modules/locate-path": {
       "version": "6.0.0",
       "resolved": "https://registry.npmjs.org/locate-path/-/locate-path-6.0.0.tgz",
@@ -13476,6 +13483,11 @@
       "resolved": "https://registry.npmjs.org/lodash.mapvalues/-/lodash.mapvalues-4.6.0.tgz",
       "integrity": "sha512-JPFqXFeZQ7BfS00H58kClY7SPVeHertPE0lNuCyZ26/XlN8TvakYD7b9bGyNmXbT/D3BbtPAAmq90gPWqLkxlQ==",
       "dev": true
+    },
+    "node_modules/lodash.memoize": {
+      "version": "4.1.2",
+      "resolved": "https://registry.npmjs.org/lodash.memoize/-/lodash.memoize-4.1.2.tgz",
+      "integrity": "sha512-t7j+NzmgnQzTAYXcsHYLgimltOV1MXHtlOWf6GjL9Kj8GK5FInw5JotxvbOs+IvV1/Dzo04/fCGfLVs7aXb4Ag=="
     },
     "node_modules/lodash.merge": {
       "version": "4.6.2",
@@ -16340,6 +16352,17 @@
       "resolved": "https://registry.npmjs.org/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz",
       "integrity": "sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA=="
     },
+    "node_modules/react-localization": {
+      "version": "1.0.19",
+      "resolved": "https://registry.npmjs.org/react-localization/-/react-localization-1.0.19.tgz",
+      "integrity": "sha512-f4E6T8xRis19K8qMOnnhjGV2quy1YH2lrSsnAiytvgt7uOSp6WgDhrZH6XZEaEFqupTOCFSf8uagIoIAkjl4JA==",
+      "dependencies": {
+        "localized-strings": "^0.2.0"
+      },
+      "peerDependencies": {
+        "react": "^18.0.0 || ^17.0.0 || ^16.0.0 || ^15.6.0"
+      }
+    },
     "node_modules/react-native": {
       "version": "0.70.6",
       "resolved": "https://registry.npmjs.org/react-native/-/react-native-0.70.6.tgz",
@@ -16559,6 +16582,24 @@
       "peerDependencies": {
         "react": "*",
         "react-native": "*"
+      }
+    },
+    "node_modules/react-native-localization": {
+      "version": "2.3.1",
+      "resolved": "https://registry.npmjs.org/react-native-localization/-/react-native-localization-2.3.1.tgz",
+      "integrity": "sha512-jmD6GEAGmstCIZOsxZcxWJbbx364c9qtKy8kefLcHYfAc73+g+e8CB7TZEwpK4IZNXxCBAeQMBsXfFrTyJmpWQ==",
+      "dependencies": {
+        "react-localization": "^1.0.17"
+      },
+      "peerDependencies": {
+        "react": ">15.6.0",
+        "react-native": ">0.64",
+        "react-native-windows": ">0.64"
+      },
+      "peerDependenciesMeta": {
+        "react-native-windows": {
+          "optional": true
+        }
       }
     },
     "node_modules/react-native-modal": {
@@ -29725,6 +29766,11 @@
         }
       }
     },
+    "localized-strings": {
+      "version": "0.2.4",
+      "resolved": "https://registry.npmjs.org/localized-strings/-/localized-strings-0.2.4.tgz",
+      "integrity": "sha512-TKDhqFPkIIN/if2FSvVVZTaM/GP9TzfgdQ2uY65mr32xgFu5nqkKXprXbzy5rfx32DF5LDvS/y1UqYF/mAscYA=="
+    },
     "locate-path": {
       "version": "6.0.0",
       "resolved": "https://registry.npmjs.org/locate-path/-/locate-path-6.0.0.tgz",
@@ -29858,6 +29904,11 @@
       "resolved": "https://registry.npmjs.org/lodash.mapvalues/-/lodash.mapvalues-4.6.0.tgz",
       "integrity": "sha512-JPFqXFeZQ7BfS00H58kClY7SPVeHertPE0lNuCyZ26/XlN8TvakYD7b9bGyNmXbT/D3BbtPAAmq90gPWqLkxlQ==",
       "dev": true
+    },
+    "lodash.memoize": {
+      "version": "4.1.2",
+      "resolved": "https://registry.npmjs.org/lodash.memoize/-/lodash.memoize-4.1.2.tgz",
+      "integrity": "sha512-t7j+NzmgnQzTAYXcsHYLgimltOV1MXHtlOWf6GjL9Kj8GK5FInw5JotxvbOs+IvV1/Dzo04/fCGfLVs7aXb4Ag=="
     },
     "lodash.merge": {
       "version": "4.6.2",
@@ -32078,6 +32129,14 @@
       "resolved": "https://registry.npmjs.org/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz",
       "integrity": "sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA=="
     },
+    "react-localization": {
+      "version": "1.0.19",
+      "resolved": "https://registry.npmjs.org/react-localization/-/react-localization-1.0.19.tgz",
+      "integrity": "sha512-f4E6T8xRis19K8qMOnnhjGV2quy1YH2lrSsnAiytvgt7uOSp6WgDhrZH6XZEaEFqupTOCFSf8uagIoIAkjl4JA==",
+      "requires": {
+        "localized-strings": "^0.2.0"
+      }
+    },
     "react-native": {
       "version": "0.70.6",
       "resolved": "https://registry.npmjs.org/react-native/-/react-native-0.70.6.tgz",
@@ -32266,6 +32325,14 @@
       "resolved": "https://registry.npmjs.org/react-native-linear-gradient/-/react-native-linear-gradient-2.6.2.tgz",
       "integrity": "sha512-Z8Xxvupsex+9BBFoSYS87bilNPWcRfRsGC0cpJk72Nxb5p2nEkGSBv73xZbEHnW2mUFvP+huYxrVvjZkr/gRjQ==",
       "requires": {}
+    },
+    "react-native-localization": {
+      "version": "2.3.1",
+      "resolved": "https://registry.npmjs.org/react-native-localization/-/react-native-localization-2.3.1.tgz",
+      "integrity": "sha512-jmD6GEAGmstCIZOsxZcxWJbbx364c9qtKy8kefLcHYfAc73+g+e8CB7TZEwpK4IZNXxCBAeQMBsXfFrTyJmpWQ==",
+      "requires": {
+        "react-localization": "^1.0.17"
+      }
     },
     "react-native-modal": {
       "version": "13.0.1",

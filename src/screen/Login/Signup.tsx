@@ -11,6 +11,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import { useDispatch } from "react-redux";
 import { signup } from "../../redux/thunk/thunkLogin";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import I18n from "../../i18njs/i18n";
 interface validate {
     firstname: string,
     lastname: string,
@@ -65,7 +66,7 @@ const Signin: React.FC<{ navigation: any }> = ({ navigation }) => {
                         <View style={styles.viewTextLogin}>
                             <View style={styles.hr} />
                             <View style={styles.hr1} />
-                            <Text style={styles.textLogin}>Register </Text>
+                            <Text style={styles.textLogin}>{I18n.t('Screen_Register.Register')}</Text>
                         </View>
                         <View style={styles.viewTextInput}>
                             <View>
@@ -76,7 +77,7 @@ const Signin: React.FC<{ navigation: any }> = ({ navigation }) => {
                                     }}
                                     render={({ field: { onChange, value } }) =>
                                         <CustomInput
-                                            placeholder="First name"
+                                            placeholder={I18n.t('Screen_Register.First_Name')}
                                             onChange={onChange}
                                             value={value}
                                             img={image.user}
@@ -92,7 +93,7 @@ const Signin: React.FC<{ navigation: any }> = ({ navigation }) => {
                                     }}
                                     render={({ field: { onChange, value } }) =>
                                         <CustomInput
-                                            placeholder="Last name"
+                                            placeholder={I18n.t('Screen_Register.Last_Name')}
                                             onChange={onChange}
                                             value={value}
                                             img={image.user}
@@ -125,7 +126,7 @@ const Signin: React.FC<{ navigation: any }> = ({ navigation }) => {
                                     }}
                                     render={({ field: { onChange, value } }) =>
                                         <CustomInput
-                                            placeholder="Password"
+                                            placeholder={I18n.t('Screen_Register.Password')}
                                             onChange={onChange}
                                             value={value}
                                             img={image.password}
@@ -147,9 +148,9 @@ const Signin: React.FC<{ navigation: any }> = ({ navigation }) => {
                                     {tick ? <Image source={image.tick} style={{ width: 18, height: 18, justifyContent: 'center', alignItems: 'center' }} /> : ''}
                                 </TouchableOpacity>
                                 <View style={{ left: 18 }}>
-                                    <Text style={styles.textChoosen}>by clicking on "Register" you agree to our
-                                        <Text style={styles.textSpecial}> Term & Conditions</Text> and
-                                        <Text style={styles.textSpecial}> Privacy Policy</Text>
+                                    <Text style={styles.textChoosen}>{I18n.t('Screen_Register.By_Clicking')} {I18n.t('Screen_Register.Register_Clicking')} {I18n.t('Screen_Register.You_Agree')}
+                                        <Text style={styles.textSpecial}> {I18n.t('Screen_Register.Term_Condition')}</Text> {I18n.t('Screen_Register.and')}
+                                        <Text style={styles.textSpecial}>{I18n.t('Screen_Register.Privacy')}</Text>
                                     </Text>
                                 </View>
                             </View>
@@ -163,13 +164,13 @@ const Signin: React.FC<{ navigation: any }> = ({ navigation }) => {
                                     >
 
                                         <CustomButton
-                                            label="Register"
+                                            label={I18n.t('Screen_Register.Register')}
                                             onPress={handleSubmit(onSignUp)}
                                         />
                                     </LinearGradient>
                                 </View>
                                 <View style={{ alignItems: 'center', paddingTop: 20 }}>
-                                    <Text style={styles.textChoosen}>Already have an account ? <Text style={styles.textSpecial} onPress={() => { navigation.navigate('Login') }}>Log In</Text></Text>
+                                    <Text style={styles.textChoosen}>{I18n.t('Screen_Register.Already')} <Text style={styles.textSpecial} onPress={() => { navigation.navigate('Login') }}>{I18n.t('Screen_Register.Log_In')}</Text></Text>
                                 </View>
                             </View>
                         </View>

@@ -22,7 +22,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { sendCurrentScreen } from '../src/redux/thunk/thunkCurrentScreen';
 import { DrawerActions } from '@react-navigation/native';
 import UserInfor from '../src/screen/UserInfor/UserInfor';
-import I18n from '../src/languages/i18n';
+import I18n from '../src/i18njs/i18n';
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
