@@ -24,6 +24,7 @@ import { sendCurrentScreen } from '../src/redux/thunk/thunkCurrentScreen';
 import { DrawerActions } from '@react-navigation/native';
 import UserInfor from '../src/screen/UserInfor/UserInfor';
 import I18n from '../src/i18njs/i18n';
+
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
@@ -71,7 +72,7 @@ const MainScreen = (props: any) => {
    
     navigation.navigate('Setting'), 
     dispatch(sendCurrentScreen('Settings'));
-    <Setting />
+
   },[])
 
   useEffect(() => {
@@ -91,10 +92,10 @@ const MainScreen = (props: any) => {
   return (
     <Stack.Navigator
       initialRouteName={currentScreen}
+      
       screenOptions={{
         headerTitle: '',
         headerTransparent: true,
-
         headerLeft: () => (
           <View style={styles.container}>
             <TouchableOpacity
@@ -117,11 +118,12 @@ const MainScreen = (props: any) => {
         ),
       }}
     >
-      <Stack.Screen name={'Home'} component={Home} />
+      <Stack.Screen name={'Home'} component={Home} options={{freezeOnBlur:true}}/>
       <Stack.Screen
         name={'Calendar'}
         component={Calendar}
-        options={{
+        
+        options={{         
           headerLeft: () => (
             <TouchableOpacity
               onPress={onPressGoback}
@@ -181,10 +183,6 @@ const MainScreen = (props: any) => {
 };
 
 const DrawerScreen = () => {
-  const languages:any = useSelector((state:any)=> state.reducerLanguage.language)
-
-
-    I18n.locale=languages
   return (
     <Drawer.Navigator
       drawerContent={(props: any) => {
@@ -192,7 +190,8 @@ const DrawerScreen = () => {
       }}
       screenOptions={{
         headerShown: false,
-        drawerType:'slide'
+        drawerType:'slide',
+        
       }}
     >
       <Drawer.Screen name={'MainScreen'}>{(props) => <MainScreen {...props} />}</Drawer.Screen>

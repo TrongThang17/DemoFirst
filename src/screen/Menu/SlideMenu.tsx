@@ -7,12 +7,13 @@ import { sendCurrentScreen } from '../../redux/thunk/thunkCurrentScreen';
 import { useSelector, useDispatch } from 'react-redux';
 import { ScrollView } from 'react-native-gesture-handler';
 import I18n from '../../i18njs/i18n';
-
+import { CommonActions } from '@react-navigation/native';
 const SlideMenu:React.FC<{ navigation: any }> = ({navigation}) => {
   const dispatch = useDispatch();
   const currentScreen = useSelector((state: any) => state.reducerCurrentScreen.currentScreen);
   const [currentTab, setCurrentTab] = useState('Home');
   const languages:any = useSelector((state:any)=> state.reducerLanguage.language)
+  I18n.locale=languages
   useEffect(() => {
     setCurrentTab(currentScreen);
   });
@@ -24,12 +25,13 @@ const SlideMenu:React.FC<{ navigation: any }> = ({navigation}) => {
   const onPressItemHome = useCallback(()=>{
     dispatch(sendCurrentScreen('Home'));
     navigation.navigate('Home');
-  },[languages])
+  },[])
 
   const onPressItemCalendar = useCallback(()=>{
     dispatch(sendCurrentScreen('Calendar'));
     navigation.navigate('Calendar');
-  },[languages])
+   
+  },[])
 
   const onPressItemAddTodo = useCallback(()=>{
     dispatch(sendCurrentScreen('AddTodo'));

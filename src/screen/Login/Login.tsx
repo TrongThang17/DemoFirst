@@ -30,7 +30,8 @@ const Login: React.FC<{ navigation: any }> = ({ navigation }) => {
     const dispatch = useDispatch()
     
     const isLoading = useSelector((state: any) => state.reducerLogin.isLoading)
-    
+    const languages:any = useSelector((state:any)=> state.reducerLanguage.language)
+    I18n.locale=languages
     const [showPW, setShowPW] = useState(true);
 
     const onLoginThunk = useCallback((value: any) => {

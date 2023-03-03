@@ -4,8 +4,11 @@ import CustomItemInfor from '../../../assets/Custom/customItemInfor'
 import { Colors } from '../../../assets/Colors'
 import {image} from '../../../assets/image'
 import I18n from '../../i18njs/i18n'
+import { useSelector } from 'react-redux'
 
 const UserInfor = () => {
+    const languages:any = useSelector((state:any)=> state.reducerLanguage.language)
+    I18n.locale=languages
   return (
     <View style={styles.container}>
         <View style={styles.header}>

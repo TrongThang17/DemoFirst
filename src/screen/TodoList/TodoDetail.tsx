@@ -31,7 +31,8 @@ const TodoDetail: React.FC<{ navigation: any }> = ({ navigation }) => {
     const [isDisableButton, setIsDisableButton] = useState(true);
     const [modalVisiblePopupSave, setModalVisiblePopupSave] = useState(false)
     const dispatch = useDispatch()
-
+    const languages:any = useSelector((state:any)=> state.reducerLanguage.language)
+    I18n.locale=languages
     const onSaveData = useCallback((value: any) => {
         value.title == undefined ? dispatch(updateTodo(dataDetail.id, dataDetail.title, value.describe))
             : value.describe == undefined ? dispatch(updateTodo(dataDetail.id, value.title, dataDetail.describe))

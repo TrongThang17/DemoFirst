@@ -28,7 +28,7 @@ index 50c6e7a..d834b98 100644
          endingDay: {
              borderTopRightRadius: 2,
 diff --git a/node_modules/react-native-calendars/src/calendar/day/period/index.js b/node_modules/react-native-calendars/src/calendar/day/period/index.js
-index f27db0e..c100977 100644
+index f27db0e..59aeea5 100644
 --- a/node_modules/react-native-calendars/src/calendar/day/period/index.js
 +++ b/node_modules/react-native-calendars/src/calendar/day/period/index.js
 @@ -3,9 +3,13 @@ import React, { useCallback, useRef, useMemo } from 'react';
@@ -55,7 +55,7 @@ index f27db0e..c100977 100644
 +            width: 40,
 +            height: 35,
 +            position: 'absolute',
-+            marginLeft: 21
++            marginLeft: 23
 +        },
 +        dayStylesRight: {
 +            backgroundColor:'rgba(0,0,0,0.1)',
@@ -193,10 +193,10 @@ index bbbdc78..fddc3ed 100644
          dotContainer: {
              position: 'absolute',
 diff --git a/node_modules/react-native-calendars/src/calendar/header/index.js b/node_modules/react-native-calendars/src/calendar/header/index.js
-index bd75364..afb16a5 100644
+index bd75364..72748c3 100644
 --- a/node_modules/react-native-calendars/src/calendar/header/index.js
 +++ b/node_modules/react-native-calendars/src/calendar/header/index.js
-@@ -1,84 +1,127 @@
+@@ -1,84 +1,131 @@
  import includes from 'lodash/includes';
 +import PropTypes from 'prop-types';
 +import memoize from 'memoize-one';
@@ -248,6 +248,7 @@ index bd75364..afb16a5 100644
 -    }, [propsAddMonth]);
 -    const onPressLeft = useCallback(() => {
 +class CalendarHeader extends Component {
++   
 +    static displayName = 'CalendarHeader';
 +    static propTypes = {
 +        theme: PropTypes.object,
@@ -292,6 +293,7 @@ index bd75364..afb16a5 100644
 +        super(props);
 +        this.style = styleConstructor(props.theme);
 +    }
++   
 +    shouldComponentUpdate(nextProps) {
 +        if (nextProps.month?.toString('yyyy MM') !== this.props.month?.toString('yyyy MM')) {
 +            return true;
@@ -364,9 +366,9 @@ index bd75364..afb16a5 100644
 -                dayStyle.push(style.current.disabledDayHeader);
 +        return this.addMonth();
 +    };
++    
 +    renderWeekDays = memoize(weekDaysNames => {
 +        const { disabledDaysIndexes } = this.props;
-+       
 +        return weekDaysNames.map((day, idx) => {
 +           
 +            const dayStyle = [this.style.dayHeader];
@@ -381,8 +383,10 @@ index bd75364..afb16a5 100644
              }
 -            return (<Text allowFontScaling={false} key={index} style={dayStyle} numberOfLines={1} accessibilityLabel={''}>
 -          {day}
-+            return (<Text allowFontScaling={false} key={idx} style={dayStyle} numberOfLines={1} accessibilityLabel={''}>
-+          {I18n.t(`Screen_Calendar.${day}`)}
++            return (
++            <Text allowFontScaling={false} key={idx} style={dayStyle} numberOfLines={1} accessibilityLabel={''}>
++           {I18n.t(`Screen_Calendar.${day}`)} 
++          {/* {day} */}
          </Text>);
          });
 -    }, [firstDay, current, numberOfDaysCondition, numberOfDays, disabledDaysIndexes]);
@@ -393,7 +397,7 @@ index bd75364..afb16a5 100644
          const webProps = Platform.OS === 'web' ? { 'aria-level': webAriaLevel } : {};
          if (renderHeader) {
              return renderHeader(month);
-@@ -86,60 +129,163 @@ const CalendarHeader = forwardRef((props, ref) => {
+@@ -86,60 +133,165 @@ const CalendarHeader = forwardRef((props, ref) => {
          if (customHeaderTitle) {
              return customHeaderTitle;
          }
@@ -402,6 +406,8 @@ index bd75364..afb16a5 100644
 -          {formatNumbers(month?.toString(monthFormat))}
 -        </Text>
 -      </Fragment>);
++        
++   
 +        return (<Fragment >
 +                <Text allowFontScaling={false} style={this.style.monthText} testID={testID ? `${HEADER_MONTH_NAME}-${testID}` : HEADER_MONTH_NAME} {...webProps}>
 +                    {I18n.t(`Screen_Calendar.${formatNumbers(month?.toString(monthFormat))}`)}
@@ -411,8 +417,8 @@ index bd75364..afb16a5 100644
 -    const _renderArrow = (direction) => {
 +    renderArrow(direction) {
 +        const { hideArrows, disableArrowLeft, disableArrowRight, renderArrow, testID,month,monthFormat } = this.props;
-+        
          if (hideArrows) {
++            
              return <View />;
          }
 +        var prevMonth 

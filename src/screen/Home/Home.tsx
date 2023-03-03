@@ -23,7 +23,8 @@ import I18n from '../../i18njs/i18n';
 
 const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
   const inf = useSelector((state: any) => state.reducerTask.list);
-  
+  const languages:any = useSelector((state:any)=> state.reducerLanguage.language)
+  I18n.locale=languages
   const [selected, setSelected] = useState(new Map());
   const [selectedCheck, setSelectedCheck] = useState(new Map());
   const [allSelectCheck, setAllSelectCheck] = useState(false);

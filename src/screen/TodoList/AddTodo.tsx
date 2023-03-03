@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { View, Text, ImageBackground, TouchableOpacity, StyleSheet } from 'react-native'
+import React, { useState, useCallback } from "react";
+import { View, Text, StyleSheet } from 'react-native'
 import CustomInputTodo from "../../../assets/Custom/customInputTodo";
 import CustomButton from "../../../assets/Custom/customButtonLogin";
 import * as yup from "yup";
@@ -9,7 +9,7 @@ import { Colors } from "../../../assets/Colors";
 import { addTodo } from "../../redux/thunk/thunkTask";
 import { sendCurrentScreen } from "../../redux/thunk/thunkCurrentScreen";
 import I18n from '../../i18njs/i18n';
-import { useDispatch } from "react-redux";
+import { useDispatch ,useSelector} from "react-redux";
 import { useDrawerProgress } from '@react-navigation/drawer'
 import Animated, { interpolate, useAnimatedStyle } from 'react-native-reanimated';
 interface validate {
@@ -27,7 +27,8 @@ const AddTodo: React.FC<{ navigation: any }> = ({ navigation }) => {
     const [isDisableButton, setIsDisableButton] = useState(true);
     const dispatch = useDispatch()
     const progressDrawer = useDrawerProgress()
-
+    const languages:any = useSelector((state:any)=> state.reducerLanguage.language)
+    I18n.locale=languages
     const onAddTodo = useCallback((value: any) => {
         dispatch(addTodo(ID++, value.title, value.describe))
         dispatch(sendCurrentScreen('Home'))

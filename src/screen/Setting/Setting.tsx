@@ -4,6 +4,7 @@ import { Colors } from '../../../assets/Colors'
 import {image} from '../../../assets/image'
 import CustomItemSetting from '../../../assets/Custom/cusomItemSetting'
 import I18n from '../../i18njs/i18n'
+import { useSelector } from 'react-redux'
 const Setting = (props: any) => {
 
     const onPressUserInforItem = useCallback(() => {
@@ -16,7 +17,8 @@ const Setting = (props: any) => {
       },[],
     )
     
-
+    const languages:any = useSelector((state:any)=> state.reducerLanguage.language)
+    I18n.locale=languages
   return (
     <View style={styles.container}>
         <View style={styles.header}>

@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { signup } from "../../redux/thunk/thunkLogin";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import I18n from "../../i18njs/i18n";
+import { useSelector } from "react-redux";
 interface validate {
     firstname: string,
     lastname: string,
@@ -32,6 +33,8 @@ const Signin: React.FC<{ navigation: any }> = ({ navigation }) => {
     const { control, register, handleSubmit, watch, formState: { errors } }: any = useForm<validate>({
         resolver: yupResolver(schema)
     });
+    const languages:any = useSelector((state:any)=> state.reducerLanguage.language)
+    I18n.locale=languages
 
     const onShowPW = useCallback(() => {
         showPW ? setShowPW(false) : setShowPW(true)

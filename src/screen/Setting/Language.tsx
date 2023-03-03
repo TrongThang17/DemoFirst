@@ -6,23 +6,18 @@ import CustomItemLanguage from '../../../assets/Custom/customItemLanguage'
 import { useSelector,useDispatch } from 'react-redux'
 import I18n from '../../i18njs/i18n'
 import { onChangeLanguaue } from '../../redux/thunk/thunkLanguage';
-import RNRestart from 'react-native-restart';
 const Language = (props: any) => {
     const [selectedEnglish,setSelectedEnglish] = useState(false);
     const [selectedVietnamese,setSelectedVietnamese] = useState(false);
     const languages:any = useSelector((state:any)=> state.reducerLanguage.language)
-   
-
     I18n.locale=languages
     const dispatch = useDispatch();
       const onChangeLanguageVie = useCallback(() => {
         dispatch(onChangeLanguaue('vi'));
-        // RNRestart.restart();
       }, []);
 
       const onChangeLanguageEng = useCallback(() => {
         dispatch(onChangeLanguaue('en'));
-        // RNRestart.restart();
       }, []);
 
       useEffect(()=>{
