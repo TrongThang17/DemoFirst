@@ -5,8 +5,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from "react-hook-form";
 import { image } from '../../../assets/image';
 import { Colors } from '../../../assets/Colors'
-import CustomInput from "../../../assets/Custom/customInputLogin";
-import CustomButton from "../../../assets/Custom/customButtonLogin";
+import CustomInput from "../../../assets/custom/customInputLogin";
+import CustomButton from "../../../assets/custom/customButtonLogin";
 import LinearGradient from 'react-native-linear-gradient';
 import { useDispatch } from "react-redux";
 import { signup } from "../../redux/thunk/thunkLogin";

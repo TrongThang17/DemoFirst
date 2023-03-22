@@ -1,6 +1,6 @@
 import { View, Text,StyleSheet, Image } from 'react-native'
 import React from 'react'
-import CustomItemInfor from '../../../assets/Custom/customItemInfor'
+import CustomItemInfor from '../../../assets/custom/customItemInfor'
 import { Colors } from '../../../assets/Colors'
 import {image} from '../../../assets/image'
 import I18n from '../../i18njs/i18n'

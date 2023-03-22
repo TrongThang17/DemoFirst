@@ -1,5 +1,5 @@
 import * as t from '../action'
-import {auth} from '../../Firebase/firebase'
+import {auth} from '../../firebase/firebase'
 import { Alert } from 'react-native'
 
 export function login (value:any){

@@ -1,4 +1,4 @@
-import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Image, Text, TouchableOpacity,StatusBar } from 'react-native';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Colors } from '../../../assets/Colors';
 import { image } from '../../../assets/image';
@@ -69,6 +69,7 @@ const SlideMenu:React.FC<{ navigation: any }> = ({navigation}) => {
 
   return (
     <View style={styles.container}>
+      <StatusBar barStyle={'light-content'} backgroundColor={Colors.backgroundOverLayColor}/>
       <View style={styles.viewLogo}>
         <Image source={image.logoMenu} style={styles.logoMenu} />
       </View>

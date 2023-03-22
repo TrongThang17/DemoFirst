@@ -2,7 +2,7 @@ import { View, Text,StyleSheet } from 'react-native'
 import React,{useCallback} from 'react'
 import { Colors } from '../../../assets/Colors'
 import {image} from '../../../assets/image'
-import CustomItemSetting from '../../../assets/Custom/cusomItemSetting'
+import CustomItemSetting from '../../../assets/custom/cusomItemSetting'
 import I18n from '../../i18njs/i18n'
 import { useSelector } from 'react-redux'
 const Setting = (props: any) => {

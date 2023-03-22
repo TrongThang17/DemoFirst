@@ -1,16 +1,16 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { StyleSheet, View, Text, Image, TouchableOpacity, Linking, Alert } from "react-native";
 import { image } from '../../../assets/image';
-import CustomInput from "../../../assets/Custom/customInputLogin";
-import CustomButton from "../../../assets/Custom/customButtonLogin";
+import CustomInput from "../../../assets/custom/customInputLogin";
+import CustomButton from "../../../assets/custom/customButtonLogin";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import LinearGradient from 'react-native-linear-gradient';
 import { Colors } from '../../../assets/Colors'
-import Loading from "../Loading/Loading";
-import { auth } from '../../Firebase/firebase'
+import Loading from "../loading/Loading";
+import { auth } from '../../firebase/firebase'
 import { login } from '../../redux/thunk/thunkLogin'
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import I18n from "../../i18njs/i18n";

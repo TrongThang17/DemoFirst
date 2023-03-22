@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import { View, Text, StyleSheet } from 'react-native'
-import CustomInputTodo from "../../../assets/Custom/customInputTodo";
-import CustomButton from "../../../assets/Custom/customButtonLogin";
+import CustomInputTodo from "../../../assets/custom/customInputTodo";
+import CustomButton from "../../../assets/custom/customButtonLogin";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from "react-hook-form";

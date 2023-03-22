@@ -7,15 +7,15 @@ import {
   FlatList,
   Dimensions,
 } from 'react-native';
-import CustomButton from '../../../assets/Custom/customButtonLogin';
+import CustomButton from '../../../assets/custom/customButtonLogin';
 import { useSelector, useDispatch } from 'react-redux';
-import CustomButtonDelete from '../../../assets/Custom/customButtonDelete';
-import Item from '../../../assets/Custom/customItem';
+import CustomButtonDelete from '../../../assets/custom/customButtonDelete';
+import Item from '../../../assets/custom/customItem';
 import { deleteTodo, updateDetail } from '../../redux/thunk/thunkTask';
 import Modal from 'react-native-modal';
 import { logout } from '../../redux/thunk/thunkLogin';
 import { sendCurrentScreen } from '../../redux/thunk/thunkCurrentScreen';
-import { auth } from '../../Firebase/firebase';
+import { auth } from '../../firebase/firebase';
 import { useDrawerProgress } from '@react-navigation/drawer';
 import Animated, { interpolate, useAnimatedStyle } from 'react-native-reanimated';
 import { Colors } from '../../../assets/Colors';

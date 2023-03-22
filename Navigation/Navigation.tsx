@@ -4,25 +4,25 @@ import {
 } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import Login from '../src/screen/Login/Login';
-import Home from '../src/screen/Home/Home';
-import AddTodo from '../src/screen/TodoList/AddTodo';
-import Signip from '../src/screen/Login/Signup';
-import TodoDetail from '../src/screen/TodoList/TodoDetail';
+import Login from '../src/screen/login/Login';
+import Home from '../src/screen/home/Home';
+import AddTodo from '../src/screen/todolist/AddTodo';
+import Signip from '../src/screen/login/Signup';
+import TodoDetail from '../src/screen/todolist/TodoDetail';
 
-import SlideMenu from '../src/screen/Menu/SlideMenu';
-import Calendar from '../src/screen/Calendar/Calendar';
-import Setting from '../src/screen/Setting/Setting';
-import Language from '../src/screen/Setting/Language';
+import SlideMenu from '../src/screen/menu/SlideMenu';
+import Calendar from '../src/screen/calendar/Calendar';
+import Setting from '../src/screen/setting/Setting';
+import Language from '../src/screen/setting/Language';
 import { image } from '../assets/image';
 import React, { useState, useEffect, useCallback } from 'react';
 import { Image, StyleSheet, View, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { auth } from '../src/Firebase/firebase';
+import { auth } from '../src/firebase/firebase';
 import { useSelector, useDispatch } from 'react-redux';
 import { sendCurrentScreen } from '../src/redux/thunk/thunkCurrentScreen';
 import { DrawerActions } from '@react-navigation/native';
-import UserInfor from '../src/screen/UserInfor/UserInfor';
+import UserInfor from '../src/screen/user_infor/UserInfor';
 import I18n from '../src/i18njs/i18n';
 
 const Drawer = createDrawerNavigator();
@@ -191,7 +191,6 @@ const DrawerScreen = () => {
       screenOptions={{
         headerShown: false,
         drawerType:'slide',
-        
       }}
     >
       <Drawer.Screen name={'MainScreen'}>{(props) => <MainScreen {...props} />}</Drawer.Screen>

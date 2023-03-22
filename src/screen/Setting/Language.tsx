@@ -2,7 +2,7 @@ import { View, Text,StyleSheet } from 'react-native'
 import React,{useCallback,useState,useEffect} from 'react'
 import { Colors } from '../../../assets/Colors'
 import {image} from '../../../assets/image'
-import CustomItemLanguage from '../../../assets/Custom/customItemLanguage'
+import CustomItemLanguage from '../../../assets/custom/customItemLanguage'
 import { useSelector,useDispatch } from 'react-redux'
 import I18n from '../../i18njs/i18n'
 import { onChangeLanguaue } from '../../redux/thunk/thunkLanguage';

@@ -3,7 +3,7 @@ import React,{useEffect,useState} from 'react';
 import { Colors } from '../../../assets/Colors';
 import { image } from '../../../assets/image';
 import LinearGradient from 'react-native-linear-gradient';
-import Calendars from '../../../assets/Custom/customCalendar';
+import Calendars from '../../../assets/custom/customCalendar';
 import I18n from '../../i18njs/i18n';
 import { useSelector } from 'react-redux';
 import { useIsFocused } from '@react-navigation/native';
@@ -11,6 +11,7 @@ const Reminder: React.FC<{ navigation: any }> = ({ navigation }) => {
   const languages: any = useSelector((state: any) => state.reducerLanguage.language);
   I18n.locale = languages;
   const isFocused = useIsFocused();
+
   return (
     <View style={styles.container}>
       <View style={styles.viewHeader}>
